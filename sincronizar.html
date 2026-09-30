@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sincronizar letra</title>
+<style>
+  body { font-family: system-ui, sans-serif; background: #1d2a33; color: #eef; margin: 0; padding: 20px; }
+  h1 { font-size: 20px; margin: 0 0 6px; }
+  p { color: #b9c7d2; margin: 4px 0 14px; font-size: 14px; }
+  textarea { width: 100%; box-sizing: border-box; height: 180px; background: #0f171d; color: #eef; border: 1px solid #3a4a55; border-radius: 8px; padding: 10px; font: 14px/1.5 monospace; }
+  audio { width: 100%; margin: 12px 0; }
+  button { background: #2fa9ea; color: #fff; border: 0; border-radius: 8px; padding: 10px 16px; font-weight: 700; cursor: pointer; margin-right: 6px; }
+  button.sec { background: #3a4a55; }
+  #actual { font-size: 26px; font-weight: 800; min-height: 40px; margin: 14px 0 4px; }
+  #siguiente { color: #8fa3b1; min-height: 22px; }
+</style>
+</head>
+<body>
+  <h1>Sincronizar la letra con la canción</h1>
+  <p>1) Pega la letra abajo (una línea por renglón). 2) Presiona "Empezar". 3) Cada vez que empiece a cantarse una línea presiona <b>ESPACIO</b>. Presiona <b>ENTER</b> para ocultar el subtítulo en partes sin voz. <b>←</b> retrocede 5 s y deshace la última marca.</p>
+  <textarea id="entrada" placeholder="Pega aquí la letra..."></textarea>
+  <audio id="audio" controls src="musica/LATIN MAFIA - No digas nada (LYRIC VIDEO).mp3"></audio>
+  <button id="empezar">Empezar</button>
+  <button id="copiar" class="sec">Copiar resultado</button>
+  <div id="actual"></div>
+  <div id="siguiente"></div>
+  <p>Resultado (pégalo en <code>js/letra.js</code> entre las comillas de <code>LETRA_LRC</code>):</p>
+  <textarea id="salida" readonly></textarea>
+<script>
+  var audio = document.getElementById('audio'), entrada = document.getElementById('entrada'), salida = document.getElementById('salida');
+  var lineas = [], i = 0, marcas = [];
+  function fmt(t) {
+    var m = Math.floor(t / 60), s = (t % 60).toFixed(2);
+    return '[' + String(m).padStart(2, '0') + ':' + s.padStart(5, '0') + ']';
+  }
+  function pintar() {
+    document.getElementById('actual').textContent = i > 0 && marcas.length ? marcas[marcas.length - 1].texto : '';
+    document.getElementById('siguiente').textContent = i < lineas.length ? 'Siguiente: ' + lineas[i] : '(fin de la letra)';
+    salida.value = marcas.map(function (m) { return fmt(m.t) + ' ' + m.texto; }).join('\n');
+  }
+  document.getElementById('empezar').onclick = function () {
+    lineas = entrada.value.split(/\r?\n/).map(function (l) { return l.trim(); }).filter(Boolean);
+    i = 0; marcas = [];
+    audio.currentTime = 0; audio.play();
+    pintar();
+  };
+  document.getElementById('copiar').onclick = function () { salida.select(); navigator.clipboard.writeText(salida.value); };
+  document.addEventListener('keydown', function (e) {
+    if (document.activeElement === entrada) return;
+    if (e.code === 'Space' && i < lineas.length) { e.preventDefault(); marcas.push({ t: audio.currentTime, texto: lineas[i++] }); pintar(); }
+    else if (e.code === 'Enter') { e.preventDefault(); marcas.push({ t: audio.currentTime, texto: '' }); pintar(); }
+    else if (e.code === 'ArrowLeft') {
+      e.preventDefault();
+      var m = marcas.pop(); if (m && m.texto) i--;
+      audio.currentTime = Math.max(0, (m ? m.t : audio.currentTime) - 5);
+      pintar();
+    }
+  });
+</script>
+</body>
+</html>

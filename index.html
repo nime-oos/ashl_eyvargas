@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ash</title>
+  <link rel="stylesheet" href="https://public.codepenassets.com/css/reset-2.0.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700&family=Caveat:wght@700&family=Gochi+Hand&display=swap">
+<link rel="stylesheet" href="css/escena.css">
+
+</head>
+<body>
+<div id="main-content">
+  <div class="container" id="start-btn-container">
+    <button id="start-btn" class="button"></button>
+  </div>
+  <audio id="bg-music" src="musica/LATIN MAFIA - No digas nada (LYRIC VIDEO).mp3" preload="none"></audio>
+  <div id="escena"></div>
+  <div id="subtitulo"></div>
+  <canvas id="galaxy-canvas" style="display:none;opacity:0;will-change:opacity;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:10;"></canvas>
+  <div class="wrapper" style="display:none;">
+      <div class="flower"></div>
+  </div>
+  <div class="flower-message" style="display:none;"></div>
+</div>
+<style>
+/* Eliminado keyframes spin: no se usa loader */
+</style>
+<!-- partial -->
+<script src="js/main.js" defer></script>
+<script src="js/letra.js" defer></script>
+<script src="js/escena.js" defer></script>
+
+</body>
+</html>

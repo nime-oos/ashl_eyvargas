@@ -1,0 +1,293 @@
+/* Escena 3D inspirada en la portada "No digas nada": trazos azul/verde, corazones rojos y carita de crayón */
+#escena {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s;
+  perspective: 900px;
+  background: #ebe5d8; /* papel */
+}
+#escena.visible { opacity: 1; }
+
+/* 3 cuadros del fondo que se alternan (animación a mano) */
+#escena .lienzo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+/* mundo 3D que sigue al mouse */
+#escena .mundo {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .2s ease-out;
+}
+
+/* la ilustración: se mueve "a saltitos" como stop-motion */
+.carita {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 54vmin;
+  height: 45vmin;
+  margin: -24vmin 0 0 -27vmin;
+  transform-style: preserve-3d;
+  animation: carita-flota 5s steps(20) infinite;
+}
+@keyframes carita-flota {
+  0%, 100% { transform: translateY(0) rotateY(-8deg) rotateZ(-1.5deg); }
+  25%      { transform: translateY(-1.2vmin) rotateY(0) rotateZ(0) scale(1.02, .98); }
+  50%      { transform: translateY(-2vmin) rotateY(8deg) rotateZ(1.5deg); }
+  75%      { transform: translateY(-.8vmin) rotateY(0) rotateZ(0) scale(.98, 1.02); }
+}
+.carita svg * { transform-box: fill-box; }
+
+/* las líneas de marcador se dibujan solas al aparecer */
+.carita.dibujando .linea {
+  stroke-dasharray: 1;
+  animation: trazar 2.4s steps(24) both;
+}
+.carita.dibujando .ojo .linea { animation-delay: .6s; }
+.carita.dibujando .boca .linea { animation-delay: 1.1s; }
+@keyframes trazar { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.carita.dibujando .cor { animation: aparece-cor .6s steps(4) 2.2s both, latido 1s steps(4) 2.8s infinite; }
+@keyframes aparece-cor { from { transform: scale(0) rotate(-20deg); } to { transform: scale(1); } }
+.carita.dibujando .titulo { animation: aparece .5s steps(3) 2.8s both; }
+@keyframes aparece { from { opacity: 0; } to { opacity: 1; } }
+
+/* parpadeo */
+.carita .ojo {
+  transform-origin: center bottom;
+  animation: parpadeo 4.5s steps(1) infinite;
+}
+@keyframes parpadeo {
+  0%, 93%, 100% { transform: scaleY(1); }
+  95%           { transform: scaleY(.12); }
+}
+/* pupilas que miran a los lados, a saltos */
+.carita .pupila { animation: mirar 6s steps(1) infinite; }
+@keyframes mirar {
+  0%, 100% { transform: translate(0, 0); }
+  20%      { transform: translate(-14px, 4px); }
+  45%      { transform: translate(-14px, 4px); }
+  55%      { transform: translate(6px, -6px); }
+  80%      { transform: translate(-4px, 8px); }
+}
+/* puntitos de las orejas */
+.carita .punto { animation: tiembla .5s steps(2) infinite; }
+@keyframes tiembla {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(2px, -2px); }
+}
+/* boca nerviosa */
+.carita .boca { transform-origin: center; animation: boca 2.2s steps(6) infinite; }
+@keyframes boca {
+  0%, 100% { transform: scale(1, 1); }
+  30%      { transform: scale(1.02, .95) translateY(4px); }
+  60%      { transform: scale(.99, 1.04) translateY(-3px); }
+}
+.carita .nervio { animation: tiembla .35s steps(2) infinite; }
+/* corazones de las mejillas */
+.carita .cor { transform-origin: center; animation: latido 1s steps(4) infinite; }
+@keyframes latido {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.14) rotate(-5deg); }
+}
+/* letras del título que bailan */
+.carita .letra { transform-origin: center; animation: salta 1.4s steps(2) infinite; }
+@keyframes salta {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+
+/* corazones pintados que suben a saltitos */
+.corazon {
+  position: absolute;
+  bottom: -10vmin;
+  width: 7vmin;
+  height: 6vmin;
+  animation: sube var(--d, 12s) steps(70) infinite;
+  animation-delay: var(--w, 0s);
+}
+@keyframes sube {
+  0%   { transform: translate3d(0, 0, var(--z)) rotate(-12deg) scale(var(--s, 1)); opacity: 0; }
+  8%   { opacity: 1; }
+  50%  { transform: translate3d(calc(var(--x, 0) / 2), -62vh, var(--z)) rotate(12deg) scale(var(--s, 1)); }
+  100% { transform: translate3d(var(--x, 0), -125vh, var(--z)) rotate(-12deg) scale(var(--s, 1)); opacity: 0; }
+}
+
+/* rayones de crayón que se dibujan solos y se borran */
+.rayon {
+  position: absolute;
+  width: 22vmin;
+  height: 9vmin;
+}
+.rayon path {
+  stroke-dasharray: 1;
+  animation: rayar var(--d, 7s) steps(28) infinite;
+  animation-delay: var(--w, 0s);
+}
+@keyframes rayar {
+  0%   { stroke-dashoffset: 1; opacity: .85; }
+  40%  { stroke-dashoffset: 0; opacity: .85; }
+  75%  { stroke-dashoffset: 0; opacity: .85; }
+  100% { stroke-dashoffset: -1; opacity: 0; }
+}
+
+/* subtítulos */
+#subtitulo {
+  position: fixed;
+  left: 50%;
+  bottom: 6vh;
+  transform: translateX(-50%);
+  z-index: 120;
+  width: max-content;
+  max-width: 88vw;
+  text-align: center;
+  line-height: 1.15;
+  opacity: 0;
+  pointer-events: none;
+  filter: url(#marcador); /* el texto también "hierve" como la ilustración */
+}
+#subtitulo.on { opacity: 1; }
+#subtitulo .palabra {
+  display: inline-block;
+  transform: rotate(var(--rot));
+  animation: palabra .4s steps(3) both;
+  animation-delay: calc(var(--i) * 90ms);
+}
+@keyframes palabra {
+  from { opacity: 0; transform: translateY(.4em) rotate(calc(var(--rot) * -3)) scale(.6); }
+  to   { opacity: 1; transform: rotate(var(--rot)) scale(1); }
+}
+/* coros de fondo (lo que va entre paréntesis): rojo como los corazones */
+#subtitulo .eco {
+  display: inline-block;
+  margin-left: .3em;
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  font-size: .7em;
+  text-transform: none;
+  letter-spacing: 0;
+  color: #e0452a;
+  -webkit-text-stroke: 0;
+  text-shadow: 1px 1px 0 #161616;
+}
+
+/* INTRO: susurro, letra a mano fina en blanco */
+#subtitulo.sub-intro {
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  font-size: clamp(24px, 4.6vmin, 52px);
+  color: #f4f7f2;
+  text-shadow: 2px 2px 0 #161616;
+  letter-spacing: .5px;
+}
+#subtitulo.sub-intro .palabra { animation-duration: .7s; }
+
+/* CORO: letras gordas blancas con contorno negro, como "No DiGAs NADA" */
+#subtitulo.sub-coro {
+  font-family: 'Fredoka', 'Arial Rounded MT Bold', sans-serif;
+  font-weight: 700;
+  font-size: clamp(26px, 5.6vmin, 64px);
+  color: #eef2f3;
+  -webkit-text-stroke: .07em #161616;
+  paint-order: stroke fill;
+  text-shadow: .06em .08em 0 #1f8fd6;
+}
+#subtitulo.sub-coro .palabra:nth-child(4n+1) { text-transform: uppercase; }
+#subtitulo.sub-coro .palabra { animation-name: palabra-coro; }
+@keyframes palabra-coro {
+  0%   { opacity: 0; transform: scale(1.6) rotate(calc(var(--rot) * 4)); }
+  60%  { opacity: 1; transform: scale(.9) rotate(var(--rot)); }
+  100% { opacity: 1; transform: scale(1) rotate(var(--rot)); }
+}
+
+/* VERSO: marcador negro sobre una tira de papel, como una nota escrita */
+#subtitulo.sub-verso {
+  font-family: 'Gochi Hand', 'Comic Sans MS', cursive;
+  font-size: clamp(20px, 4vmin, 44px);
+  color: #161616;
+  background: #ebe6da;
+  padding: .15em .7em .25em;
+  border-radius: 3px 12px 4px 10px / 10px 4px 12px 3px;
+  box-shadow: .15em .2em 0 #1f8fd6;
+  transform: translateX(-50%) rotate(-1.2deg);
+}
+#subtitulo.sub-verso .eco { text-shadow: none; }
+
+@media (max-width: 480px) {
+  .carita { top: 55%; width: 84vmin; height: 70vmin; margin: -35vmin 0 0 -42vmin; }
+  #subtitulo { bottom: 4vh; }
+}
+
+/* ---- botón de inicio: etiqueta de papel escrita con marcador ---- */
+#start-btn-container {
+  top: auto !important;
+  bottom: 12vh !important;
+  padding: 0 !important;
+  background: none !important;
+  transform: translateX(-50%) rotate(-3deg) !important;
+}
+#start-btn-container::before { display: none !important; }
+#start-btn-container .button {
+  font-family: 'Gochi Hand', 'Comic Sans MS', cursive;
+  font-size: clamp(22px, 4.2vmin, 40px);
+  color: #161616;
+  background: #ebe6da;
+  border: 4px solid #161616;
+  border-radius: 14px 30px 12px 26px / 24px 12px 28px 14px; /* borde chueco, hecho a mano */
+  padding: .25em 1em .35em;
+  box-shadow: .18em .22em 0 #1f8fd6;
+  cursor: pointer;
+  filter: url(#marcador);
+  animation: boton-salta 1.4s steps(2) infinite;
+}
+#start-btn-container .button:hover { background: #fff; box-shadow: .18em .22em 0 #d0351f; }
+#start-btn-container .button:active { transform: translate(.12em, .15em); box-shadow: .06em .07em 0 #1f8fd6; }
+@keyframes boton-salta {
+  0%, 100% { transform: rotate(0); }
+  50%      { transform: rotate(2deg) translateY(-3px); }
+}
+
+/* ---- mensajes de la flor: mismo estilo que el título de la portada ---- */
+.flower-message {
+  font-family: 'Fredoka', 'Arial Rounded MT Bold', sans-serif !important;
+  font-weight: 700 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  line-height: 1.1;
+  color: #eef2f3;
+  -webkit-text-stroke: .07em #161616;
+  paint-order: stroke fill;
+  text-shadow: .06em .08em 0 #1f8fd6;
+  white-space: normal !important;
+  filter: url(#marcador);
+}
+@media (min-width: 481px) {
+  .flower-message {
+    font-size: clamp(26px, 5vmin, 60px) !important;
+    left: calc(50vw + 29vmin) !important;
+    max-width: calc(50vw - 33vmin);
+    transform: translateY(-50%) rotate(-3deg) !important;
+  }
+}
+@media (max-width: 480px) {
+  .flower-message {
+    top: 9vh !important;
+    bottom: auto !important;
+    font-size: 9vmin !important;
+    transform: translateX(-50%) rotate(-3deg) !important;
+  }
+  #start-btn-container { bottom: 6vh !important; }
+}
+
+/* sin la flor 3D: la ilustración es la protagonista */
+.wrapper { display: none !important; }
