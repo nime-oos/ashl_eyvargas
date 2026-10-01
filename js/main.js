@@ -22,12 +22,20 @@ var doc=document,flower=doc.querySelector('.flower'),petalPartMarkup='<div class
   
   // Followers - Cambiar mensajes
   const messages = [
-    'Eres alguien especial',
-    '¡Que tengas un lindo día! 🌷'
+    'No llores, todo pasa 🤍',
+    '¡Ánimo! Aquí estoy contigo 🌷'
   ];
   
   var wrapper = document.querySelector('.wrapper');
   var msg = document.querySelector('.flower-message');
+  // el último mensaje se queda 10 segundos y luego se desvanece
+  var DURACION_MENSAJE = 10000;
+  function ocultarMensaje() {
+    setTimeout(function() {
+      msg.style.opacity = 0; // se desvanece con la transición de .flower-message
+      setTimeout(function() { msg.style.display = 'none'; }, 800);
+    }, DURACION_MENSAJE);
+  }
   
   // Centra el contenedor con JS
   var container = document.getElementById('start-btn-container');
@@ -154,7 +162,9 @@ var doc=document,flower=doc.querySelector('.flower'),petalPartMarkup='<div class
               showNext();
             });
           } else {
-            if (typeof animateHeart === 'function') animateHeart();
+            ocultarMensaje();
+            ocultarMensaje();
+          if (typeof animateHeart === 'function') animateHeart();
           }
         }
         showNext();
@@ -214,6 +224,7 @@ var doc=document,flower=doc.querySelector('.flower'),petalPartMarkup='<div class
             showNext();
           });
         } else {
+          ocultarMensaje();
           if (typeof animateHeart === 'function') animateHeart();
         }
       }

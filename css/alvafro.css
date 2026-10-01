@@ -1,0 +1,135 @@
+/* Escena "Piensas en mí" (estudio con el muro de fotos) */
+#escena-alvafro {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s;
+  perspective: 900px;
+  background: #0d0b0a;
+}
+#escena-alvafro.visible { opacity: 1; }
+body.cambiando #escena-alvafro { transition: none !important; }
+
+#escena-alvafro .mundo {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .2s ease-out;
+}
+#escena-alvafro .capa { position: absolute; inset: -5%; }
+#escena-alvafro .capa-fondo { transform: translateZ(-70px) scale(1.08); }
+#escena-alvafro .capa-frente { transform: translateZ(35px) scale(.965); }
+#escena-alvafro :is(.aletea, .ojos, .pup, .papel, .telefono, .tela, .softbox, .softbox-luz, .foco-muro, .letra, .ch, .cor-tuyo, .flash) { transform-box: fill-box; }
+#escena-alvafro .marco { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; }
+
+/* las líneas de marcador se dibujan solas al llegar */
+#escena-alvafro.dibujando .linea { stroke-dasharray: 1; animation: trazar 2.4s steps(24) both; }
+#escena-alvafro.dibujando .capa-frente .linea { animation-delay: .7s; }
+
+/* manchas de pintura que alguien sigue frotando en el muro */
+#escena-alvafro .manchas path { stroke-dasharray: 1; animation: frota var(--d, 10s) steps(30) infinite; animation-delay: var(--w, 0s); }
+@keyframes frota {
+  0%   { stroke-dashoffset: 1; opacity: 0; }
+  10%  { opacity: 1; }
+  45%  { stroke-dashoffset: 0; opacity: 1; }
+  80%  { stroke-dashoffset: 0; opacity: .6; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+/* ojos: siguen al mouse (.sigue) y pasean solos (.pup); parpadean */
+#escena-alvafro .sigue {
+  transform: translate(calc(var(--px, 0) * var(--m, 1) * 1px), calc(var(--py, 0) * var(--m, 1) * .8px));
+  transition: transform .25s steps(3);
+}
+#escena-alvafro .pup { animation: pasea 6s steps(1) infinite; }
+@keyframes pasea {
+  0%, 100% { transform: translate(0, 0); }
+  30%      { transform: translate(-.8px, .3px); }
+  55%      { transform: translate(.8px, -.3px); }
+  80%      { transform: translate(.2px, .6px); }
+}
+#escena-alvafro .ojos { transform-origin: center; animation: parpadeo 5s steps(1) infinite; }
+/* las fotos se mueven un poquito, como si las moviera el aire */
+#escena-alvafro .aletea { transform-origin: center top; animation: aletea 3s steps(3) infinite; animation-delay: var(--w, 0s); }
+@keyframes aletea {
+  0%, 100% { transform: rotate(0); }
+  50%      { transform: rotate(1.2deg); }
+}
+
+/* luz del estudio */
+#escena-alvafro .foco-muro { transform-origin: center; animation: foco-estudio 4s steps(3) infinite; }
+@keyframes foco-estudio {
+  0%, 100% { opacity: .85; }
+  50%      { opacity: 1; }
+}
+#escena-alvafro .softbox-luz { animation: titila 2.8s steps(2) infinite; }
+#escena-alvafro .tela { transform-origin: center top; animation: tela 4.5s steps(6) infinite; }
+@keyframes tela {
+  0%, 100% { transform: skewX(0) scaleY(1); }
+  50%      { transform: skewX(-1.5deg) scaleY(1.01); }
+}
+
+/* título pintado: letras que bailan */
+#escena-alvafro .letra { transform-origin: center; animation: salta 1.4s steps(2) infinite; }
+#escena-alvafro .titulo { animation: aparece .5s steps(3) 2.2s both; }
+
+/* "me pregunto": se escribe "¿piensas en mí?" y los papeles se agitan */
+#escena-alvafro .nota .ch { opacity: 0; }
+#escena-alvafro.pregunto .nota .ch { animation: escribe .3s steps(1) both; animation-delay: calc(var(--i) * 110ms); }
+@keyframes escribe { from { opacity: 0; } to { opacity: 1; } }
+#escena-alvafro.pregunto .papel { animation: papel .6s steps(2) infinite; animation-delay: var(--w, 0s); transform-origin: center; }
+@keyframes papel {
+  0%, 100% { transform: rotate(0) translateY(0); }
+  50%      { transform: rotate(8deg) translateY(-4px); }
+}
+#escena-alvafro.pregunto .aletea { animation-duration: .9s; }
+
+/* "tú y yo": círculo rojo alrededor de las dos fotos + corazón que late */
+#escena-alvafro .tuyyo-marca { opacity: 0; transition: opacity .3s steps(2); }
+#escena-alvafro .circulo-rojo { stroke-dasharray: 1; stroke-dashoffset: 1; }
+#escena-alvafro.tuyyo .tuyyo-marca { opacity: 1; }
+#escena-alvafro.tuyyo .circulo-rojo { animation: trazar .8s steps(12) both; }
+#escena-alvafro.tuyyo .cor-tuyo { transform-origin: center; animation: aparece-cor .5s steps(4) .7s both, latido 1s steps(4) 1.2s infinite; }
+#escena-alvafro.tuyyo :is(.tu, .yo) { animation: tuyyo 1s steps(2) infinite; }
+@keyframes tuyyo {
+  0%, 100% { transform: rotate(0) scale(1); }
+  50%      { transform: rotate(-3deg) scale(1.08); }
+}
+#escena-alvafro.tuyyo .yo { animation-delay: -.5s; }
+
+/* "todo el mundo está observando": todas las fotos te miran, celulares y flashes en la oscuridad */
+#escena-alvafro.mirando .sigue { transform: none; }
+#escena-alvafro.mirando .pup { animation: none; transform: scale(1.25); transform-origin: center; }
+#escena-alvafro.mirando .ojos { animation: abre .3s steps(2) both; }
+@keyframes abre { to { transform: scale(1.18); } }
+#escena-alvafro .telefono { opacity: 0; transform: translateY(40px); transition: opacity .4s steps(3), transform .4s steps(3); }
+#escena-alvafro.mirando .telefono { opacity: 1; transform: translateY(0); transition-delay: var(--w, 0s); }
+#escena-alvafro .flash { opacity: 0; }
+#escena-alvafro.mirando .flash { animation: flash 2.6s steps(1) infinite; animation-delay: var(--w, 0s); }
+@keyframes flash {
+  0%, 8%, 100% { opacity: 0; }
+  3%           { opacity: 1; }
+}
+#escena-alvafro .destello { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
+#escena-alvafro.mirando .destello { animation: destello 3.4s steps(1) infinite 1s; }
+@keyframes destello {
+  0%, 4%, 100% { opacity: 0; }
+  2%           { opacity: .55; }
+}
+#escena-alvafro.mirando .softbox-luz { animation-duration: .5s; }
+
+/* pantallas verticales: el recorte deja ver el centro del muro */
+@media (max-aspect-ratio: 1/1) {
+  #escena-alvafro .firma { transform: translate(128px, 0); }
+}
+
+/* ---- colores de esta canción en los subtítulos, el botón y los mensajes ---- */
+body.cancion-alvafro #subtitulo.sub-coro { text-shadow: .06em .08em 0 #6f8796; }
+body.cancion-alvafro #subtitulo.sub-verso { box-shadow: .15em .2em 0 #c8332a; }
+body.cancion-alvafro #subtitulo .eco { color: #e0452a; }
+body.cancion-alvafro #start-btn-container .button { box-shadow: .18em .22em 0 #6f8796; }
+body.cancion-alvafro .flower-message { text-shadow: .06em .08em 0 #c8332a; }

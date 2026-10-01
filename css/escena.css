@@ -271,12 +271,17 @@
   white-space: normal !important;
   filter: url(#marcador);
 }
+/* esquina de arriba a la derecha (frente al menú de canciones), para no tapar la escena */
 @media (min-width: 481px) {
   .flower-message {
-    font-size: clamp(26px, 5vmin, 60px) !important;
-    left: calc(50vw + 29vmin) !important;
-    max-width: calc(50vw - 33vmin);
-    transform: translateY(-50%) rotate(-3deg) !important;
+    position: fixed !important;
+    font-size: clamp(20px, 3.6vmin, 42px) !important;
+    top: calc(3.5vmin + 18px) !important;
+    left: auto !important;
+    right: calc(3.5vmin + 22px);
+    max-width: 22vw;
+    text-align: right;
+    transform: rotate(3deg) !important;
   }
 }
 @media (max-width: 480px) {

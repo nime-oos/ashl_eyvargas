@@ -66,3 +66,17 @@ Cuando terminan de mostrarse todos los mensajes, se llama a `animateHeart()`:
 - `js/escena.js` solo cambió en dos cosas: expone sus herramientas de crayón (`window.Crayon`) y permite cambiar la letra (`window.cargarLetra`). Además avisa la parte de la canción con el evento `seccion`. La escena de "No digas nada" no cambió.
 - `sincronizar.html` ahora deja elegir cuál canción sincronizar.
 - Pendiente, que ya venía de antes: `animateHeart()` en `main.js` usa `galaxyCanvas` fuera de su alcance y lanza `galaxyCanvas is not defined` al terminar los mensajes, así que el corazón de puntos nunca se forma.
+
+## 2026-10-01 — Tercera canción "Piensas en mí" (LATIN MAFIA, Fred again..)
+
+- **Menú**: nueva portadita **lado C · Piensas en mí** (enlace directo: `index.html#piensas-en-mi`; `#alvafro` también funciona). Los colores del borrón y del título ahora se definen en cada canción (`tinta`, `sombra` en `js/menu.js`); las dos anteriores quedaron igual.
+- **Escena** (`js/escena-alvafro.js`, `css/alvafro.css`): el estudio de la portada redibujado: muro blanco frotado con pintura gris azulada (las manchas se vuelven a pintar solas), fotos pegadas con cinta, collage de caritas, paisaje rojizo con ciclistas, cortinas rojas, escalera, tela que se mece, sillón envuelto en plástico, banquito, botes de pintura y papeles en el piso. Título "PiENsAs EN mí" pintado en el muro. (Audio: `musica/Fred again.., LATIN MAFIA - Piensas En Mi.mp3`. Los archivos del código conservan el nombre `alvafro`.)
+- **"Todo el mundo está observando"**: los ojos de todas las fotos siguen al mouse o al dedo. En las líneas que dicen "observando" todas te miran de frente, se asoman celulares en la oscuridad y hay flashes de cámara.
+- **"Tú y yo"**: se encierran con marcador rojo dos fotos del collage (el chico de la gorra de "Más humano" y una chica) y les sale un corazón.
+- **"Me pregunto…"**: se escribe "¿piensas en mí?" en rojo en el muro y los papeles del piso se agitan.
+- Guiño: entre las fotos de arriba está la carita verde de "No digas nada".
+- La escena lee la letra directamente (`LETRA_ALVAFRO_LRC`) para saber qué dice cada línea; no se tocaron las escenas anteriores.
+
+## 2026-10-01 — Mensajes de ánimo
+- Los dos mensajes que se escriben al presionar el botón (`messages` en `js/main.js`) ahora son: "No llores, todo pasa 🤍" y "¡Ánimo! Aquí estoy contigo 🌷" (este último es el que se queda).
+- En escritorio pasaron a la esquina de arriba a la derecha, frente al menú (`css/escena.css`), para no tapar ninguna escena. En móvil siguen arriba al centro.

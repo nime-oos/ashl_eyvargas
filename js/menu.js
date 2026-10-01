@@ -1,4 +1,4 @@
-// Menú de canciones: dos "portaditas" de crayón pegadas con cinta en la esquina.
+// Menú de canciones: "portaditas" de crayón pegadas con cinta en la esquina.
 // Al elegir una, un borrón de crayón tapa la pantalla con el título de la canción, se cambia
 // la escena, la letra y el audio, y el borrón se va. Al terminar una canción sigue la otra.
 (function () {
@@ -12,10 +12,13 @@
   var CANCIONES = [
     { id: 'nada', lado: 'lado A', titulo: 'No digas nada', src: 'musica/LATIN MAFIA - No digas nada (LYRIC VIDEO).mp3',
       lrc: window.LETRA_LRC, secciones: window.SECCIONES,
-      borron: ['#2ba6ea', '#3ab4f0', '#1f93dc', '#5cc4f4', '#25a58c', '#34b58b'], base: '#2fa9ea' },
+      borron: ['#2ba6ea', '#3ab4f0', '#1f93dc', '#5cc4f4', '#25a58c', '#34b58b'], base: '#2fa9ea', tinta: '#ebe6da', sombra: '#1f8fd6' },
     { id: 'humano', lado: 'lado B', titulo: 'Más humano', src: 'musica/LATIN MAFIA Más humano (Audio Oficial).mp3',
       lrc: window.LETRA_HUMANO_LRC, secciones: window.SECCIONES_HUMANO,
-      borron: ['#121a15', '#1e2c1e', '#1f7a5a', '#3d6a9a', '#b06a3a', '#0c110f'], base: '#101612' }
+      borron: ['#121a15', '#1e2c1e', '#1f7a5a', '#3d6a9a', '#b06a3a', '#0c110f'], base: '#101612', tinta: '#ebe6da', sombra: '#e07a35' },
+    { id: 'alvafro', enlace: 'piensas-en-mi', lado: 'lado C', titulo: 'Piensas en mí', src: 'musica/Fred again.., LATIN MAFIA - Piensas En Mi.mp3',
+      lrc: window.LETRA_ALVAFRO_LRC, secciones: window.SECCIONES_ALVAFRO,
+      borron: ['#ecebe6', '#dcdcd6', '#b5c2c9', '#8fa3b0', '#f6f5f0', '#6f8796'], base: '#e4e3dd', tinta: '#c8332a', sombra: '#6f8796' }
   ];
 
   // mini portadas dibujadas con marcador
@@ -35,6 +38,19 @@
       '<path d="M36 66 H72" stroke="#a39d8e" stroke-width="3"/><circle cx="41" cy="58" r="2.6" fill="#d9a27a"/><path d="M38 61 H44 V66 H38Z" fill="#2d3f35"/><path d="M38 66 H44 V70" stroke="#3f6fae" stroke-width="2.4" fill="none"/>' +
       '<rect x="0" y="70" width="100" height="4" fill="#3a2420"/>' +
       '<path d="M0 80 H100 M0 88 H100 M0 95 H100" stroke="#5b8fc4" stroke-width="3" opacity=".7"/><path d="M0 84 H100 M0 92 H100" stroke="#b06a3a" stroke-width="3" opacity=".7"/>' +
+      '</svg>',
+    alvafro: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#0d0b0a"/><rect y="0" width="100" height="12" fill="#3a2a1e"/>' +
+      '<rect y="78" width="100" height="22" fill="#5a554e"/>' +
+      '<path d="M20 14 H82 V76 H20Z" fill="#ecebe6" stroke="#161616" stroke-width="2"/>' +
+      '<path d="M30 60 C26 40 44 26 62 32 C76 38 76 58 60 64" fill="none" stroke="#8fa3b0" stroke-width="6" opacity=".6"/>' +
+      '<rect x="27" y="22" width="9" height="9" fill="#5aa8b0"/><rect x="37" y="21" width="9" height="9" fill="#4a8a96"/><rect x="28" y="32" width="9" height="9" fill="#27a88e"/>' +
+      '<rect x="50" y="50" width="10" height="12" fill="#b0646a"/><rect x="61" y="48" width="5" height="5" fill="#c9a48a"/><rect x="67" y="48" width="5" height="5" fill="#8a6a5a"/><rect x="73" y="48" width="5" height="5" fill="#d8c3b0"/>' +
+      '<rect x="61" y="54" width="5" height="5" fill="#6a7f8a"/><rect x="67" y="54" width="5" height="5" fill="#b07a6a"/><rect x="73" y="54" width="5" height="5" fill="#9ab0a8"/>' +
+      '<rect x="61" y="60" width="5" height="5" fill="#a89a7a"/><rect x="67" y="60" width="5" height="5" fill="#7a8aa0"/><rect x="73" y="60" width="5" height="5" fill="#c9a48a"/>' +
+      '<path d="M62 20 H78" stroke="#c8332a" stroke-width="2"/>' +
+      '<path d="M86 30 L90 86 M94 30 L98 86 M87 44 H95 M88 58 H96 M89 72 H97" stroke="#a7adb2" stroke-width="2"/>' +
+      '<path d="M84 18 H100 V50 C96 52 90 50 84 52Z" fill="#e9e8e2" opacity=".8"/>' +
+      '<path d="M0 84 C10 78 26 80 30 88 V100 H0Z" fill="#c9cdcd"/>' +
       '</svg>'
   };
 
@@ -48,7 +64,7 @@
     var b = document.createElement('button');
     b.className = 'disco';
     b.type = 'button';
-    b.style.setProperty('--rot', (i ? 4 : -5) + 'deg');
+    b.style.setProperty('--rot', [-5, 4, -3][i % 3] + 'deg');
     b.innerHTML = '<span class="cinta"></span><span class="portadita">' + MINI[c.id] + '</span>' +
       '<span class="disco-lado">' + c.lado + '</span><span class="disco-nombre">' + c.titulo + '</span>' +
       '<svg class="circulo" viewBox="0 0 120 150" aria-hidden="true"><path pathLength="1" d="M60 6 C100 4 116 30 114 76 C112 122 96 146 58 144 C18 142 4 118 6 72 C8 30 26 8 66 10" fill="none" stroke="#d13a22" stroke-width="6" stroke-linecap="round"/></svg>';
@@ -85,7 +101,7 @@
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.font = '700 ' + (tam * .38) + 'px "Gochi Hand", cursive';
-      ctx.fillStyle = '#ebe6da';
+      ctx.fillStyle = c.tinta;
       ctx.fillText(c.lado, w / 2, h / 2 - tam * .75);
       ctx.font = '700 ' + tam + 'px Fredoka, "Arial Rounded MT Bold", sans-serif';
       ctx.lineJoin = 'round';
@@ -94,7 +110,7 @@
       ctx.save();
       ctx.translate(w / 2, h / 2 + tam * .15);
       ctx.rotate(-.04);
-      ctx.fillStyle = c.id === 'nada' ? '#1f8fd6' : '#e07a35';
+      ctx.fillStyle = c.sombra;
       ctx.fillText(c.titulo, tam * .06, tam * .08);
       ctx.strokeText(c.titulo, 0, 0);
       ctx.fillStyle = '#eef2f3';
@@ -121,11 +137,11 @@
       botones[o.id].classList.toggle('activo', on);
       botones[o.id].setAttribute('aria-pressed', on);
     });
-    document.body.classList.remove('cancion-nada', 'cancion-humano');
+    CANCIONES.forEach(function (o) { document.body.classList.remove('cancion-' + o.id); });
     document.body.classList.add('cancion-' + c.id);
     window.cargarLetra(c.lrc, c.secciones);
     actual = c.id;
-    try { history.replaceState(null, '', '#' + c.id); } catch (e) {}
+    try { history.replaceState(null, '', '#' + (c.enlace || c.id)); } catch (e) {}
   }
   function elegir(id, sinTransicion) {
     var c = CANCIONES.filter(function (o) { return o.id === id; })[0];
@@ -155,8 +171,9 @@
     elegir(CANCIONES[(i + 1) % CANCIONES.length].id);
   });
 
-  // canción inicial: la del enlace (#humano) o la del lado A
-  var inicial = location.hash.replace('#', '');
-  if (!CANCIONES.some(function (o) { return o.id === inicial; })) inicial = 'nada';
+  // canción inicial: la del enlace (#humano, #piensas-en-mi) o la del lado A
+  var hash = decodeURIComponent(location.hash.replace('#', ''));
+  var porEnlace = CANCIONES.filter(function (o) { return (o.enlace || o.id) === hash || o.id === hash; })[0];
+  var inicial = porEnlace ? porEnlace.id : 'nada';
   if (inicial === 'nada') { aplicar(CANCIONES[0]); } else { elegir(inicial, true); }
 })();
