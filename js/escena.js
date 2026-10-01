@@ -137,6 +137,9 @@
       pick(['#d13a22', '#b92a1a', '#e2502f', '#a82318', '#e8765a']), rnd(.4, .8)));
   }
   var texRojo = texturas(200, 160, '#c9311e', listaRojo, 1);
+  // herramientas de crayón compartidas con las otras escenas del álbum (js/escena-humano.js)
+  window.Crayon = { el: el, rnd: rnd, pick: pick, rayado: rayado, trazar: trazar, grano: grano, texturas: texturas,
+    texRojo: texRojo, CUADROS: CUADROS, FPS_DIBUJO: FPS_DIBUJO };
 
   // ---- la ilustración (coordenadas tomadas de la portada, 640x640) ----
   var mundo = el('mundo', escena);
@@ -255,9 +258,15 @@
     });
     return out;
   }
-  var letraCancion = (window.LETRA_LRC ? leerLRC(window.LETRA_LRC) : window.LETRA || []).slice().sort(function (a, b) { return a.t - b.t; });
-  var actual = -1;
-  var secciones = (window.SECCIONES || []).slice().sort(function (a, b) { return a.desde - b.desde; });
+  var letraCancion = [], secciones = [], actual = -1;
+  // cambia la letra y las partes de la canción (lo usa el menú de canciones, js/menu.js)
+  function cargarLetra(lrc, secs) {
+    letraCancion = (typeof lrc === 'string' ? leerLRC(lrc) : lrc || []).slice().sort(function (a, b) { return a.t - b.t; });
+    secciones = (secs || []).slice().sort(function (a, b) { return a.desde - b.desde; });
+    actual = -1;
+    mostrar('');
+  }
+  window.cargarLetra = cargarLetra;
   function seccion(t) {
     var tipo = 'verso';
     secciones.forEach(function (s) { if (s.desde <= t) tipo = s.tipo; });
@@ -269,7 +278,9 @@
     void sub.offsetWidth; // reinicia la animación
     sub.innerHTML = '';
     if (!texto) return;
-    sub.classList.add('sub-' + seccion(t));
+    var tipo = seccion(t);
+    sub.classList.add('sub-' + tipo);
+    document.dispatchEvent(new CustomEvent('seccion', { detail: tipo }));
     var n = 0;
     texto.split(/(\([^)]*\))/).forEach(function (parte) {
       if (!parte.trim()) return;
@@ -290,6 +301,7 @@
     });
     sub.classList.add('on');
   }
+  cargarLetra(window.LETRA_LRC || window.LETRA, window.SECCIONES);
   audio.addEventListener('timeupdate', function () {
     var t = audio.currentTime, idx = -1;
     for (var k = 0; k < letraCancion.length; k++) { if (letraCancion[k].t <= t) idx = k; else break; }

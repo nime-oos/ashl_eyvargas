@@ -10,6 +10,7 @@
   p { color: #b9c7d2; margin: 4px 0 14px; font-size: 14px; }
   textarea { width: 100%; box-sizing: border-box; height: 180px; background: #0f171d; color: #eef; border: 1px solid #3a4a55; border-radius: 8px; padding: 10px; font: 14px/1.5 monospace; }
   audio { width: 100%; margin: 12px 0; }
+  select { background: #0f171d; color: #eef; border: 1px solid #3a4a55; border-radius: 8px; padding: 8px; margin-top: 12px; }
   button { background: #2fa9ea; color: #fff; border: 0; border-radius: 8px; padding: 10px 16px; font-weight: 700; cursor: pointer; margin-right: 6px; }
   button.sec { background: #3a4a55; }
   #actual { font-size: 26px; font-weight: 800; min-height: 40px; margin: 14px 0 4px; }
@@ -20,12 +21,16 @@
   <h1>Sincronizar la letra con la canción</h1>
   <p>1) Pega la letra abajo (una línea por renglón). 2) Presiona "Empezar". 3) Cada vez que empiece a cantarse una línea presiona <b>ESPACIO</b>. Presiona <b>ENTER</b> para ocultar el subtítulo en partes sin voz. <b>←</b> retrocede 5 s y deshace la última marca.</p>
   <textarea id="entrada" placeholder="Pega aquí la letra..."></textarea>
+  <select id="cancion">
+    <option value="musica/LATIN MAFIA - No digas nada (LYRIC VIDEO).mp3">No digas nada → js/letra.js</option>
+    <option value="musica/LATIN MAFIA Más humano (Audio Oficial).mp3">Más humano → js/letra-humano.js</option>
+  </select>
   <audio id="audio" controls src="musica/LATIN MAFIA - No digas nada (LYRIC VIDEO).mp3"></audio>
   <button id="empezar">Empezar</button>
   <button id="copiar" class="sec">Copiar resultado</button>
   <div id="actual"></div>
   <div id="siguiente"></div>
-  <p>Resultado (pégalo en <code>js/letra.js</code> entre las comillas de <code>LETRA_LRC</code>):</p>
+  <p>Resultado (pégalo en <code>js/letra.js</code> → <code>LETRA_LRC</code>, o en <code>js/letra-humano.js</code> → <code>LETRA_HUMANO_LRC</code>):</p>
   <textarea id="salida" readonly></textarea>
 <script>
   var audio = document.getElementById('audio'), entrada = document.getElementById('entrada'), salida = document.getElementById('salida');
@@ -45,6 +50,7 @@
     audio.currentTime = 0; audio.play();
     pintar();
   };
+  document.getElementById('cancion').onchange = function () { audio.src = this.value; };
   document.getElementById('copiar').onclick = function () { salida.select(); navigator.clipboard.writeText(salida.value); };
   document.addEventListener('keydown', function (e) {
     if (document.activeElement === entrada) return;

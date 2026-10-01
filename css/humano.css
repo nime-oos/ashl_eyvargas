@@ -1,0 +1,264 @@
+/* Escena "Más humano" (parada de autobús de noche), menú de canciones y transición de crayón */
+#escena-humano {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s;
+  perspective: 900px;
+  background: #0c110f;
+}
+#escena-humano.visible { opacity: 1; }
+/* el cambio de escena ocurre debajo del borrón: sin fundido */
+body.cambiando #escena, body.cambiando #escena-humano { transition: none !important; }
+
+#escena-humano .mundo {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .2s ease-out;
+}
+#escena-humano .capa { position: absolute; inset: -5%; }
+#escena-humano .capa-fondo { transform: translateZ(-60px) scale(1.07); }
+#escena-humano .capa-calle { transform: translateZ(30px) scale(.97); }
+/* solo lo que se anima gira/escala sobre sí mismo (los transform="" del SVG quedan intactos) */
+#escena-humano :is(.luz, .halo-poste, .brillo-panel, .chico, .cabeza, .ojos, .pie-d, .corh, .reflejos, .charcos ellipse, .letra, .lluvia path) { transform-box: fill-box; }
+
+/* marco de papel: 3 cuadros que se alternan */
+#escena-humano .marco {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+/* luces de la ciudad entre los árboles */
+#escena-humano .luz { animation: titila var(--d, 3s) steps(3) infinite; animation-delay: var(--w, 0s); }
+@keyframes titila {
+  0%, 100% { opacity: .9; }
+  50%      { opacity: .25; }
+}
+#escena-humano .halo-poste { transform-origin: center; animation: halo 3s steps(3) infinite; }
+@keyframes halo {
+  0%, 100% { transform: scale(1); opacity: .8; }
+  50%      { transform: scale(1.15); opacity: 1; }
+}
+
+/* la parada se dibuja sola con marcador */
+.capa-parada.dibujando .linea {
+  stroke-dasharray: 1;
+  animation: trazar 2.4s steps(24) both;
+}
+.capa-parada.dibujando .chico .linea { animation-delay: .9s; }
+
+/* letrero luminoso que parpadea como lámpara vieja */
+#escena-humano .brillo-panel { transform-origin: center; animation: foco-viejo 7s steps(1) infinite; }
+@keyframes foco-viejo {
+  0%, 60%, 64%, 67%, 100% { opacity: 1; }
+  62%, 66%                { opacity: .35; }
+}
+#escena-humano .foco { animation: titila 2.6s steps(2) infinite; }
+/* tira de luces turquesa que "corre" */
+#escena-humano .leds { animation: leds 1.2s steps(4) infinite; }
+@keyframes leds { to { stroke-dashoffset: -23; } }
+
+/* el chico: respira, mira a los lados y mueve un pie, a saltitos */
+#escena-humano .chico { transform-origin: center bottom; animation: respira 3.2s steps(4) infinite; }
+@keyframes respira {
+  0%, 100% { transform: scale(1, 1); }
+  50%      { transform: scale(1.015, .985); }
+}
+#escena-humano .cabeza { transform-origin: center bottom; animation: mira 7s steps(1) infinite; }
+@keyframes mira {
+  0%, 100% { transform: translate(0, 0) rotate(0); }
+  25%      { transform: translate(-3px, 0) rotate(-6deg); }
+  50%      { transform: translate(-3px, 1px) rotate(-6deg); }
+  70%      { transform: translate(2px, 0) rotate(5deg); }
+}
+#escena-humano .ojos { animation: parpadeo 4.5s steps(1) infinite; transform-origin: center; }
+#escena-humano .pie-d { transform-origin: left center; animation: pie 1.6s steps(2) infinite; }
+@keyframes pie {
+  0%, 100% { transform: rotate(0); }
+  50%      { transform: rotate(-14deg) translateY(-2px); }
+}
+
+/* corazones que salen del chico (solo en el coro) */
+#escena-humano .corazones { opacity: 0; transition: opacity .6s steps(3); }
+#escena-humano .corh { animation: sube-cor var(--d, 4s) steps(24) infinite; animation-delay: var(--w, 0s); }
+@keyframes sube-cor {
+  0%   { transform: translate(0, 0) rotate(-10deg); opacity: 0; }
+  15%  { opacity: 1; }
+  100% { transform: translate(var(--x, 0), -300px) rotate(12deg); opacity: 0; }
+}
+
+/* calle: reflejos que tiemblan en el agua */
+#escena-humano .reflejos { animation: reflejo 1.4s steps(3) infinite; transform-origin: center top; }
+@keyframes reflejo {
+  0%, 100% { transform: scale(1, 1); opacity: .9; }
+  50%      { transform: scale(1.06, .97); opacity: .65; }
+}
+/* auto que pasa de vez en cuando */
+#escena-humano .auto { animation: pasa-auto 14s steps(40) infinite; animation-delay: 4s; transform: translateX(-600px); }
+@keyframes pasa-auto {
+  0%        { transform: translateX(1600px); }
+  28%, 100% { transform: translateX(-600px); }
+}
+/* título pintado en el asfalto, letras que bailan */
+#escena-humano .letra { transform-origin: center; animation: salta 1.4s steps(2) infinite; }
+#escena-humano .titulo { animation: aparece .5s steps(3) 2.2s both; }
+
+/* lluvia y charcos (en los versos) */
+#escena-humano .lluvia, #escena-humano .charcos { opacity: 0; transition: opacity 1.2s steps(4); }
+#escena-humano .lluvia path { animation: llueve var(--d, 1s) steps(6) infinite; animation-delay: var(--w, 0s); }
+@keyframes llueve {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-40px, 900px); }
+}
+#escena-humano .charcos ellipse { transform-origin: center; animation: charco var(--d, 2s) steps(5) infinite; animation-delay: var(--w, 0s); }
+@keyframes charco {
+  0%   { transform: scale(.2); opacity: .9; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+/* qué cambia con cada parte de la canción */
+#escena-humano.s-verso .lluvia { opacity: .8; }
+#escena-humano.s-verso .charcos { opacity: 1; }
+#escena-humano.s-coro .corazones { opacity: 1; }
+#escena-humano.s-coro .brillo-panel { animation: none; transform: scale(1.35); }
+#escena-humano.s-coro .leds { animation-duration: .5s; }
+#escena-humano.s-coro .cabeza { animation: mira-arriba 3s steps(2) infinite; }
+@keyframes mira-arriba {
+  0%, 100% { transform: translateY(-2px) rotate(-10deg); }
+  50%      { transform: translateY(-3px) rotate(8deg); }
+}
+#escena-humano.s-intro .brillo-panel { opacity: .6; }
+
+/* ---- colores de cada canción en los subtítulos, el botón y los mensajes ---- */
+body.cancion-humano #subtitulo.sub-coro { text-shadow: .06em .08em 0 #e07a35; }
+body.cancion-humano #subtitulo.sub-verso { box-shadow: .15em .2em 0 #1f9a6e; }
+body.cancion-humano #subtitulo .eco { color: #f08a4a; }
+body.cancion-humano #start-btn-container .button { box-shadow: .18em .22em 0 #1f9a6e; }
+body.cancion-humano .flower-message { text-shadow: .06em .08em 0 #e07a35; }
+
+/* ---- menú de canciones: portaditas pegadas con cinta ---- */
+#discos {
+  position: fixed;
+  top: calc(3.5vmin + 12px);
+  left: calc(3.5vmin + 12px);
+  z-index: 130;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-family: 'Gochi Hand', 'Comic Sans MS', cursive;
+}
+.discos-titulo {
+  position: absolute;
+  top: -.2em;
+  left: calc(100% + 10px);
+  white-space: nowrap;
+  font-size: 18px;
+  color: #161616;
+  background: #ebe6da;
+  padding: 0 .5em .1em;
+  border-radius: 3px 10px 4px 8px / 8px 4px 10px 3px;
+  box-shadow: .12em .16em 0 #d13a22;
+  transform: rotate(3deg);
+  filter: url(#marcador);
+}
+/* ecualizador de crayón cuando suena la música */
+.ecualizador { display: inline-flex; gap: 2px; align-items: flex-end; height: .7em; margin-left: .2em; }
+.ecualizador i { display: block; width: 3px; height: 30%; background: #d13a22; border-radius: 2px; }
+body.sonando .ecualizador i { animation: eq .5s steps(3) infinite; }
+body.sonando .ecualizador i:nth-child(2) { animation-delay: -.2s; }
+body.sonando .ecualizador i:nth-child(3) { animation-delay: -.35s; }
+@keyframes eq {
+  0%, 100% { height: 30%; }
+  50%      { height: 100%; }
+}
+
+.disco {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 92px;
+  padding: 7px 7px 6px;
+  background: #ebe6da;
+  border: 3px solid #161616;
+  border-radius: 6px 12px 5px 10px / 10px 5px 12px 6px;
+  box-shadow: .25em .3em 0 rgba(22, 22, 22, .55);
+  color: #161616;
+  font: inherit;
+  cursor: pointer;
+  transform: rotate(var(--rot));
+  transition: transform .15s steps(2), opacity .3s;
+  opacity: .78;
+}
+.disco:hover, .disco:focus-visible { transform: rotate(0) scale(1.08); opacity: 1; outline: none; }
+.disco.activo { opacity: 1; }
+.disco .cinta {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 46px;
+  height: 16px;
+  margin-left: -23px;
+  background: rgba(233, 230, 138, .75);
+  transform: rotate(calc(var(--rot) * -1.5));
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .15);
+}
+.disco .portadita {
+  display: block;
+  width: 74px;
+  height: 74px;
+  border: 2px solid #161616;
+  overflow: hidden;
+  filter: url(#marcador);
+}
+.disco .portadita svg { display: block; width: 100%; height: 100%; }
+.disco-lado { font-size: 12px; line-height: 1; margin-top: 5px; color: #6a665c; }
+.disco-nombre { font-size: 15px; line-height: 1.05; text-align: center; }
+/* círculo rojo de marcador alrededor de la canción que suena */
+.disco .circulo {
+  position: absolute;
+  inset: -14px -12px;
+  width: calc(100% + 24px);
+  height: calc(100% + 28px);
+  pointer-events: none;
+  overflow: visible;
+  filter: url(#marcador);
+}
+.disco .circulo path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.disco.activo .circulo path { animation: trazar .7s steps(10) both; }
+.disco.activo .portadita { animation: boton-salta 1.4s steps(2) infinite; }
+
+/* borrón de crayón que tapa la pantalla al cambiar de canción */
+#borron {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 125;
+  display: none;
+  pointer-events: none;
+  opacity: 1;
+}
+#borron.fuera { opacity: 0; transition: opacity .6s steps(5); }
+
+@media (max-width: 480px) {
+  #discos { top: 14px; left: 14px; gap: 10px; }
+  .disco { width: 58px; padding: 5px 5px 4px; }
+  .disco .portadita { width: 44px; height: 44px; }
+  .disco-nombre, .disco-lado { display: none; }
+  .discos-titulo { font-size: 14px; }
+  .flower-message { top: calc(9vh + 56px) !important; }
+}
+
+/* pantallas verticales: el recorte deja ver solo el centro, el título se acomoda bajo la parada */
+@media (max-aspect-ratio: 1/1) {
+  #escena-humano .titulo { transform: translate(54px, 236px) scale(.6); }
+}
