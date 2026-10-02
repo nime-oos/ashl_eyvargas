@@ -95,3 +95,19 @@ Cuando terminan de mostrarse todos los mensajes, se llama a `animateHeart()`:
 - La luna va en su propia capa 3D (`capa-luna`, un poco al frente) para que el apagón no la tape.
 - `sincronizar.html` ya incluye "Luna". Audio: `musica/Zoé - Luna (MTV Unplugged).mp3`.
 - Letra corregida (versión del unplugged, líneas más cortas y nuevos tiempos). Como ahora las frases vienen partidas, la escena también reacciona a "recuperarme" (luna), "consumir" (fuego) y "morir" (beso) para que el efecto siga durante toda la frase.
+
+## 2026-10-01 — Quinta canción "Labios rotos" (Zoé)
+
+- **Menú**: nueva portadita **lado E · Labios rotos** (enlace directo: `index.html#labios-rotos`). Borrón rojo de lámpara con el título en rosa y sombra vino.
+- **Escena** (`js/escena-labios.js`, `css/labios.css`, letra en `js/letra-labios.js`): la foto del florero bajo la lámpara de atardecer redibujada con crayón y marcador: muro oscuro con el gran círculo de luz roja, las sombras gigantes de las flores en la pared (dos flores arriba, una grande a la izquierda, helechos, tallos y la sombra del florero), y al frente el florero blanco teñido de rosa con el ramo de flores rosas, dos rojas oscuras, tallos, hojas y helechos. Título "Labios rotos" pintado arriba a la derecha con un besito partido. La luz sigue al mouse o al dedo y las sombras se mueven al revés, como si movieras la lámpara.
+- **La escena reacciona a cada línea**:
+  - "Regálame tu corazón": un corazón grande late dentro de la luz. "Déjame entrar a ese lugar": el círculo de luz se abre.
+  - "Donde nacen las flores": brotan seis flores nuevas en el ramo. "Nace el amor" / "con todo mi amor": suben corazoncitos.
+  - "Entrégame tus labios rotos": aparecen unos labios con una grieta que se dibuja sola. "Los quiero besar": los labios mandan besos y salen besitos por toda la pared. "Curar" / "cuidar": la grieta se borra y le ponen una curita.
+  - "Es raro el amor": la luz cambia de color a saltos y las sombras bailan solas. "Que se te aparece…": llueven pétalos.
+  - "No importa la distancia, ni el tiempo, ni la edad": la luz cruza de lado a lado como el sol y las sombras se estiran con ella.
+  - "Moja el desierto de mi alma": llueve. "Con tu mirar, con tu tierna voz": tres flores abren los ojos (siguen al mouse) y cantan.
+  - "Con tu mano en mi mano": dos manos de sombra entran por la pared y se tocan. "Por la eternidad": se dibuja un infinito con estrellitas.
+  - "Ah-ah-ah": el ramo se mece y la luz respira. "Amor, amor": corazón grande y corazoncitos.
+- En pantallas verticales el título, los labios, el corazón y el infinito se recorren al centro para que no los corte la orilla.
+- `sincronizar.html` ya incluye "Labios rotos". Audio: `musica/Labios Rotos - Zoé Letra. ♡.mp3`.

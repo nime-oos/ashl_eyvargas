@@ -1,0 +1,620 @@
+/* Escena "Labios rotos" (Zoé): florero bajo la luz roja con las sombras de las flores en la pared */
+#escena-labios {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s;
+  perspective: 900px;
+  background: #170f12;
+}
+
+#escena-labios.visible {
+  opacity: 1;
+}
+
+body.cambiando #escena-labios {
+  transition: none !important;
+}
+
+#escena-labios .mundo {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .2s ease-out;
+}
+
+#escena-labios .capa {
+  position: absolute;
+  inset: -5%;
+}
+
+#escena-labios .capa-fondo {
+  transform: translateZ(-70px) scale(1.08);
+}
+
+/* lo que aparece en la luz va un poco al frente del ramo */
+#escena-labios .capa-luz {
+  transform: translateZ(12px) scale(.988);
+}
+
+#escena-labios .capa-frente {
+  transform: translateZ(35px) scale(.965);
+}
+
+#escena-labios :is(.sol, .sombra, .mano, .ramo, .flor, .flor-brote, .brote, .boca-flor, .parpado-flor, .pup,
+  .corazon-grande, .labios, .curita, .estrellita, .petalo-cae, .gota, .besito, .corazoncito, .letra) {
+  transform-box: fill-box;
+}
+
+#escena-labios .marco {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+/* las líneas de marcador se dibujan solas al llegar */
+#escena-labios.dibujando .linea {
+  stroke-dasharray: 1;
+  animation: trazar 2.4s steps(24) both;
+}
+
+/* ---- la luz y las sombras ---- */
+/* la lámpara sigue al mouse y las sombras se van para el otro lado */
+#escena-labios .sol-mouse {
+  transform: translate(calc(var(--px, 0) * 24px), calc(var(--py, 0) * 14px));
+  transition: transform .3s steps(3);
+}
+
+#escena-labios .sombras-mouse {
+  transform: translate(calc(var(--px, 0) * -34px), calc(var(--py, 0) * -18px));
+  transition: transform .3s steps(3);
+}
+
+#escena-labios .sol {
+  transform-origin: center;
+  animation: labios-respira 5s steps(5) infinite;
+  transition: transform 1s steps(6);
+}
+
+@keyframes labios-respira {
+
+  0%,
+  100% {
+    opacity: .92;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+#escena-labios .tinte-raro {
+  fill: #ff3aa0;
+  opacity: 0;
+  transition: opacity .5s steps(3);
+}
+
+#escena-labios .sombra {
+  transform-origin: center bottom;
+  animation: labios-sombra 5s steps(6) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes labios-sombra {
+
+  0%,
+  100% {
+    transform: rotate(-1.5deg);
+  }
+
+  50% {
+    transform: rotate(1.5deg);
+  }
+}
+
+/* ---- el ramo ---- */
+#escena-labios .ramo {
+  transform-origin: center bottom;
+  animation: labios-mece 4.4s steps(6) infinite;
+}
+
+@keyframes labios-mece {
+
+  0%,
+  100% {
+    transform: rotate(-1deg);
+  }
+
+  50% {
+    transform: rotate(1deg);
+  }
+}
+
+#escena-labios .flor {
+  transform-origin: center;
+  animation: labios-flor 2.8s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes labios-flor {
+
+  0%,
+  100% {
+    transform: rotate(0) scale(1);
+  }
+
+  50% {
+    transform: rotate(4deg) scale(1.03);
+  }
+}
+
+/* título pintado */
+#escena-labios .letra {
+  transform-origin: center;
+  animation: salta 1.4s steps(2) infinite;
+}
+
+#escena-labios .titulo {
+  animation: aparece .5s steps(3) 2.2s both;
+}
+
+/* ---- "regálame tu corazón": un corazón grande late dentro de la luz ---- */
+#escena-labios .corazon-grande {
+  transform-origin: center;
+  opacity: 0;
+  transform: scale(.3) rotate(-20deg);
+  transition: transform .6s steps(4), opacity .4s steps(3);
+}
+
+#escena-labios.en-corazon .corazon-grande {
+  opacity: 1;
+  transform: scale(1);
+  animation: latido 1s steps(4) .6s infinite;
+}
+
+/* "déjame entrar a ese lugar": la luz se abre */
+#escena-labios.en-lugar .sol {
+  transform: scale(1.2);
+}
+
+/* ---- "donde nacen las flores": brotan flores nuevas ---- */
+#escena-labios .brote {
+  transform-origin: center bottom;
+  opacity: 0;
+  transform: scale(0);
+  transition: transform .9s steps(6), opacity .3s steps(2);
+  transition-delay: var(--w, 0s);
+}
+
+#escena-labios.en-flores .brote {
+  opacity: 1;
+  transform: scale(1);
+}
+
+#escena-labios .flor-brote {
+  transform-origin: center;
+}
+
+#escena-labios.en-flores .flor-brote {
+  animation: labios-flor 1.4s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+/* ---- "nace el amor" / "con todo mi amor": corazoncitos que suben ---- */
+#escena-labios .corazoncito {
+  opacity: 0;
+  transform-origin: center;
+}
+
+#escena-labios.en-amor .corazoncito {
+  animation: labios-sube 2.4s steps(12) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes labios-sube {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(.4);
+  }
+
+  15% {
+    opacity: 1;
+    transform: translate(0, -30px) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--x, 0px), -300px) scale(1) rotate(12deg);
+  }
+}
+
+/* ---- "entrégame tus labios rotos": labios partidos en la luz ---- */
+#escena-labios .labios {
+  transform-origin: center;
+  opacity: 0;
+  transform: scale(.4) rotate(8deg);
+  transition: transform .6s steps(4), opacity .4s steps(3);
+}
+
+#escena-labios.en-labios .labios {
+  opacity: 1;
+  transform: scale(1);
+}
+
+#escena-labios .grieta {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+#escena-labios.en-labios .grieta {
+  animation: trazar .8s steps(8) .4s both;
+}
+
+#escena-labios .grieta-labios {
+  transition: opacity .6s steps(3);
+}
+
+/* "los quiero besar": besitos por toda la pared y los labios mandan besos */
+#escena-labios.en-besar .labios {
+  animation: labios-besa .8s steps(2) .6s infinite;
+}
+
+@keyframes labios-besa {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(.88, 1.08);
+  }
+}
+
+#escena-labios .besito {
+  transform-origin: center;
+  opacity: 0;
+}
+
+#escena-labios.en-besar .besito {
+  animation: labios-besito 1.8s steps(6) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes labios-besito {
+  0% {
+    opacity: 0;
+    transform: scale(.2) rotate(-20deg);
+  }
+
+  30%,
+  70% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.1) translateY(-20px);
+  }
+}
+
+/* "los quiero curar" / "los voy a cuidar": se cierra la grieta y le ponen una curita */
+#escena-labios .curita {
+  transform-origin: center;
+  opacity: 0;
+  transform: scale(0) rotate(40deg);
+  transition: transform .5s steps(4), opacity .3s steps(2);
+}
+
+#escena-labios.en-curar .curita {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: .7s;
+}
+
+#escena-labios.en-curar .grieta-labios {
+  opacity: .25;
+}
+
+/* ---- "es raro el amor": la luz cambia de color y las sombras bailan solas ---- */
+#escena-labios.en-raro .tinte-raro {
+  opacity: .45;
+  animation: labios-raro 1.6s steps(1) infinite;
+}
+
+@keyframes labios-raro {
+
+  0%,
+  100% {
+    fill: #ff3aa0;
+  }
+
+  25% {
+    fill: #ff7a2a;
+  }
+
+  50% {
+    fill: #a03aff;
+  }
+
+  75% {
+    fill: #ff2a4a;
+  }
+}
+
+#escena-labios.en-raro .sombra {
+  animation: labios-baila .8s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes labios-baila {
+
+  0%,
+  100% {
+    transform: rotate(-8deg) translateX(-10px);
+  }
+
+  50% {
+    transform: rotate(8deg) translateX(10px) scale(1.06);
+  }
+}
+
+/* ---- "que se te aparece cuando menos piensas": llueven pétalos ---- */
+#escena-labios .petalo-cae {
+  opacity: 0;
+  transform-origin: center;
+}
+
+#escena-labios.en-aparece .petalo-cae {
+  animation: labios-petalo 4s steps(16) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes labios-petalo {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0);
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--x, 0px), 880px) rotate(540deg);
+  }
+}
+
+/* ---- "no importa la distancia, ni el tiempo, ni la edad": la luz cruza como el sol ---- */
+#escena-labios.en-tiempo .sol-tiempo {
+  animation: labios-sol 6s steps(12) infinite alternate;
+}
+
+@keyframes labios-sol {
+  from {
+    transform: translate(-200px, 40px);
+  }
+
+  to {
+    transform: translate(200px, -20px);
+  }
+}
+
+/* las sombras se estiran desde el pie del florero */
+#escena-labios.en-tiempo .sombras-tiempo {
+  transform-origin: 424px 604px;
+  animation: labios-sombras-sol 6s steps(12) infinite alternate;
+}
+
+@keyframes labios-sombras-sol {
+  from {
+    transform: translate(260px, -30px) skewX(-18deg);
+  }
+
+  to {
+    transform: translate(-120px, 20px) skewX(14deg);
+  }
+}
+
+/* ---- "moja el desierto de mi alma": llueve sobre el ramo ---- */
+#escena-labios .gota {
+  opacity: 0;
+}
+
+#escena-labios.en-lluvia .gota {
+  opacity: .8;
+  animation: labios-gota .9s steps(6) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes labios-gota {
+  from {
+    transform: translate(0, 0);
+  }
+
+  to {
+    transform: translate(-60px, 260px);
+  }
+}
+
+#escena-labios.en-lluvia .sol {
+  opacity: .7;
+  animation: none;
+}
+
+/* ---- "con tu mirar, con tu tierna voz": las flores abren los ojos y cantan ---- */
+#escena-labios .cara-flor {
+  opacity: 0;
+  transition: opacity .3s steps(2);
+}
+
+#escena-labios.en-mirar .cara-flor {
+  opacity: 1;
+}
+
+#escena-labios .parpado-flor {
+  transform-origin: center;
+  animation: parpadeo 4.5s steps(1) infinite;
+}
+
+#escena-labios.en-mirar .pup {
+  transform: translate(calc(var(--px, 0) * 2px), calc(var(--py, 0) * 2px));
+  transition: transform .25s steps(3);
+}
+
+#escena-labios .boca-flor {
+  transform-origin: center;
+}
+
+#escena-labios.en-mirar .boca-flor {
+  animation: labios-canta .5s steps(2) infinite;
+}
+
+@keyframes labios-canta {
+
+  0%,
+  100% {
+    transform: scaleY(.5);
+  }
+
+  50% {
+    transform: scaleY(1.6);
+  }
+}
+
+/* ---- "con tu mano en mi mano": dos manos de sombra se toman en la pared ---- */
+#escena-labios .mano {
+  opacity: 0;
+  transition: transform 1.2s steps(8), opacity .5s steps(3);
+}
+
+#escena-labios .mano-izq {
+  transform: translateX(-380px);
+}
+
+#escena-labios .mano-der {
+  transform: translateX(380px);
+}
+
+#escena-labios.en-manos .mano {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* las otras sombras se hacen a un lado para que se vean las manos */
+#escena-labios.en-manos .sombra {
+  opacity: .3;
+}
+
+/* ---- "por la eternidad": se dibuja un infinito con estrellitas ---- */
+#escena-labios .eterno {
+  opacity: 0;
+  transition: opacity .4s steps(2);
+}
+
+#escena-labios.en-eternidad .eterno {
+  opacity: 1;
+}
+
+#escena-labios .infinito {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+#escena-labios.en-eternidad .infinito {
+  animation: trazar 1.6s steps(16) both;
+}
+
+#escena-labios .estrellita {
+  transform-origin: center;
+}
+
+#escena-labios.en-eternidad .estrellita {
+  animation: labios-brilla .9s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes labios-brilla {
+
+  0%,
+  100% {
+    transform: scale(.5) rotate(0);
+  }
+
+  50% {
+    transform: scale(1.2) rotate(45deg);
+  }
+}
+
+/* ---- "ah-ah-ah": el ramo se mece y la luz respira ---- */
+#escena-labios.en-ah .ramo {
+  animation: labios-mece-fuerte 1.6s steps(4) infinite;
+}
+
+@keyframes labios-mece-fuerte {
+
+  0%,
+  100% {
+    transform: rotate(-3.5deg);
+  }
+
+  50% {
+    transform: rotate(3.5deg);
+  }
+}
+
+#escena-labios.en-ah .sol {
+  animation: labios-respira-fuerte 1.6s steps(4) infinite;
+}
+
+@keyframes labios-respira-fuerte {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+/* pantallas verticales: el título baja al centro para que no lo corte el recorte */
+@media (max-aspect-ratio: 1/1) {
+  #escena-labios .firma {
+    transform: translate(-440px, 0);
+  }
+
+  #escena-labios .centro-luz {
+    transform: translate(180px, 150px);
+  }
+}
+
+/* ---- colores de esta canción en los subtítulos, el botón y los mensajes ---- */
+body.cancion-labios #subtitulo.sub-coro {
+  text-shadow: .06em .08em 0 #e8243f;
+}
+
+body.cancion-labios #subtitulo.sub-verso {
+  box-shadow: .15em .2em 0 #e8243f;
+}
+
+body.cancion-labios #subtitulo .eco {
+  color: #ff8a96;
+}
+
+body.cancion-labios #start-btn-container .button {
+  box-shadow: .18em .22em 0 #e8243f;
+}
+
+body.cancion-labios .flower-message {
+  text-shadow: .06em .08em 0 #e8243f;
+}

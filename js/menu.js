@@ -21,7 +21,10 @@
       borron: ['#ecebe6', '#dcdcd6', '#b5c2c9', '#8fa3b0', '#f6f5f0', '#6f8796'], base: '#e4e3dd', tinta: '#c8332a', sombra: '#6f8796' },
     { id: 'luna', lado: 'lado D', titulo: 'Luna', src: 'musica/Zoé - Luna (MTV Unplugged).mp3',
       lrc: window.LETRA_LUNA_LRC, secciones: window.SECCIONES_LUNA,
-      borron: ['#0d1a3a', '#12244f', '#1b3570', '#2b5fb8', '#e8892e', '#2a1f4f'], base: '#0f1b3d', tinta: '#f3e9b8', sombra: '#e8892e' }
+      borron: ['#0d1a3a', '#12244f', '#1b3570', '#2b5fb8', '#e8892e', '#2a1f4f'], base: '#0f1b3d', tinta: '#f3e9b8', sombra: '#e8892e' },
+    { id: 'labios', enlace: 'labios-rotos', lado: 'lado E', titulo: 'Labios rotos', src: 'musica/Labios Rotos - Zoé Letra. ♡.mp3',
+      lrc: window.LETRA_LABIOS_LRC, secciones: window.SECCIONES_LABIOS,
+      borron: ['#e8243f', '#c81d3a', '#f03a50', '#3a1a22', '#ff5a6a', '#1e1418'], base: '#d81e3a', tinta: '#ffe0e4', sombra: '#3a1a22' }
   ];
 
   // mini portadas dibujadas con marcador
@@ -66,6 +69,17 @@
       '<path d="M56 46 H68 L70 65 H54Z" fill="#1e2230"/><circle cx="62" cy="41" r="5" fill="#d9a27a"/><path d="M56 42 C54 33 70 33 68 42 C66 38 58 38 56 42Z" fill="#1a1412"/>' +
       '<path d="M50 56 L32 48" stroke="#3a2418" stroke-width="2.5"/>' +
       '<path d="M48 56 C48 50 56 50 58 53 C61 49 71 51 71 57 C71 63 61 64 58 61 C56 64 48 63 48 56Z" fill="#d89a52" stroke="#161616" stroke-width="1.2"/>' +
+      '</svg>',
+    labios: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#170f12"/>' +
+      '<circle cx="42" cy="44" r="40" fill="#e8243f"/><circle cx="36" cy="36" r="22" fill="#ff5a6a" opacity=".4"/>' +
+      '<path d="M36 74 C34 60 34 40 30 18 M36 74 C40 56 46 38 50 16 M36 74 C30 62 22 52 16 44" stroke="#1c0a0f" stroke-width="2" fill="none" opacity=".85"/>' +
+      '<circle cx="30" cy="16" r="9" fill="#1c0a0f" opacity=".85"/><circle cx="50" cy="14" r="9" fill="#1c0a0f" opacity=".85"/><circle cx="16" cy="42" r="10" fill="#1c0a0f" opacity=".85"/>' +
+      '<path d="M26 100 C24 90 28 84 34 82 L46 82 C52 86 52 92 50 100Z" fill="#1c0a0f" opacity=".85"/>' +
+      '<path d="M60 84 C58 66 54 48 54 34 M60 84 C64 70 70 58 78 50 M60 84 C56 72 46 64 40 60" stroke="#2a1418" stroke-width="2" fill="none"/>' +
+      '<circle cx="54" cy="32" r="8" fill="#f8c8cc" stroke="#161616" stroke-width="1.5"/><circle cx="54" cy="32" r="2.6" fill="#5a1420"/>' +
+      '<circle cx="78" cy="48" r="6.5" fill="#f4b0b8" stroke="#161616" stroke-width="1.5"/><circle cx="78" cy="48" r="2" fill="#5a1420"/>' +
+      '<circle cx="40" cy="60" r="6" fill="#a8182e" stroke="#161616" stroke-width="1.5"/>' +
+      '<path d="M52 84 C50 90 48 94 49 100 L71 100 C72 94 70 90 68 84Z" fill="#f2a8b0" stroke="#161616" stroke-width="1.8"/><ellipse cx="60" cy="84" rx="8" ry="2" fill="#f6c2c8" stroke="#161616" stroke-width="1.2"/>' +
       '</svg>'
   };
 
@@ -186,7 +200,7 @@
     elegir(CANCIONES[(i + 1) % CANCIONES.length].id);
   });
 
-  // canción inicial: la del enlace (#humano, #piensas-en-mi, #luna) o la del lado A
+  // canción inicial: la del enlace (#humano, #piensas-en-mi, #luna, #labios-rotos) o la del lado A
   var hash = decodeURIComponent(location.hash.replace('#', ''));
   var porEnlace = CANCIONES.filter(function (o) { return (o.enlace || o.id) === hash || o.id === hash; })[0];
   var inicial = porEnlace ? porEnlace.id : 'nada';
