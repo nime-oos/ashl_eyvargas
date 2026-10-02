@@ -25,13 +25,14 @@
     <option value="musica/LATIN MAFIA - No digas nada (LYRIC VIDEO).mp3">No digas nada → js/letra.js</option>
     <option value="musica/LATIN MAFIA Más humano (Audio Oficial).mp3">Más humano → js/letra-humano.js</option>
     <option value="musica/Fred again.., LATIN MAFIA - Piensas En Mi.mp3">Piensas en mí → js/letra-alvafro.js</option>
+    <option value="musica/Zoé - Luna (MTV Unplugged).mp3">Luna → js/letra-luna.js</option>
   </select>
   <audio id="audio" controls src="musica/LATIN MAFIA - No digas nada (LYRIC VIDEO).mp3"></audio>
   <button id="empezar">Empezar</button>
   <button id="copiar" class="sec">Copiar resultado</button>
   <div id="actual"></div>
   <div id="siguiente"></div>
-  <p>Resultado (pégalo en <code>js/letra.js</code> → <code>LETRA_LRC</code>, <code>js/letra-humano.js</code> → <code>LETRA_HUMANO_LRC</code> o <code>js/letra-alvafro.js</code> → <code>LETRA_ALVAFRO_LRC</code>):</p>
+  <p>Resultado (pégalo en <code>js/letra.js</code> → <code>LETRA_LRC</code>, <code>js/letra-humano.js</code> → <code>LETRA_HUMANO_LRC</code>, <code>js/letra-alvafro.js</code> → <code>LETRA_ALVAFRO_LRC</code> o <code>js/letra-luna.js</code> → <code>LETRA_LUNA_LRC</code>):</p>
   <textarea id="salida" readonly></textarea>
 <script>
   var audio = document.getElementById('audio'), entrada = document.getElementById('entrada'), salida = document.getElementById('salida');

@@ -18,7 +18,10 @@
       borron: ['#121a15', '#1e2c1e', '#1f7a5a', '#3d6a9a', '#b06a3a', '#0c110f'], base: '#101612', tinta: '#ebe6da', sombra: '#e07a35' },
     { id: 'alvafro', enlace: 'piensas-en-mi', lado: 'lado C', titulo: 'Piensas en mí', src: 'musica/Fred again.., LATIN MAFIA - Piensas En Mi.mp3',
       lrc: window.LETRA_ALVAFRO_LRC, secciones: window.SECCIONES_ALVAFRO,
-      borron: ['#ecebe6', '#dcdcd6', '#b5c2c9', '#8fa3b0', '#f6f5f0', '#6f8796'], base: '#e4e3dd', tinta: '#c8332a', sombra: '#6f8796' }
+      borron: ['#ecebe6', '#dcdcd6', '#b5c2c9', '#8fa3b0', '#f6f5f0', '#6f8796'], base: '#e4e3dd', tinta: '#c8332a', sombra: '#6f8796' },
+    { id: 'luna', lado: 'lado D', titulo: 'Luna', src: 'musica/Zoé - Luna (MTV Unplugged).mp3',
+      lrc: window.LETRA_LUNA_LRC, secciones: window.SECCIONES_LUNA,
+      borron: ['#0d1a3a', '#12244f', '#1b3570', '#2b5fb8', '#e8892e', '#2a1f4f'], base: '#0f1b3d', tinta: '#f3e9b8', sombra: '#e8892e' }
   ];
 
   // mini portadas dibujadas con marcador
@@ -51,6 +54,18 @@
       '<path d="M86 30 L90 86 M94 30 L98 86 M87 44 H95 M88 58 H96 M89 72 H97" stroke="#a7adb2" stroke-width="2"/>' +
       '<path d="M84 18 H100 V50 C96 52 90 50 84 52Z" fill="#e9e8e2" opacity=".8"/>' +
       '<path d="M0 84 C10 78 26 80 30 88 V100 H0Z" fill="#c9cdcd"/>' +
+      '</svg>',
+    luna: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#0f1b3d"/>' +
+      '<path d="M20 62 V14 M50 62 V40 M80 62 V14" stroke="#2b5fb8" stroke-width="7" opacity=".45"/>' +
+      '<rect y="62" width="100" height="38" fill="#1c2333"/>' +
+      '<path d="M0 76 L30 72 L42 100 H0Z" fill="#8a2a22"/><path d="M56 80 L100 76 V100 H62Z" fill="#2f3478"/>' +
+      '<path d="M60 86 Q66 82 72 86 T84 86 T96 86" stroke="#e8d6a8" stroke-width="1.5" fill="none"/>' +
+      '<circle cx="50" cy="20" r="12" fill="#f3e9b8" stroke="#161616" stroke-width="2"/><circle cx="45" cy="16" r="2.6" fill="#d9c98a"/><circle cx="55" cy="25" r="2" fill="#d9c98a"/>' +
+      '<path d="M10 28 V62 M89 36 V62" stroke="#3a3f4a" stroke-width="1.5"/><circle cx="10" cy="24" r="6" fill="#f2a03a" stroke="#161616" stroke-width="1.2"/><circle cx="89" cy="32" r="5" fill="#f2a03a" stroke="#161616" stroke-width="1.2"/>' +
+      '<path d="M58 66 L56 86 M66 66 L68 86" stroke="#8a9095" stroke-width="2"/><ellipse cx="62" cy="66" rx="8" ry="2.6" fill="#e8892e" stroke="#161616" stroke-width="1"/>' +
+      '<path d="M56 46 H68 L70 65 H54Z" fill="#1e2230"/><circle cx="62" cy="41" r="5" fill="#d9a27a"/><path d="M56 42 C54 33 70 33 68 42 C66 38 58 38 56 42Z" fill="#1a1412"/>' +
+      '<path d="M50 56 L32 48" stroke="#3a2418" stroke-width="2.5"/>' +
+      '<path d="M48 56 C48 50 56 50 58 53 C61 49 71 51 71 57 C71 63 61 64 58 61 C56 64 48 63 48 56Z" fill="#d89a52" stroke="#161616" stroke-width="1.2"/>' +
       '</svg>'
   };
 
@@ -64,7 +79,7 @@
     var b = document.createElement('button');
     b.className = 'disco';
     b.type = 'button';
-    b.style.setProperty('--rot', [-5, 4, -3][i % 3] + 'deg');
+    b.style.setProperty('--rot', [-5, 4, -3, 5][i % 4] + 'deg');
     b.innerHTML = '<span class="cinta"></span><span class="portadita">' + MINI[c.id] + '</span>' +
       '<span class="disco-lado">' + c.lado + '</span><span class="disco-nombre">' + c.titulo + '</span>' +
       '<svg class="circulo" viewBox="0 0 120 150" aria-hidden="true"><path pathLength="1" d="M60 6 C100 4 116 30 114 76 C112 122 96 146 58 144 C18 142 4 118 6 72 C8 30 26 8 66 10" fill="none" stroke="#d13a22" stroke-width="6" stroke-linecap="round"/></svg>';
@@ -171,7 +186,7 @@
     elegir(CANCIONES[(i + 1) % CANCIONES.length].id);
   });
 
-  // canción inicial: la del enlace (#humano, #piensas-en-mi) o la del lado A
+  // canción inicial: la del enlace (#humano, #piensas-en-mi, #luna) o la del lado A
   var hash = decodeURIComponent(location.hash.replace('#', ''));
   var porEnlace = CANCIONES.filter(function (o) { return (o.enlace || o.id) === hash || o.id === hash; })[0];
   var inicial = porEnlace ? porEnlace.id : 'nada';

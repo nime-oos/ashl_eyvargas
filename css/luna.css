@@ -1,0 +1,626 @@
+/* Escena "Luna" (Zoé, MTV Unplugged): escenario azul con globos de luz, alfombras y la luna */
+#escena-luna {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s;
+  perspective: 900px;
+  background: #0a1128;
+}
+
+#escena-luna.visible {
+  opacity: 1;
+}
+
+body.cambiando #escena-luna {
+  transition: none !important;
+}
+
+#escena-luna .mundo {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .2s ease-out;
+}
+
+#escena-luna .capa {
+  position: absolute;
+  inset: -5%;
+}
+
+#escena-luna .capa-fondo {
+  transform: translateZ(-70px) scale(1.08);
+}
+
+/* la luna va delante de la banda (en 3D lo que tiene menos Z queda detrás) */
+#escena-luna .capa-luna {
+  transform: translateZ(12px) scale(.988);
+}
+
+#escena-luna .capa-frente {
+  transform: translateZ(35px) scale(.965);
+}
+
+#escena-luna :is(.globo, .foco, .pajaro, .cabecea, .mece, .rasguea, .rasguea2, .baqueta, .platillo, .bombo, .cabeza-leon, .pup,
+  .luna, .luna-flota, .crater, .luna-parpado, .haz, .llama, .ola, .mares, .beso, .chispa, .alfombras, .letra) {
+  transform-box: fill-box;
+}
+
+#escena-luna .marco {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+/* las líneas de marcador se dibujan solas al llegar */
+#escena-luna.dibujando .linea {
+  stroke-dasharray: 1;
+  animation: trazar 2.4s steps(24) both;
+}
+
+/* ---- el escenario tocando ---- */
+#escena-luna .globo {
+  animation: luna-globo 3.2s steps(3) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luna-globo {
+
+  0%,
+  100% {
+    opacity: .85;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+#escena-luna .lampara {
+  animation: luna-globo 2.6s steps(2) infinite;
+}
+
+#escena-luna .foco {
+  animation: luna-reflector 5s steps(1) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luna-reflector {
+
+  0%,
+  100% {
+    opacity: .95;
+  }
+
+  50% {
+    opacity: .55;
+  }
+}
+
+#escena-luna .pajaro {
+  transform-origin: center bottom;
+  animation: luna-pajaro 2.4s steps(1) infinite;
+}
+
+@keyframes luna-pajaro {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  35% {
+    transform: translate(0, -4px);
+  }
+
+  42% {
+    transform: translate(5px, 0);
+  }
+
+  75% {
+    transform: translate(-3px, 0) scaleX(-1);
+  }
+}
+
+#escena-luna .cabecea {
+  transform-origin: center bottom;
+  animation: luna-cabecea 1.6s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luna-cabecea {
+
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(-2.5deg) translateY(2px);
+  }
+}
+
+#escena-luna .mece {
+  transform-origin: center bottom;
+  animation: luna-mece 4s steps(6) infinite;
+}
+
+@keyframes luna-mece {
+
+  0%,
+  100% {
+    transform: rotate(-1.2deg);
+  }
+
+  50% {
+    transform: rotate(1.2deg);
+  }
+}
+
+#escena-luna .rasguea {
+  transform-origin: left top;
+  animation: luna-rasguea .8s steps(2) infinite;
+}
+
+#escena-luna .rasguea2 {
+  transform-origin: right top;
+  animation: luna-rasguea 1s steps(2) infinite -.3s;
+}
+
+@keyframes luna-rasguea {
+
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(7deg);
+  }
+}
+
+#escena-luna .baqueta {
+  transform-origin: right top;
+  animation: luna-baqueta .5s steps(2) infinite;
+}
+
+#escena-luna .baqueta.der {
+  transform-origin: left top;
+  animation-name: luna-baqueta-der;
+  animation-delay: -.25s;
+}
+
+@keyframes luna-baqueta {
+
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(14deg);
+  }
+}
+
+@keyframes luna-baqueta-der {
+
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(-14deg);
+  }
+}
+
+#escena-luna .platillo {
+  transform-origin: center;
+  animation: luna-platillo 1s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luna-platillo {
+
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(-4deg) translateY(1px);
+  }
+}
+
+#escena-luna .bombo {
+  transform-origin: center;
+  animation: luna-bombo 1s steps(2) infinite;
+}
+
+@keyframes luna-bombo {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+/* haz de luz que sigue al mouse */
+#escena-luna .haz {
+  transform-origin: center top;
+  transform: rotate(calc(var(--px, 0) * -18deg));
+  transition: transform .3s steps(3), opacity .6s steps(3);
+}
+
+/* título pintado */
+#escena-luna .letra {
+  transform-origin: center;
+  animation: salta 1.4s steps(2) infinite;
+}
+
+#escena-luna .titulo {
+  animation: aparece .5s steps(3) 2.2s both;
+}
+
+/* ---- la luna ---- */
+#escena-luna .luna {
+  transform-origin: center;
+  opacity: .35;
+  transform: scale(.55);
+  transition: transform 1s steps(6), opacity 1s steps(6);
+}
+
+#escena-luna .luna-flota {
+  transform-origin: center;
+  animation: luna-flota 6s steps(12) infinite;
+}
+
+@keyframes luna-flota {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(3deg);
+  }
+}
+
+#escena-luna .luna-halo {
+  opacity: .25;
+  transition: opacity 1s steps(5);
+}
+
+#escena-luna .luna-ojos {
+  opacity: 0;
+  transition: opacity .3s steps(2);
+}
+
+#escena-luna .luna-parpado {
+  transform-origin: center;
+  animation: parpadeo 4.5s steps(1) infinite;
+}
+
+#escena-luna:is(.en-luna, .en-silencio, .en-mares, .en-ojos) .luna {
+  opacity: 1;
+  transform: scale(1);
+}
+
+#escena-luna:is(.en-luna, .en-silencio) .luna-halo {
+  opacity: 1;
+}
+
+#escena-luna:is(.en-luna, .en-ojos) .luna-ojos {
+  opacity: 1;
+}
+
+#escena-luna.en-crateres .crater {
+  transform-origin: center;
+  animation: luna-crater .8s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luna-crater {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.35);
+  }
+}
+
+/* "luna" / "ojos": León abre los ojos; con la luna la mira hacia arriba, en "ojos" te mira a ti */
+#escena-luna .ojos-leon {
+  opacity: 0;
+  transition: opacity .3s steps(2);
+}
+
+#escena-luna:is(.en-luna, .en-ojos) .ojos-leon {
+  opacity: 1;
+}
+
+#escena-luna .cabeza-leon {
+  transform-origin: center bottom;
+  transition: transform .5s steps(3);
+}
+
+#escena-luna.en-luna .cabeza-leon {
+  transform: rotate(-7deg);
+}
+
+#escena-luna.en-luna .pup {
+  transform: translate(-1.2px, -1.6px);
+}
+
+#escena-luna.en-ojos .pup {
+  transform: translate(calc(var(--px, 0) * 1.4px), calc(var(--py, 0) * 1.2px));
+  transition: transform .25s steps(3);
+}
+
+/* "silencio, se abre la tierra": apagón (menos la luna) y la grieta en el piso */
+#escena-luna .apagon {
+  opacity: 0;
+  transition: opacity .8s steps(4);
+}
+
+#escena-luna.en-silencio .apagon {
+  opacity: .68;
+}
+
+#escena-luna.en-silencio .haz {
+  opacity: 0;
+}
+
+#escena-luna .grieta-g {
+  opacity: 0;
+}
+
+#escena-luna .grieta {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+#escena-luna:is(.en-silencio, .en-mares) .grieta-g {
+  opacity: 1;
+}
+
+#escena-luna:is(.en-silencio, .en-mares) .grieta {
+  animation: trazar 1.2s steps(12) both;
+}
+
+#escena-luna .grieta-lava {
+  animation: luna-globo .7s steps(2) infinite;
+}
+
+#escena-luna:is(.en-silencio, .en-mares) .alfombras {
+  animation: luna-tiembla .25s steps(2) 6;
+}
+
+/* "y se alzan los mares, al compás del volcán": sube el mar y la grieta escupe chispas */
+#escena-luna .mares {
+  opacity: 0;
+  transform: translateY(150px);
+  transition: transform 1.2s steps(8), opacity .6s steps(3);
+}
+
+#escena-luna.en-mares .mares {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#escena-luna .ola {
+  animation: luna-ola 2.4s steps(6) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luna-ola {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-40px, -10px);
+  }
+}
+
+#escena-luna .chispa {
+  opacity: 0;
+}
+
+#escena-luna.en-mares .chispa {
+  animation: luna-chispa 1.4s steps(7) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luna-chispa {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(var(--x, 0px), -150px);
+    opacity: 0;
+  }
+}
+
+/* "se acelera mi motor": estrobo de reflectores y todos tocan más rápido */
+#escena-luna.en-motor .foco {
+  animation: luna-estrobo .3s steps(1) infinite;
+}
+
+@keyframes luna-estrobo {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: .1;
+  }
+}
+
+#escena-luna.en-motor :is(.baqueta, .rasguea, .rasguea2) {
+  animation-duration: .24s;
+}
+
+#escena-luna.en-motor .bombo {
+  animation-duration: .4s;
+}
+
+#escena-luna.en-motor :is(.platillo, .cabecea) {
+  animation-duration: .5s;
+}
+
+#escena-luna.en-motor .alfombras {
+  animation: luna-tiembla .2s steps(2) infinite;
+}
+
+@keyframes luna-tiembla {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(3px, -2px);
+  }
+}
+
+/* "me da fiebre, me hago fuego": globos rojos, tinte cálido y llamas al frente */
+#escena-luna .halo-fuego {
+  opacity: 0;
+  transition: opacity .4s steps(3);
+}
+
+#escena-luna .globo-luz {
+  transition: fill .4s steps(3);
+}
+
+#escena-luna.en-fuego .halo-fuego {
+  opacity: 1;
+}
+
+#escena-luna.en-fuego .globo-luz {
+  fill: #e2502f;
+}
+
+#escena-luna.en-fuego .globo {
+  animation-duration: .6s;
+}
+
+#escena-luna .tinte-fuego {
+  opacity: 0;
+  transition: opacity .6s steps(3);
+}
+
+#escena-luna.en-fuego .tinte-fuego {
+  opacity: .16;
+}
+
+#escena-luna .llama {
+  opacity: 0;
+  transform-origin: center bottom;
+  transform: scaleY(.2);
+  transition: opacity .3s steps(2);
+}
+
+#escena-luna.en-fuego .llama {
+  opacity: 1;
+  animation: luna-llama .5s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luna-llama {
+
+  0%,
+  100% {
+    transform: scaleY(1) skewX(0);
+  }
+
+  50% {
+    transform: scaleY(1.18) skewX(5deg);
+  }
+}
+
+/* "dame solo un beso": corazones que suben */
+#escena-luna .beso {
+  opacity: 0;
+  transform-origin: center;
+}
+
+#escena-luna.en-beso .beso {
+  animation: luna-beso 2.4s steps(12) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luna-beso {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(.4);
+  }
+
+  15% {
+    opacity: 1;
+    transform: translate(0, -30px) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--x, 0px), -260px) scale(1) rotate(12deg);
+  }
+}
+
+/* pantallas verticales: el recorte deja ver el centro del escenario */
+@media (max-aspect-ratio: 1/1) {
+  #escena-luna .firma {
+    transform: translate(330px, 0);
+  }
+}
+
+/* ---- colores de esta canción en los subtítulos, el botón y los mensajes ---- */
+body.cancion-luna #subtitulo.sub-coro {
+  text-shadow: .06em .08em 0 #e8892e;
+}
+
+body.cancion-luna #subtitulo.sub-verso {
+  box-shadow: .15em .2em 0 #2b5fb8;
+}
+
+body.cancion-luna #subtitulo .eco {
+  color: #f3c15a;
+}
+
+body.cancion-luna #start-btn-container .button {
+  box-shadow: .18em .22em 0 #2b5fb8;
+}
+
+body.cancion-luna .flower-message {
+  text-shadow: .06em .08em 0 #e8892e;
+}
+
+/* con cuatro portaditas el letrero "canciones" pasa abajo en celulares */
+@media (max-width: 480px) {
+  .discos-titulo {
+    top: calc(100% + 8px);
+    left: 0;
+  }
+}

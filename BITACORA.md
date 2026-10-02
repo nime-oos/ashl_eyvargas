@@ -80,3 +80,18 @@ Cuando terminan de mostrarse todos los mensajes, se llama a `animateHeart()`:
 ## 2026-10-01 — Mensajes de ánimo
 - Los dos mensajes que se escriben al presionar el botón (`messages` en `js/main.js`) ahora son: "No llores, todo pasa 🤍" y "¡Ánimo! Aquí estoy contigo 🌷" (este último es el que se queda).
 - En escritorio pasaron a la esquina de arriba a la derecha, frente al menú (`css/escena.css`), para no tapar ninguna escena. En móvil siguen arriba al centro.
+
+## 2026-10-01 — Cuarta canción "Luna" (Zoé, MTV Unplugged)
+
+- **Menú**: nueva portadita **lado D · Luna** (enlace directo: `index.html#luna`). Borrón azul noche con el título en crema y sombra naranja. Con cuatro portaditas, en celulares el letrero "canciones" pasa debajo del menú.
+- **Escena** (`js/escena-luna.js`, `css/luna.css`, letra en `js/letra-luna.js`): el escenario del unplugged redibujado con crayón y marcador: foro azul con cortinas y luz azul desde el piso, globos de luz naranja en pedestales, reflectores de cuadritos, lámpara de mesa, jaula dorada con pajarito, alfombras persas (roja con rombos, beige con medallón, azul con olas), pufs de rayas, cables y pedalera. La banda: guitarrista con tenis blancos, tecladista de gorro con teclados rojos, organista de lentes en el clavecín de madera, contrabajo, la chica del teclado rojo, León en su banquito con guitarra, armónica y el pelo tapándole los ojos, baterista con "Zoé" y una lunita en el bombo, y una guitarra en su base. Todos tocan a saltitos. Título "LuNa" pintado abajo a la izquierda. Un haz de luz sigue al mouse o al dedo.
+- **La escena reacciona a cada línea**:
+  - "Luna": sale la luna grande con carita; León abre los ojos y la mira. En "cráteres" le laten los cráteres.
+  - "Silencio, se abre la tierra": apagón (solo queda la luna) y se abre una grieta de lava en el piso.
+  - "Se alzan los mares, al compás del volcán": sube el mar desde abajo y la grieta escupe chispas.
+  - "Se acelera mi motor": reflectores en estrobo, batería y guitarras a toda velocidad, el piso tiembla.
+  - "Me da fiebre, me hago fuego": los globos se ponen rojos y salen llamas al frente.
+  - "Dame solo un beso": suben corazones. "Mirarte a los ojos": León y la luna te miran (los ojos de León siguen al mouse).
+- La luna va en su propia capa 3D (`capa-luna`, un poco al frente) para que el apagón no la tape.
+- `sincronizar.html` ya incluye "Luna". Audio: `musica/Zoé - Luna (MTV Unplugged).mp3`.
+- Letra corregida (versión del unplugged, líneas más cortas y nuevos tiempos). Como ahora las frases vienen partidas, la escena también reacciona a "recuperarme" (luna), "consumir" (fuego) y "morir" (beso) para que el efecto siga durante toda la frase.
