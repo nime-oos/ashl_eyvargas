@@ -24,7 +24,10 @@
       borron: ['#0d1a3a', '#12244f', '#1b3570', '#2b5fb8', '#e8892e', '#2a1f4f'], base: '#0f1b3d', tinta: '#f3e9b8', sombra: '#e8892e' },
     { id: 'labios', enlace: 'labios-rotos', lado: 'lado E', titulo: 'Labios rotos', src: 'musica/Labios Rotos - Zoé Letra. ♡.mp3',
       lrc: window.LETRA_LABIOS_LRC, secciones: window.SECCIONES_LABIOS,
-      borron: ['#e8243f', '#c81d3a', '#f03a50', '#3a1a22', '#ff5a6a', '#1e1418'], base: '#d81e3a', tinta: '#ffe0e4', sombra: '#3a1a22' }
+      borron: ['#e8243f', '#c81d3a', '#f03a50', '#3a1a22', '#ff5a6a', '#1e1418'], base: '#d81e3a', tinta: '#ffe0e4', sombra: '#3a1a22' },
+    { id: 'sone', enlace: 'sone', lado: 'lado F', titulo: 'Soñé', src: 'musica/Soñé (Unplugged) - Zoé Letra.mp3',
+      lrc: window.LETRA_SONE_LRC, secciones: window.SECCIONES_SONE,
+      borron: ['#1a1c48', '#2e2a68', '#4a3480', '#8a6ad8', '#e8a0b0', '#141a3a'], base: '#22245a', tinta: '#f8e8ff', sombra: '#e8506a' }
   ];
 
   // mini portadas dibujadas con marcador
@@ -80,6 +83,21 @@
       '<circle cx="78" cy="48" r="6.5" fill="#f4b0b8" stroke="#161616" stroke-width="1.5"/><circle cx="78" cy="48" r="2" fill="#5a1420"/>' +
       '<circle cx="40" cy="60" r="6" fill="#a8182e" stroke="#161616" stroke-width="1.5"/>' +
       '<path d="M52 84 C50 90 48 94 49 100 L71 100 C72 94 70 90 68 84Z" fill="#f2a8b0" stroke="#161616" stroke-width="1.8"/><ellipse cx="60" cy="84" rx="8" ry="2" fill="#f6c2c8" stroke="#161616" stroke-width="1.2"/>' +
+      '</svg>',
+    sone: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#22245a"/><rect y="70" width="100" height="30" fill="#9a5a98" opacity=".7"/>' +
+      '<circle cx="12" cy="10" r="1.8" fill="#fff6c8"/><circle cx="60" cy="8" r="1.6" fill="#fff"/><circle cx="40" cy="90" r="1.6" fill="#fff6c8"/>' +
+      '<path d="M88 4 A8 8 0 1 0 88 20 A4 8 0 1 1 88 4Z" fill="#f6eec8" stroke="#161616" stroke-width="1"/>' +
+      '<path d="M-2 26 Q50 46 102 26" stroke="#161616" stroke-width="1.6" fill="none"/>' +
+      '<circle cx="18" cy="32" r="1.8" fill="#ffd36a"/><circle cx="50" cy="37" r="1.8" fill="#ff9ab8"/><circle cx="82" cy="32" r="1.8" fill="#bfe0ff"/>' +
+      [[20, 31, -6, '#a8c4bc', '#161418'], [50, 36, 0, '#ebe8e1', '#8e3a28'], [80, 31, 6, '#f8c8d8', '#f6f3ec']].map(function (p) {
+        return '<g transform="rotate(' + p[2] + ' ' + p[0] + ' ' + p[1] + ')"><rect x="' + (p[0] - 13) + '" y="' + (p[1] + 1) + '" width="26" height="32" fill="#f6f3ec" stroke="#161616" stroke-width="1.2"/>' +
+          '<rect x="' + (p[0] - 11) + '" y="' + (p[1] + 3) + '" width="22" height="22" fill="' + p[3] + '"/>' +
+          '<path d="M' + (p[0] - 7) + ' ' + (p[1] + 25) + ' C' + (p[0] - 8) + ' ' + (p[1] + 12) + ' ' + (p[0] - 6) + ' ' + (p[1] + 5) + ' ' + p[0] + ' ' + (p[1] + 5) + ' C' + (p[0] + 6) + ' ' + (p[1] + 5) + ' ' + (p[0] + 8) + ' ' + (p[1] + 12) + ' ' + (p[0] + 7) + ' ' + (p[1] + 25) + 'Z" fill="#140d0a"/>' +
+          '<path d="M' + (p[0] - 7) + ' ' + (p[1] + 25) + ' C' + (p[0] - 6) + ' ' + (p[1] + 21) + ' ' + (p[0] + 6) + ' ' + (p[1] + 21) + ' ' + (p[0] + 7) + ' ' + (p[1] + 25) + 'Z" fill="' + p[4] + '"/>' +
+          '<ellipse cx="' + p[0] + '" cy="' + (p[1] + 13) + '" rx="4.2" ry="5" fill="#e4b08c"/>' +
+          '<circle cx="' + (p[0] - 2) + '" cy="' + (p[1] + 13) + '" r="1.8" fill="none" stroke="#c8a070" stroke-width=".6"/><circle cx="' + (p[0] + 2) + '" cy="' + (p[1] + 13) + '" r="1.8" fill="none" stroke="#c8a070" stroke-width=".6"/>' +
+          '<rect x="' + (p[0] - 1.2) + '" y="' + (p[1] - 3) + '" width="2.4" height="6" fill="#d8b07a"/></g>';
+      }).join('') +
       '</svg>'
   };
 
@@ -200,7 +218,7 @@
     elegir(CANCIONES[(i + 1) % CANCIONES.length].id);
   });
 
-  // canción inicial: la del enlace (#humano, #piensas-en-mi, #luna, #labios-rotos) o la del lado A
+  // canción inicial: la del enlace (#humano, #piensas-en-mi, #luna, #labios-rotos, #sone) o la del lado A
   var hash = decodeURIComponent(location.hash.replace('#', ''));
   var porEnlace = CANCIONES.filter(function (o) { return (o.enlace || o.id) === hash || o.id === hash; })[0];
   var inicial = porEnlace ? porEnlace.id : 'nada';

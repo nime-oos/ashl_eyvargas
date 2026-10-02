@@ -111,3 +111,30 @@ Cuando terminan de mostrarse todos los mensajes, se llama a `animateHeart()`:
   - "Ah-ah-ah": el ramo se mece y la luz respira. "Amor, amor": corazón grande y corazoncitos.
 - En pantallas verticales el título, los labios, el corazón y el infinito se recorren al centro para que no los corte la orilla.
 - `sincronizar.html` ya incluye "Labios rotos". Audio: `musica/Labios Rotos - Zoé Letra. ♡.mp3`.
+
+## 2026-10-02 — Sexta canción "Soñé" (Zoé, Unplugged)
+
+- **Menú**: nueva portadita **lado F · Soñé** (enlace directo: `index.html#sone`), con la polaroid de ella en miniatura. Borrón azul noche y violeta con el título en lila y sombra rosa.
+- **Escena** (`js/escena-sone.js`, `css/sone.css`, letra en `js/letra-sone.js`): ella, dibujada con crayón y marcador a partir de sus fotos (no se guardó ninguna foto en el proyecto). En medio de un cielo de sueño (azul noche, violeta y rosa, vía láctea, estrellas que titilan, nubes rosas y una luna dormida) flota la polaroid de su cumpleaños: pared de ladrillo blanco con el letrero "THDAY", globos naranja y amarillo, plato de fiesta, sombrero de paja y estante, la mesa con el mantel de carritos rojos, y ella con su vestido rojo de hombros caídos, lentes redondos dorados con reflejo de pantalla, fleco y pelo largo, sosteniendo el pastel blanco del monito rosa con su pulsera negra. Abajo dice "te soñé ♡" a mano.
+- Al entrar, la foto **se revela como una instantánea** (flash y luego aparece poco a poco).
+- Alrededor flotan otros recuerdos en polaroids chiquitas: la selfie del fleco con lentes azules ("omg"), la del pelo rizado con la mano en la mejilla y lentes morados (♡) y la del pastel con globos ("la cuarta es la mejor"). Globos amarrados a la esquina de la foto.
+- **La escena reacciona a cada línea**:
+  - "Ruego al tiempo aquel momento": sale un reloj de bolsillo con las agujas girando para atrás.
+  - "Mi mundo se paraba entre tus labios": todo se congela (hasta el crayón deja de hervir), ella hace trompita y sale volando un beso gigante.
+  - "Revivir y derretirme": la foto, el pastel, la luna y las nubes se derriten en chorritos.
+  - "Mirando tus ojos negros" / "una mirada tuya": zoom a su cara; sus ojos siguen al mouse y le brillan estrellitas en los lentes.
+  - "Ser aire y me respires": remolinos de viento y se le mueve el pelo. "Nada que perder": los globos se van volando.
+  - "Todo el tiempo estoy pensando en ti": los recuerdos vienen al frente, se dibuja un hilo rojo que los une y salen corazones.
+  - "El brillo del sol": sale un sol con carita en lugar de la luna y todo se pone cálido. "Rincón del cielo": estrellas fugaces.
+  - "El eco del mar que retumba en tus ojos": sube el mar, zoom a sus ojos con ondas en los lentes y la foto retumba.
+  - "Soñé": noche de sueño, halo en la foto, polvo de estrellas y la luna suelta zetas. "Una vez mas": además suben corazones.
+- En celulares la foto se recorre al centro y el título grande se esconde (la foto ya dice "te soñé").
+- `sincronizar.html` ya incluye "Soñé". Audio: `musica/Soñé (Unplugged) - Zoé Letra.mp3`.
+- **Retoque de parecido** (a partir de la foto del cumpleaños): cara más redonda de cachetes llenos y piel más clara, fleco de cortina abierto en medio en lugar de fleco recto, mechón largo que le cae por delante del hombro, lentes grandes de alambre delgado color oro rosado, ojos sonrientes un poco cerraditos, cejas finas, naricita redonda y sonrisa suave de labios cerrados. La cabeza va un poquito ladeada como en la foto y solo se ve el tirante del vestido del lado derecho.
+- **Más delgada**: cara más fina con la barbilla definida, cuello fino, hombros y brazos más angostos y el vestido entallado con cintura marcada (también en los recuerdos chiquitos).
+- **Más parecido**: pelo casi negro con raya en medio, lentes un poco más abajo en la nariz (los ojos quedan en la parte de arriba del lente, como en la foto), ojos un poco más grandes con pestañitas.
+- **Con cintura**: el vestido ahora es entallado con la cintura a la altura real (antes quedaba muy abajo y la tapaba el brazo), con busto y cadera marcados; el pelo de atrás es más corto para que se vea la silueta y el brazo derecho sigue la curva del cuerpo.
+- **Nueva escena (sin la foto grande)**: a pedido, se quitó la polaroid grande. Ahora **dos tendederos de lucecitas** cruzan el cielo de sueño y de ellos cuelgan con pinzas de madera **ocho polaroids de ella**, siempre con su misma cara (fleco de cortina, pelo casi negro, lentes grandes de alambre, ojos sonrientes, figura delgada): "omg" (selfie con lentes azules y trompita), "tu cumple ♡" (vestido rojo, letrero THDAY, globos y pastel), "muak" (mandando un beso con corazón), "para ti" (guiñando con un girasol), "jajaja" (muerta de risa), "♡" (pelo rizado con la mano en la mejilla), "el mar" (con el mar y el sol detrás) y "te soñé" (dormida bajo la luna). Las fotos caen una por una al tendedero al entrar y se columpian. Título "Soñé" arriba al centro, luna dormida arriba a la derecha y globos amarrados a la punta del tendedero de abajo.
+- Reacciones ajustadas a la nueva escena: con "labios" se congela todo y **en todas las fotos** hace trompita mientras el beso sale volando desde "muak"; con "ojos" / "mirada" hace zoom a "tu cumple" y las demás se apagan; con "aire" las fotos se columpian con el viento; con "pensando en ti" brincan y las lucecitas parpadean rápido; con "derretirme" chorrean todas las fotos; con "del mar" retumban.
+- En celulares las ocho fotos se acomodan en dos columnas (sin tendederos) y el zoom y el beso se recalculan para esa posición.
+- La portadita del menú ahora muestra el tendedero con tres fotitos.

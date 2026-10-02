@@ -1,0 +1,731 @@
+/* Escena "Soñé" (Zoé, Unplugged): tendederos de lucecitas con sus fotos colgadas en un cielo de sueño */
+#escena-sone {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s;
+  perspective: 900px;
+  background: #1a1c48;
+}
+
+#escena-sone.visible {
+  opacity: 1;
+}
+
+body.cambiando #escena-sone {
+  transition: none !important;
+}
+
+#escena-sone .mundo {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .2s ease-out;
+}
+
+#escena-sone .capa {
+  position: absolute;
+  inset: -5%;
+}
+
+#escena-sone .capa-fondo {
+  transform: translateZ(-70px) scale(1.08);
+}
+
+#escena-sone .capa-frente {
+  transform: translateZ(35px) scale(.965);
+}
+
+#escena-sone :is(.estrella, .polvo, .brillo-lente, .fugaz, .luna, .sol, .rayos, .reloj, .aguja-hora, .aguja-min, .zeta, .nube, .chorrito,
+  .corazoncito, .globo-esquina, .globo-foto, .llama-vela, .pelo-mece, .parpado-ojo, .pup, .onda-lente, .boca-beso, .boca-sonrisa,
+  .beso-vuela, .ola, .mares, .letra, .foco-luz) {
+  transform-box: fill-box;
+}
+
+#escena-sone .marco {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+/* ---- al llegar: las fotos caen una por una al tendedero ---- */
+#escena-sone.dibujando .foto-pos {
+  animation: sone-cae .7s steps(5) var(--d, 0s) both;
+}
+
+@keyframes sone-cae {
+  from {
+    opacity: 0;
+    translate: 0 -160px;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* ---- siempre: todo flota a saltitos ---- */
+#escena-sone .estrella {
+  transform-origin: center;
+  animation: sone-titila 2.4s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes sone-titila {
+
+  0%,
+  100% {
+    opacity: .5;
+    transform: scale(.7);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+#escena-sone .foco-luz {
+  animation: sone-foco 1.8s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes sone-foco {
+
+  0%,
+  100% {
+    opacity: .65;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* las fotos se columpian colgadas de su pinza */
+#escena-sone .colgada {
+  animation: sone-columpio 4s steps(8) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes sone-columpio {
+
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+
+  50% {
+    transform: rotate(2deg);
+  }
+}
+
+#escena-sone .nube {
+  animation: sone-nube 9s steps(9) infinite alternate;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes sone-nube {
+  from {
+    transform: translateX(-14px);
+  }
+
+  to {
+    transform: translateX(14px);
+  }
+}
+
+#escena-sone :is(.globo-esquina, .globo-foto) {
+  transform-origin: center bottom;
+  animation: sone-globo 3s steps(3) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes sone-globo {
+
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+
+  50% {
+    transform: rotate(4deg) translateY(-4px);
+  }
+}
+
+#escena-sone .llama-vela {
+  transform-origin: center bottom;
+  animation: sone-vela .4s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes sone-vela {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2, .9) skewX(6deg);
+  }
+}
+
+#escena-sone .pelo-mece {
+  transform-origin: center top;
+  animation: sone-pelo 4s steps(4) infinite;
+}
+
+@keyframes sone-pelo {
+
+  0%,
+  100% {
+    transform: rotate(-.8deg);
+  }
+
+  50% {
+    transform: rotate(.8deg);
+  }
+}
+
+#escena-sone .parpado-ojo {
+  transform-origin: center;
+  animation: parpadeo 4.5s steps(1) infinite;
+}
+
+#escena-sone .zeta {
+  opacity: 0;
+}
+
+#escena-sone .luna {
+  transition: opacity .8s steps(4);
+}
+
+#escena-sone .halo-luna {
+  animation: sone-titila 5s steps(3) infinite;
+}
+
+/* título pintado */
+#escena-sone .letra {
+  transform-origin: center;
+  animation: salta 1.4s steps(2) infinite;
+}
+
+#escena-sone .titulo {
+  animation: aparece .5s steps(3) 2.2s both;
+}
+
+/* ocultos hasta su línea */
+#escena-sone :is(.sol, .reloj, .tinte-sol, .noche, .halo-sueno, .calor, .pausa, .polvo, .beso-vuela, .fugaz, .remolino, .brillos-lente, .ondas-lente, .boca-beso, .corazoncito) {
+  opacity: 0;
+}
+
+#escena-sone .boca-beso.fija {
+  opacity: 1;
+}
+
+#escena-sone .chorrito {
+  transform-origin: center top;
+  transform: scaleY(0);
+  transition: transform 1.2s steps(6);
+  transition-delay: var(--w, 0s);
+}
+
+/* ---- "ruego al tiempo aquel momento": un reloj que gira para atrás ---- */
+#escena-sone .reloj {
+  transform-origin: center;
+  transform: scale(.3) rotate(-40deg);
+  transition: transform .6s steps(4), opacity .4s steps(2);
+}
+
+#escena-sone.en-tiempo .reloj {
+  opacity: 1;
+  transform: scale(1);
+}
+
+#escena-sone .aguja-hora {
+  transform-origin: center bottom;
+}
+
+#escena-sone .aguja-min {
+  transform-origin: left center;
+}
+
+#escena-sone.en-tiempo .aguja-hora {
+  animation: sone-atras 4s steps(12) infinite;
+}
+
+#escena-sone.en-tiempo .aguja-min {
+  animation: sone-atras .8s steps(12) infinite;
+}
+
+@keyframes sone-atras {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/* ---- "mi mundo se paraba entre tus labios": todo se congela y en todas las fotos manda un beso ---- */
+#escena-sone.en-labios .mundo *:not(.beso-vuela) {
+  animation-play-state: paused !important;
+}
+
+#escena-sone.en-labios .pausa {
+  opacity: .14;
+}
+
+#escena-sone .boca-sonrisa,
+#escena-sone .boca-beso {
+  transition: opacity .2s steps(2);
+}
+
+#escena-sone.en-labios .boca-beso {
+  opacity: 1;
+}
+
+#escena-sone.en-labios .boca-sonrisa {
+  opacity: 0;
+}
+
+#escena-sone .beso-vuela {
+  transform-origin: center;
+  --sx: var(--sxd);
+  --sy: var(--syd);
+}
+
+#escena-sone.en-labios .beso-vuela {
+  animation: sone-beso 2.2s steps(11) .5s infinite;
+}
+
+@keyframes sone-beso {
+  0% {
+    opacity: 0;
+    transform: translate(var(--sx), var(--sy)) scale(.2);
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+    transform: translate(600px, 400px) scale(4) rotate(-10deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(600px, 400px) scale(4.6) rotate(-10deg);
+  }
+}
+
+/* ---- "revivir y derretirme una vez más": todo se derrite ---- */
+#escena-sone.en-derretir .chorrito {
+  transform: scaleY(1);
+}
+
+#escena-sone.en-derretir .colgada {
+  animation: sone-derrite 2.4s steps(8) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes sone-derrite {
+
+  0%,
+  100% {
+    transform: skewX(0) scaleY(1);
+  }
+
+  50% {
+    transform: skewX(-3deg) scaleY(1.04);
+  }
+}
+
+#escena-sone.en-derretir .llama-vela {
+  animation-duration: .2s;
+}
+
+/* ---- "mirando tus ojos negros" / "una mirada tuya": zoom a la foto de su cumple ---- */
+#escena-sone .zoom {
+  --zx: var(--zxd);
+  --zy: var(--zyd);
+  transition: transform 1.2s steps(8);
+}
+
+#escena-sone.en-ojos .zoom {
+  transform: translate(var(--zx), var(--zy)) scale(3.4);
+}
+
+#escena-sone.en-ojos .zoom .colgada {
+  animation-play-state: paused;
+}
+
+#escena-sone :is(.foto-pos, .cuerdas, .focos, .globos, .firma) {
+  transition: opacity .6s steps(3);
+}
+
+#escena-sone.en-ojos :is(.foto-pos:not(.principal), .cuerdas, .focos, .globos, .firma) {
+  opacity: .15;
+}
+
+#escena-sone .pup {
+  transform: translate(calc(var(--px, 0) * 1.6px), calc(var(--py, 0) * 1.2px));
+  transition: transform .25s steps(3);
+}
+
+#escena-sone.en-ojos .brillos-lente {
+  opacity: 1;
+}
+
+#escena-sone .brillo-lente {
+  transform-origin: center;
+  animation: sone-titila .9s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+/* ---- "tengo ganas de ser aire y me respires": viento que mece las fotos ---- */
+#escena-sone.en-aire .remolino {
+  opacity: .8;
+  stroke-dasharray: .22 .78;
+  animation: sone-viento 1.6s steps(10) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes sone-viento {
+  from {
+    stroke-dashoffset: 1;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+#escena-sone.en-aire .colgada {
+  animation: sone-ventarron 1s steps(4) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes sone-ventarron {
+
+  0%,
+  100% {
+    transform: rotate(-9deg);
+  }
+
+  50% {
+    transform: rotate(7deg);
+  }
+}
+
+#escena-sone.en-aire .pelo-mece {
+  animation: sone-pelo-viento .8s steps(2) infinite;
+}
+
+@keyframes sone-pelo-viento {
+
+  0%,
+  100% {
+    transform: rotate(-3deg) skewX(-3deg);
+  }
+
+  50% {
+    transform: rotate(2deg) skewX(3deg);
+  }
+}
+
+#escena-sone.en-aire :is(.globo-esquina, .globo-foto) {
+  animation-duration: 1s;
+}
+
+/* ---- "pues no tengo nada que perder": se van volando los globos ---- */
+#escena-sone .globos {
+  transition: transform 3.5s steps(14), opacity .6s steps(3);
+}
+
+#escena-sone.en-perder .globos {
+  transform: translate(140px, -760px) rotate(14deg);
+}
+
+/* ---- "todo el tiempo estoy pensando en ti": las fotos brincan, las lucecitas brillan y salen corazones ---- */
+#escena-sone.en-pensando .colgada {
+  animation: sone-brinca 1.2s steps(4) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes sone-brinca {
+
+  0%,
+  100% {
+    transform: rotate(-3deg) translateY(0);
+  }
+
+  50% {
+    transform: rotate(3deg) translateY(-10px);
+  }
+}
+
+#escena-sone.en-pensando .foco-luz {
+  animation-duration: .5s;
+}
+
+#escena-sone.en-pensando .corazoncito,
+#escena-sone.en-final .corazoncito {
+  animation: sone-sube 2.4s steps(12) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes sone-sube {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(.4);
+  }
+
+  15% {
+    opacity: 1;
+    transform: translate(0, -20px) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--x, 0px), -220px) scale(1) rotate(12deg);
+  }
+}
+
+/* ---- "en el brillo del sol": sale el sol en lugar de la luna y todo se pone cálido ---- */
+#escena-sone .sol {
+  transform-origin: center;
+  transform: translateY(160px) scale(.6);
+  transition: transform 1.2s steps(6), opacity .6s steps(3);
+}
+
+#escena-sone.en-sol .sol {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+#escena-sone .rayos {
+  transform-origin: center;
+}
+
+#escena-sone.en-sol .rayos {
+  animation: sone-gira 6s steps(12) infinite;
+}
+
+@keyframes sone-gira {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#escena-sone.en-sol .luna {
+  opacity: 0;
+}
+
+#escena-sone .tinte-sol,
+#escena-sone .calor {
+  transition: opacity 1s steps(5);
+}
+
+#escena-sone.en-sol .tinte-sol {
+  opacity: .32;
+}
+
+#escena-sone.en-sol .calor {
+  opacity: 1;
+}
+
+/* ---- "en un rincón del cielo": estrellas fugaces en el rincón ---- */
+#escena-sone.en-cielo .fugaz {
+  animation: sone-fugaz 1.8s steps(9) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes sone-fugaz {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-420px, 190px);
+  }
+}
+
+#escena-sone.en-cielo .estrella {
+  animation-duration: .8s;
+}
+
+/* ---- "en el eco del mar que retumba en tus ojos": sube el mar y hay ondas en los lentes ---- */
+#escena-sone .mares {
+  opacity: 0;
+  transform: translateY(150px);
+  transition: transform 1.2s steps(8), opacity .6s steps(3);
+}
+
+#escena-sone.en-mar .mares {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#escena-sone .ola {
+  animation: sone-ola 2.4s steps(6) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes sone-ola {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-40px, -10px);
+  }
+}
+
+#escena-sone.en-mar .ondas-lente {
+  opacity: 1;
+}
+
+#escena-sone .onda-lente {
+  transform-origin: center;
+}
+
+#escena-sone.en-mar .onda-lente {
+  animation: sone-onda 1.2s steps(6) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes sone-onda {
+  from {
+    transform: scale(.4);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+#escena-sone.en-mar .colgada {
+  animation: sone-retumba .5s steps(2) infinite;
+}
+
+@keyframes sone-retumba {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-1deg);
+  }
+
+  50% {
+    transform: translate(0, 6px) rotate(1.5deg);
+  }
+}
+
+/* ---- "soñé": noche de sueño, halo, polvo de estrellas y la luna suelta zetas ---- */
+#escena-sone .noche,
+#escena-sone .halo-sueno {
+  transition: opacity 1s steps(5);
+}
+
+#escena-sone.en-sone .noche {
+  opacity: .35;
+}
+
+#escena-sone.en-sone .halo-sueno {
+  opacity: 1;
+  animation: sone-titila 3s steps(3) infinite;
+}
+
+#escena-sone.en-sone .polvo {
+  opacity: 1;
+  transform-origin: center;
+  animation: sone-titila 1.2s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+#escena-sone.en-sone .zeta {
+  animation: sone-zeta 3s steps(6) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes sone-zeta {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-40px, -70px) rotate(-12deg);
+  }
+}
+
+#escena-sone.en-sone .foco-luz {
+  animation-duration: 1s;
+}
+
+/* pantallas verticales: las fotos se acomodan en dos columnas, sin tendederos ni título */
+@media (max-aspect-ratio: 1/1) {
+  #escena-sone .foto-pos {
+    transform: translate(var(--mx), var(--my)) scale(.64);
+  }
+
+  #escena-sone :is(.cuerdas, .focos, .globos, .firma) {
+    display: none;
+  }
+
+  #escena-sone .zoom {
+    --zx: var(--zxm);
+    --zy: var(--zym);
+  }
+
+  #escena-sone .beso-vuela {
+    --sx: var(--sxm);
+    --sy: var(--sym);
+  }
+}
+
+/* ---- colores de esta canción en los subtítulos, el botón y los mensajes ---- */
+body.cancion-sone #subtitulo.sub-coro {
+  text-shadow: .06em .08em 0 #8a6ad8;
+}
+
+body.cancion-sone #subtitulo.sub-verso {
+  box-shadow: .15em .2em 0 #e8506a;
+}
+
+body.cancion-sone #subtitulo .eco {
+  color: #f8d0ff;
+}
+
+body.cancion-sone #start-btn-container .button {
+  box-shadow: .18em .22em 0 #8a6ad8;
+}
+
+body.cancion-sone .flower-message {
+  text-shadow: .06em .08em 0 #8a6ad8;
+}
