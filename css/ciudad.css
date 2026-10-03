@@ -1,0 +1,704 @@
+/* Escena "Ciudad de las luces" (LATIN MAFIA): la noria iluminada, el río que refleja la ciudad y el tren */
+#escena-ciudad {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s;
+  perspective: 900px;
+  background: #100c30;
+}
+
+#escena-ciudad.visible {
+  opacity: 1;
+}
+
+body.cambiando #escena-ciudad {
+  transition: none !important;
+}
+
+#escena-ciudad .mundo {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .2s ease-out;
+}
+
+#escena-ciudad .capa {
+  position: absolute;
+  inset: -5%;
+}
+
+#escena-ciudad .capa-fondo {
+  transform: translateZ(-70px) scale(1.08);
+}
+
+#escena-ciudad .capa-frente {
+  transform: translateZ(35px) scale(.965);
+}
+
+#escena-ciudad :is(.estrella, .bokeh, .bloque, .neon, .pregunta, .amiga, .bola, .rayo-disco, .brillito, .corazoncito, .fuego-art, .linea-vhs,
+  .cabina, .vuela, .farolito, .onda, .foquito) {
+  transform-box: fill-box;
+}
+
+#escena-ciudad .marco {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+/* ---- al llegar: la noria se arma pieza por pieza ---- */
+#escena-ciudad.dibujando .vuela {
+  animation: ciudad-llega .9s steps(6) both;
+  animation-delay: calc(var(--w, 0s) * 3);
+}
+
+@keyframes ciudad-llega {
+  from {
+    opacity: 0;
+    transform: translate(var(--dx, 0px), var(--dy, 0px)) rotate(var(--dr, 0deg));
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0);
+  }
+}
+
+/* ---- siempre: la ciudad se mueve a saltitos ---- */
+#escena-ciudad .estrella {
+  animation: ciudad-titila 2.4s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes ciudad-titila {
+
+  0%,
+  100% {
+    opacity: .4;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+#escena-ciudad .bokeh {
+  animation: ciudad-bokeh 5s steps(5) infinite alternate;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes ciudad-bokeh {
+  from {
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    transform: translateY(-14px) scale(1.2);
+  }
+}
+
+/* las ventanas se prenden y apagan solas */
+#escena-ciudad .ventana {
+  opacity: 0;
+}
+
+#escena-ciudad .ventana.prendida {
+  animation: ciudad-ventana 7s steps(1) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes ciudad-ventana {
+
+  0%,
+  70%,
+  100% {
+    opacity: .9;
+  }
+
+  75% {
+    opacity: 0;
+  }
+}
+
+#escena-ciudad .neon {
+  animation: ciudad-neon 3s steps(1) infinite;
+}
+
+#escena-ciudad .neon-b {
+  animation-delay: -1.2s;
+}
+
+#escena-ciudad .neon-c {
+  animation-delay: -2.1s;
+}
+
+@keyframes ciudad-neon {
+
+  0%,
+  88%,
+  100% {
+    opacity: 1;
+  }
+
+  90%,
+  94% {
+    opacity: .2;
+  }
+}
+
+#escena-ciudad .titulo-neon {
+  animation: ciudad-neon 4s steps(1) infinite -.6s;
+}
+
+#escena-ciudad .luz-farol {
+  animation: ciudad-titila 2s steps(2) infinite;
+}
+
+#escena-ciudad .foquito {
+  animation: ciudad-titila 1.2s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+#escena-ciudad .halo-cabina {
+  animation: ciudad-halo 2s steps(2) infinite;
+}
+
+@keyframes ciudad-halo {
+
+  0%,
+  100% {
+    opacity: .12;
+  }
+
+  50% {
+    opacity: .3;
+  }
+}
+
+/* el tren cruza el puente */
+#escena-ciudad .t1 {
+  animation: ciudad-tren 9s steps(45) infinite;
+}
+
+@keyframes ciudad-tren {
+  from {
+    transform: translateX(-600px);
+  }
+
+  to {
+    transform: translateX(1400px);
+  }
+}
+
+#escena-ciudad .t2 {
+  opacity: 0;
+}
+
+/* el río: ondas y el reflejo de la ciudad que tiembla */
+#escena-ciudad .reflejo-rio {
+  opacity: .45;
+  animation: ciudad-reflejo 3s steps(3) infinite;
+  transition: opacity .6s steps(3);
+}
+
+@keyframes ciudad-reflejo {
+
+  0%,
+  100% {
+    transform: skewX(0) translateX(0);
+  }
+
+  50% {
+    transform: skewX(1.5deg) translateX(-6px);
+  }
+}
+
+#escena-ciudad .onda {
+  animation: ciudad-onda 2s steps(4) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes ciudad-onda {
+
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: .2;
+  }
+
+  50% {
+    transform: translateX(16px);
+    opacity: .7;
+  }
+}
+
+/* los reflectores se quedan quietos hasta "si fue real" */
+#escena-ciudad .reflector {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+/* ocultos hasta su línea */
+#escena-ciudad :is(.reflector, .misterio, .preguntas, .farolito, .estela, .caricia, .apagon, .tinte-uno, .amigas, .disco, .brillito, .corazoncito,
+  .fuego-art, .vhs, .tinte-confuso) {
+  opacity: 0;
+}
+
+/* ---- "desarmando lo que soy": la noria y los edificios se desarman ---- */
+#escena-ciudad .vuela {
+  transition: transform 1s steps(6), opacity .6s steps(3);
+  transition-delay: var(--w, 0s);
+}
+
+#escena-ciudad.en-desarma .vuela {
+  transform: translate(var(--dx), var(--dy)) rotate(var(--dr));
+}
+
+#escena-ciudad .bloque {
+  transition: transform 1s steps(5);
+  transition-delay: var(--w, 0s);
+}
+
+#escena-ciudad.en-desarma .bloque {
+  transform: translate(var(--dx), var(--dy)) rotate(var(--dr));
+}
+
+/* "construyéndote": se vuelve a armar, pieza por pieza */
+#escena-ciudad.en-arma .vuela {
+  animation: ciudad-llega .9s steps(6) both;
+  animation-delay: calc(var(--w, 0s) * 3);
+}
+
+/* ---- "si fue real, quiero verte una vez más": los reflectores barren el cielo ---- */
+#escena-ciudad.en-real .reflector {
+  opacity: 1;
+  animation: ciudad-barre-alto 3s steps(12) infinite alternate;
+}
+
+#escena-ciudad.en-real .r2 {
+  animation-direction: alternate-reverse;
+}
+
+@keyframes ciudad-barre-alto {
+  from {
+    transform: rotate(-24deg);
+  }
+
+  to {
+    transform: rotate(24deg);
+  }
+}
+
+/* ---- "ciudad de las luces": se prenden todas las ventanas y los neones ---- */
+#escena-ciudad.en-luces .ventana {
+  opacity: 1;
+  animation: ciudad-ventana 1.2s steps(1) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+#escena-ciudad.en-luces .bokeh {
+  opacity: .5;
+}
+
+#escena-ciudad.en-luces .neon {
+  animation-duration: .6s;
+}
+
+#escena-ciudad.en-luces .foquito {
+  animation-duration: .3s;
+}
+
+/* ---- "tú eres la que más se luce": la noria gira rápido y salen brillitos ---- */
+
+#escena-ciudad.en-luce .brillito {
+  opacity: 1;
+  animation: ciudad-brillo .9s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes ciudad-brillo {
+
+  0%,
+  100% {
+    transform: scale(.5) rotate(0);
+  }
+
+  50% {
+    transform: scale(1.3) rotate(45deg);
+  }
+}
+
+/* ---- "me cautivé": el corazón de neón late y suben corazones ---- */
+#escena-ciudad.en-cautive .neon-c {
+  animation: latido .8s steps(4) infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+#escena-ciudad.en-cautive .corazoncito,
+#escena-ciudad.en-final .corazoncito {
+  animation: ciudad-sube 2.4s steps(12) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes ciudad-sube {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(.4);
+  }
+
+  15% {
+    opacity: 1;
+    transform: translate(0, -20px) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--x, 0px), -260px) scale(1) rotate(12deg);
+  }
+}
+
+/* ---- "de una persona que no sé quién es": una silueta misteriosa en una ventana ---- */
+#escena-ciudad .misterio,
+#escena-ciudad .preguntas {
+  transition: opacity .5s steps(3);
+}
+
+#escena-ciudad.en-quien :is(.misterio, .preguntas) {
+  opacity: 1;
+}
+
+#escena-ciudad.en-quien .pregunta {
+  animation: ciudad-brillo 1.4s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+/* ---- "esa noche fuimos, pero nunca más coincidimos": dos estelas de luz se cruzan ---- */
+#escena-ciudad .estela {
+  stroke-dasharray: .3 .7;
+}
+
+#escena-ciudad.en-cruzan .estela {
+  opacity: 1;
+  animation: ciudad-estela 1.6s steps(10) infinite;
+}
+
+#escena-ciudad.en-cruzan .e2 {
+  animation-delay: -.4s;
+}
+
+#escena-ciudad.en-cruzan .t2 {
+  opacity: 1;
+  animation: ciudad-tren-vuelta 9s steps(45) infinite -4s;
+}
+
+@keyframes ciudad-tren-vuelta {
+  from {
+    transform: translate(1400px, -40px);
+  }
+
+  to {
+    transform: translate(-600px, -40px);
+  }
+}
+
+@keyframes ciudad-estela {
+  from {
+    stroke-dashoffset: 1;
+  }
+
+  to {
+    stroke-dashoffset: -.3;
+  }
+}
+
+/* ---- "en el aire nos convertimos": farolitos de papel suben desde el río ---- */
+#escena-ciudad.en-aire .farolito {
+  animation: ciudad-farolito 5s steps(20) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes ciudad-farolito {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  85% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--x, 0px), -620px) rotate(8deg);
+  }
+}
+
+/* ---- "fuimos uno con la situación": todo cambia de color al mismo tiempo ---- */
+#escena-ciudad.en-uno .tinte-uno {
+  opacity: .28;
+  animation: ciudad-colores 1.6s steps(1) infinite;
+}
+
+@keyframes ciudad-colores {
+
+  0%,
+  100% {
+    fill: #ff3aa0;
+  }
+
+  25% {
+    fill: #3ae8ff;
+  }
+
+  50% {
+    fill: #ffd23a;
+  }
+
+  75% {
+    fill: #a05aff;
+  }
+}
+
+/* ---- "para luego solo quedar yo": se apaga la ciudad y queda una sola cabina encendida ---- */
+#escena-ciudad .apagon {
+  transition: opacity 1s steps(5);
+}
+
+#escena-ciudad.en-solo .apagon {
+  opacity: .72;
+}
+
+#escena-ciudad.en-solo :is(.ventana, .neon, .bokeh, .foquito, .halo-cabina) {
+  opacity: 0;
+  animation: none;
+}
+
+#escena-ciudad.en-solo .ventanilla {
+  fill: #2a2a3a;
+}
+
+#escena-ciudad.en-solo .unica .ventanilla {
+  fill: #fff6c8;
+}
+
+#escena-ciudad.en-solo .unica .halo-cabina {
+  opacity: .5;
+  animation: none;
+}
+
+/* ---- "tus amigas saben" / "es raro que tú bailes": amigas en silueta, bola disco y luces ---- */
+#escena-ciudad .amigas,
+#escena-ciudad .disco {
+  transition: opacity .5s steps(3);
+}
+
+#escena-ciudad.en-amigas .amigas {
+  opacity: 1;
+}
+
+#escena-ciudad .amiga {
+  transform-origin: center bottom;
+  animation: ciudad-baila .6s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes ciudad-baila {
+
+  0%,
+  100% {
+    transform: rotate(-5deg) translateY(0);
+  }
+
+  50% {
+    transform: rotate(5deg) translateY(-12px);
+  }
+}
+
+#escena-ciudad.en-baile .disco {
+  opacity: 1;
+}
+
+#escena-ciudad .bola {
+  transform-origin: center;
+  animation: ciudad-gira 2s steps(8) infinite;
+}
+
+@keyframes ciudad-gira {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#escena-ciudad .rayo-disco {
+  transform-origin: 1005px 45px;
+  transform-box: view-box;
+  animation: ciudad-barre 2.4s steps(8) infinite alternate;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes ciudad-barre {
+  from {
+    transform: rotate(-14deg);
+  }
+
+  to {
+    transform: rotate(14deg);
+  }
+}
+
+#escena-ciudad.en-baile .foquito {
+  animation-duration: .4s;
+}
+
+/* ---- "como si viviera de nuevo el momento": efecto de rebobinar ---- */
+#escena-ciudad.en-rebobina .vhs {
+  opacity: 1;
+}
+
+#escena-ciudad .linea-vhs {
+  animation: ciudad-vhs .6s steps(3) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes ciudad-vhs {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(120px);
+  }
+}
+
+#escena-ciudad.en-rebobina .t1 {
+  animation-direction: reverse;
+  animation-duration: 3s;
+}
+
+/* ---- "sintiendo tus manos recorrer mi cuerpo": dos estelas de luz rosa abrazan la noria ---- */
+#escena-ciudad .caricia {
+  stroke-dasharray: .35 .65;
+}
+
+#escena-ciudad.en-manos .caricia {
+  opacity: 1;
+  animation: ciudad-estela 2s steps(12) infinite;
+}
+
+#escena-ciudad.en-manos .c2 {
+  animation-delay: -1s;
+}
+
+/* ---- "cada que me pierdo, te vuelvo a ver": el reflejo del río se ilumina y se llena de ondas ---- */
+#escena-ciudad.en-reflejos .reflejo-rio {
+  opacity: .95;
+  animation-duration: 1s;
+}
+
+#escena-ciudad.en-reflejos .onda {
+  animation-duration: .8s;
+}
+
+/* ---- "todo está confuso": la ciudad se tambalea ---- */
+#escena-ciudad.en-confuso .ciudad {
+  animation: ciudad-tambalea .8s steps(4) infinite;
+}
+
+@keyframes ciudad-tambalea {
+
+  0%,
+  100% {
+    transform: skewX(0) translateX(0);
+  }
+
+  25% {
+    transform: skewX(4deg) translateX(-10px);
+  }
+
+  75% {
+    transform: skewX(-4deg) translateX(10px);
+  }
+}
+
+#escena-ciudad.en-confuso .tinte-confuso {
+  animation: ciudad-tinte .5s steps(2) infinite;
+}
+
+@keyframes ciudad-tinte {
+
+  0%,
+  100% {
+    opacity: .04;
+  }
+
+  50% {
+    opacity: .14;
+  }
+}
+
+/* ---- "se sintió bien": fuegos artificiales ---- */
+#escena-ciudad.en-final .fuego-art {
+  animation: ciudad-fuego 1.6s steps(8) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes ciudad-fuego {
+  0% {
+    opacity: 1;
+    transform: scale(.1);
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.3);
+  }
+}
+
+#escena-ciudad .fuego-art {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* pantallas verticales: el título se esconde para dejar la noria al centro */
+@media (max-aspect-ratio: 1/1) {
+  #escena-ciudad .firma {
+    display: none;
+  }
+}
+
+/* ---- colores de esta canción en los subtítulos, el botón y los mensajes ---- */
+body.cancion-ciudad #subtitulo.sub-coro {
+  text-shadow: .06em .08em 0 #ff3aa0;
+}
+
+body.cancion-ciudad #subtitulo.sub-verso {
+  box-shadow: .15em .2em 0 #3ae8ff;
+}
+
+body.cancion-ciudad #subtitulo .eco {
+  color: #ffd2ea;
+}
+
+body.cancion-ciudad #start-btn-container .button {
+  box-shadow: .18em .22em 0 #ff3aa0;
+}
+
+body.cancion-ciudad .flower-message {
+  text-shadow: .06em .08em 0 #ff3aa0;
+}

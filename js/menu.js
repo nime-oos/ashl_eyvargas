@@ -30,7 +30,10 @@
       borron: ['#1a1c48', '#2e2a68', '#4a3480', '#8a6ad8', '#e8a0b0', '#141a3a'], base: '#22245a', tinta: '#f8e8ff', sombra: '#e8506a' },
     { id: 'luz', enlace: 'luz-de-dia', lado: 'lado G', titulo: 'Luz de día', src: 'musica/Enanitos Verdes - Luz de Día (Letra Lyrics).mp3',
       lrc: window.LETRA_LUZ_LRC, secciones: window.SECCIONES_LUZ,
-      borron: ['#14121c', '#2a2236', '#f08a2a', '#6a2a8a', '#f6d98a', '#1e3a2a'], base: '#14121c', tinta: '#f6d98a', sombra: '#f08a2a' }
+      borron: ['#14121c', '#2a2236', '#f08a2a', '#6a2a8a', '#f6d98a', '#1e3a2a'], base: '#14121c', tinta: '#f6d98a', sombra: '#f08a2a' },
+    { id: 'ciudad', enlace: 'ciudad-de-las-luces', lado: 'lado H', titulo: 'Ciudad de las luces', src: 'musica/ciudad de las luces; latin mafia letra.mp3',
+      lrc: window.LETRA_CIUDAD_LRC, secciones: window.SECCIONES_CIUDAD,
+      borron: ['#100c30', '#2a1660', '#ff3aa0', '#3ae8ff', '#6a1a6a', '#ffd23a'], base: '#100c30', tinta: '#ffd2ea', sombra: '#ff3aa0' }
   ];
 
   // mini portadas dibujadas con marcador
@@ -112,6 +115,21 @@
       '<path d="M2 100 C10 92 40 92 48 100Z" fill="#1c1626"/><path d="M14 84 C6 84 6 98 14 98 C22 98 22 84 14 84Z" fill="#f08a2a" stroke="#161616" stroke-width="1.2"/>' +
       '<path d="M10 88 l2 2 l2 -2 M16 88 l2 2 l2 -2 M10 93 Q14 96 18 93" stroke="#ffd35a" stroke-width="1.2" fill="none"/>' +
       '<path d="M24 20 c-2 -3 -6 -3 -9 -1 c2 1 2 2 1 4 c3 -1 5 -1 8 0 c3 -1 5 -1 8 0 c-1 -2 -1 -3 1 -4 c-3 -2 -7 -2 -9 1Z" fill="#121016"/>' +
+      '</svg>',
+    ciudad: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#100c30"/>' +
+      '<path d="M0 74 V44 H12 V74 M14 74 V32 H26 V74 M76 74 V36 H88 V74 M90 74 V50 H100 V74" fill="#16142a" stroke="#161616" stroke-width="1"/>' +
+      '<rect x="4" y="50" width="3" height="4" fill="#ffd23a"/><rect x="18" y="40" width="3" height="4" fill="#ff9ad0"/><rect x="80" y="44" width="3" height="4" fill="#9ae8ff"/><rect x="93" y="58" width="3" height="4" fill="#ffd23a"/>' +
+      '<path d="M50 42 L36 74 M50 42 L64 74" stroke="#8a86a0" stroke-width="3"/>' +
+      '<circle cx="50" cy="42" r="26" fill="none" stroke="#e8e4f0" stroke-width="2.4"/>' +
+      '<path d="M50 16 V68 M24 42 H76 M32 24 L68 60 M68 24 L32 60" stroke="#c8c4d8" stroke-width="1.2"/>' +
+      ['#ff3aa0', '#3ae8ff', '#ffd23a', '#a05aff', '#5aff9a', '#ff7a3a', '#ff3aa0', '#3ae8ff'].map(function (c, i) {
+        var a = i / 8 * Math.PI * 2, x = 50 + Math.cos(a) * 26, y = 42 + Math.sin(a) * 26;
+        return '<rect x="' + (x - 4).toFixed(1) + '" y="' + (y + 1).toFixed(1) + '" width="8" height="7" rx="1.5" fill="' + c + '" stroke="#161616" stroke-width=".8"/>';
+      }).join('') +
+      '<circle cx="50" cy="42" r="3.5" fill="#ff3aa0" stroke="#161616" stroke-width=".8"/>' +
+      '<rect y="76" width="100" height="24" fill="#0e1640"/><path d="M0 74 H100" stroke="#3a3654" stroke-width="3"/>' +
+      '<path d="M10 86 q6 -2 12 0 M40 92 q6 -2 12 0 M70 84 q6 -2 12 0" stroke="#9af4ff" stroke-width="1.2" fill="none"/>' +
+      '<circle cx="84" cy="12" r="6" fill="#f6eec8" stroke="#161616" stroke-width=".8"/>' +
       '</svg>'
   };
 
@@ -232,7 +250,7 @@
     elegir(CANCIONES[(i + 1) % CANCIONES.length].id);
   });
 
-  // canción inicial: la del enlace (#humano, #piensas-en-mi, #luna, #labios-rotos, #sone, #luz-de-dia) o la del lado A
+  // canción inicial: la del enlace (#humano, #piensas-en-mi, #luna, #labios-rotos, #sone, #luz-de-dia, #ciudad-de-las-luces) o la del lado A
   var hash = decodeURIComponent(location.hash.replace('#', ''));
   var porEnlace = CANCIONES.filter(function (o) { return (o.enlace || o.id) === hash || o.id === hash; })[0];
   var inicial = porEnlace ? porEnlace.id : 'nada';

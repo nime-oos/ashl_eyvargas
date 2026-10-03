@@ -156,3 +156,19 @@ Cuando terminan de mostrarse todos los mensajes, se llama a `animateHeart()`:
   - "Esta noche todo vale": fiesta, las calabazas brincan, los fantasmas bailan y llueve confeti. "Una vez más": la espiral se mueve y la pareja brinca.
   - "Sin tu amor": final con velas, corazones y fiesta juntos.
 - `sincronizar.html` ya incluye "Luz de día". Audio: `musica/Enanitos Verdes - Luz de Día (Letra Lyrics).mp3`.
+
+## 2026-10-02 — Octava canción "Ciudad de las luces" (LATIN MAFIA)
+
+- **Menú**: nueva portadita **lado H · Ciudad de las luces** (enlace directo: `index.html#ciudad-de-las-luces`), con la noria iluminada. Borrón azul noche, magenta y cian.
+- **Escena** (`js/escena-ciudad.js`, `css/ciudad.css`, letra en `js/letra-ciudad.js`): la ciudad de noche con crayón y marcador. Al centro una **noria gigante iluminada** que gira a saltitos, con doce cabinas de colores que cuelgan derechitas y foquitos de colores en el aro (el giro se maneja desde JavaScript para que rueda y cabinas vayan siempre sincronizadas). Atrás, edificios con ventanas que se prenden y apagan, letreros de neón ("bar", "143", un corazón), luces desenfocadas, luna y un farol. Abajo, un puente por donde pasa un **tren con las ventanas encendidas** y un **río que refleja la ciudad y la noria** con ondas. Título en neón "ciudad de las luces" con "LATIN MAFIA".
+- (Antes la escena tenía un retrato de ella; a pedido se quitó y se reemplazó por la noria.)
+- **La escena reacciona a cada línea**:
+  - "Desarmando lo que soy": la noria se desarma (las piezas del aro y las cabinas salen volando) y los edificios se desacomodan; "construyéndote": todo se vuelve a armar pieza por pieza.
+  - "Si fue real, quiero verte": dos reflectores barren el cielo. "Ciudad de las luces": se prenden todas las ventanas, los neones y los foquitos corren. "Se luce": la noria gira rápido y salen brillitos.
+  - "Me cautivé": el corazón de neón late y suben corazones. "No sé quién es": en una ventana aparece una silueta misteriosa con signos de interrogación.
+  - "Nunca más coincidimos": un segundo tren cruza en sentido contrario y dos estelas de luz se cruzan. "En el aire nos convertimos": farolitos de papel suben desde el río. "Fuimos uno": todo cambia de color al ritmo.
+  - "Para luego solo quedar yo": se apaga la ciudad y queda una sola cabina encendida.
+  - "Tus amigas / es raro que tú bailes": amigas bailando en silueta, bola disco con rayos de colores.
+  - "Como si viviera de nuevo el momento": rebobinar (líneas de VHS, ◀◀, la noria y el tren van al revés). "Tus manos": dos estelas de luz rosa abrazan la noria.
+  - "Te vuelvo a ver": el reflejo del río se ilumina. "Todo está confuso": la ciudad se tambalea. "Se sintió bien": fuegos artificiales.
+- `sincronizar.html` ya incluye "Ciudad de las luces". Audio: `musica/ciudad de las luces; latin mafia letra.mp3`.
