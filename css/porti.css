@@ -1,0 +1,476 @@
+/* Escena "Es por ti" (Juanes): la carretera junto al mar y un día entero al ritmo de la canción */
+#escena-porti {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s;
+  perspective: 900px;
+  background: #08283a;
+}
+
+#escena-porti.visible {
+  opacity: 1;
+}
+
+body.cambiando #escena-porti {
+  transition: none !important;
+}
+
+#escena-porti .mundo {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .2s ease-out;
+}
+
+#escena-porti .capa {
+  position: absolute;
+  inset: -5%;
+}
+
+#escena-porti .capa-fondo {
+  transform: translateZ(-70px) scale(1.08);
+}
+
+#escena-porti .capa-frente {
+  transform: translateZ(35px) scale(.965);
+}
+
+#escena-porti :is(.estrella, .destello, .fugaz, .brillo, .corazoncito, .luciernaga, .chispa, .el, .ella, .cor-camino, .halo-pareja) {
+  transform-box: fill-box;
+}
+
+#escena-porti .marco {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+/* ---- el cielo: las cuatro horas encimadas, solo se ve la que toca ---- */
+#escena-porti .cielo {
+  opacity: 0;
+  transition: opacity 2.4s steps(8);
+}
+
+#escena-porti .cielo-noche,
+#escena-porti.c-amanecer .cielo-amanecer,
+#escena-porti.c-dia .cielo-dia,
+#escena-porti.c-atardecer .cielo-atardecer {
+  opacity: 1;
+}
+
+/* estrellas y luna: de noche; al amanecer apenas */
+#escena-porti :is(.estrellas, .luna) {
+  transition: opacity 2s steps(6);
+}
+
+#escena-porti:is(.c-dia, .c-atardecer) :is(.estrellas, .luna) {
+  opacity: 0;
+}
+
+#escena-porti.c-amanecer :is(.estrellas, .luna) {
+  opacity: .3;
+}
+
+#escena-porti .estrella {
+  animation: porti-titila 2.6s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes porti-titila {
+
+  0%,
+  100% {
+    opacity: .35;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* el sol sube y baja con la hora (debajo del horizonte no se ve) */
+#escena-porti .sol {
+  transform: translateY(340px);
+  transition: transform 2.6s steps(13), opacity 1.6s steps(6);
+}
+
+#escena-porti.c-noche .sol {
+  opacity: 0;
+}
+
+#escena-porti.c-amanecer .sol {
+  transform: translateY(262px);
+}
+
+#escena-porti.c-dia .sol {
+  transform: translateY(80px);
+}
+
+#escena-porti.c-atardecer .sol {
+  transform: translateY(230px);
+}
+
+#escena-porti .disco-sol {
+  fill: #ffd84a;
+  transition: fill 1.6s steps(6);
+}
+
+#escena-porti.c-atardecer .disco-sol {
+  fill: #ff4a2a;
+}
+
+#escena-porti.c-amanecer .disco-sol {
+  fill: #ffb05a;
+}
+
+/* los brillos del sol o la luna sobre el mar */
+#escena-porti .brillo {
+  fill: #e8fbff;
+  animation: porti-brillo 1.6s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+  transition: fill 1.6s steps(6);
+}
+
+@keyframes porti-brillo {
+
+  0%,
+  100% {
+    opacity: .15;
+  }
+
+  50% {
+    opacity: .95;
+  }
+}
+
+#escena-porti.c-amanecer .brillo {
+  fill: #ffd0d8;
+}
+
+#escena-porti.c-dia .brillo {
+  fill: #ffffff;
+}
+
+#escena-porti.c-atardecer .brillo {
+  fill: #ffb040;
+}
+
+/* el faro: de noche su haz barre el mar despacito */
+#escena-porti .haz-faro {
+  opacity: 0;
+  transform-origin: 1076px 328px;
+  animation: porti-barre 6s steps(24) infinite alternate;
+  transition: opacity 1s steps(4);
+}
+
+@keyframes porti-barre {
+  from {
+    transform: rotate(-10deg);
+  }
+
+  to {
+    transform: rotate(12deg);
+  }
+}
+
+#escena-porti.c-noche .haz-faro {
+  opacity: .35;
+}
+
+#escena-porti .luz-faro {
+  opacity: .4;
+  animation: porti-titila 2s steps(2) infinite;
+}
+
+/* la pareja */
+#escena-porti .ella {
+  transition: opacity 1.2s steps(6), transform 1.2s steps(6);
+}
+
+#escena-porti.ausente .ella {
+  opacity: 0;
+  transform: translateX(40px);
+}
+
+#escena-porti .el {
+  transform-origin: center bottom;
+  transition: transform 1s steps(4);
+}
+
+#escena-porti.ausente .el {
+  transform: rotate(-1.5deg) translateY(4px);
+}
+
+/* el título en el asfalto */
+#escena-porti .cor-camino {
+  transform-origin: center;
+  animation: latido 1.2s steps(4) infinite;
+}
+
+#escena-porti .titulo-camino {
+  opacity: .92;
+}
+
+/* ocultos hasta su línea */
+#escena-porti :is(.rayos, .destello, .fugaz, .cor-mar, .halo-pareja, .corazoncito, .luciernaga, .chispa, .coche, .faro-moto) {
+  opacity: 0;
+}
+
+/* ---- "me siento renovado": rayos de sol ---- */
+#escena-porti .rayos {
+  transition: opacity 1.2s steps(6);
+}
+
+#escena-porti.en-renovado .rayos {
+  opacity: 1;
+  animation: porti-rayos 3s steps(6) infinite alternate;
+}
+
+@keyframes porti-rayos {
+  from {
+    opacity: .6;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---- "tu boca me habla del amor" / "he vuelto a hablar de amor": suben corazones ---- */
+#escena-porti.en-hablar .corazoncito {
+  animation: porti-sube 2.6s steps(13) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes porti-sube {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(.4);
+  }
+
+  15% {
+    opacity: 1;
+    transform: translate(0, -20px) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--x, 0px), -240px) scale(1) rotate(12deg);
+  }
+}
+
+/* ---- "y es por ti": estrellas fugaces y un halo sobre la pareja ---- */
+#escena-porti .halo-pareja {
+  transition: opacity 1s steps(4);
+}
+
+#escena-porti.en-porti .halo-pareja {
+  opacity: 1;
+  animation: porti-titila 2.4s steps(3) infinite;
+}
+
+#escena-porti.en-porti.c-noche .fugaz {
+  animation: porti-fugaz 2.2s steps(11) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes porti-fugaz {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-420px, 190px);
+  }
+}
+
+/* ---- "que late mi corazón": los brillos del mar forman un corazón que late ---- */
+#escena-porti .cor-mar {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity .8s steps(4);
+}
+
+#escena-porti.en-late .cor-mar {
+  opacity: 1;
+  animation: latido 1s steps(4) infinite;
+}
+
+#escena-porti.en-late .brillo {
+  opacity: .25;
+  animation: none;
+}
+
+/* ---- "que brillan mis ojos hoy": el cielo se llena de destellos ---- */
+#escena-porti.en-brillan .destello {
+  animation: porti-destello 1.2s steps(3) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes porti-destello {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(.3) rotate(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(45deg);
+  }
+}
+
+/* ---- "que calma mi dolor": luciérnagas y el mar se queda en calma ---- */
+#escena-porti.en-calma .luciernaga {
+  animation: porti-luciernaga 4s steps(16) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes porti-luciernaga {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+
+  30%,
+  70% {
+    opacity: 1;
+  }
+
+  50% {
+    transform: translate(var(--x, 0px), var(--y, -30px));
+  }
+}
+
+#escena-porti.en-calma .brillo {
+  animation-duration: 4s;
+}
+
+/* ---- "cada vez que yo te busco y no te puedo aún hallar": el haz del faro la busca ---- */
+#escena-porti.en-busco .haz-faro {
+  opacity: .9;
+  animation-duration: 2.4s;
+}
+
+#escena-porti.en-busco .luz-faro {
+  opacity: 1;
+}
+
+/* ---- "me siento un vagabundo, perdido por el mundo": coches con estelas y la moto se prende ---- */
+#escena-porti.en-vagabundo .coche {
+  opacity: 1;
+}
+
+#escena-porti .coche.ida {
+  animation: porti-ida 2.6s steps(26) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+#escena-porti .coche.vuelta {
+  animation: porti-vuelta 3s steps(30) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes porti-ida {
+  from {
+    transform: translateX(-100px);
+  }
+
+  to {
+    transform: translateX(1560px);
+  }
+}
+
+@keyframes porti-vuelta {
+  from {
+    transform: translateX(1560px);
+  }
+
+  to {
+    transform: translateX(-100px);
+  }
+}
+
+#escena-porti .faro-moto {
+  transition: opacity .4s steps(2);
+}
+
+#escena-porti.en-vagabundo .faro-moto {
+  opacity: 1;
+}
+
+/* ---- "desordenado si no estás": todo se tambalea ---- */
+#escena-porti.en-desorden .desorden {
+  animation: porti-tambalea 1s steps(4) infinite;
+}
+
+@keyframes porti-tambalea {
+
+  0%,
+  100% {
+    transform: rotate(0) translate(0, 0);
+  }
+
+  25% {
+    transform: rotate(-1.4deg) translate(-8px, 4px);
+  }
+
+  75% {
+    transform: rotate(1.4deg) translate(8px, -2px);
+  }
+}
+
+/* ---- "cómo mueves tú mi felicidad": ella regresa entre destellos ---- */
+#escena-porti.en-felicidad .chispa {
+  animation: porti-destello 1s steps(3) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+/* pantallas verticales: se recorre el dibujo para que la pareja quede al centro y se esconde el título */
+@media (max-aspect-ratio: 1/1) {
+  #escena-porti .capa-pared > svg,
+  #escena-porti .capa-fondo > svg {
+    transform: translateX(-18vh);
+  }
+
+  #escena-porti .firma {
+    display: none;
+  }
+}
+
+/* ---- colores de esta canción en los subtítulos, el botón y los mensajes ---- */
+body.cancion-porti #subtitulo.sub-coro {
+  text-shadow: .06em .08em 0 #ff5a7a;
+}
+
+body.cancion-porti #subtitulo.sub-verso {
+  box-shadow: .15em .2em 0 #1a7ab8;
+}
+
+body.cancion-porti #subtitulo .eco {
+  color: #ffd84a;
+}
+
+body.cancion-porti #start-btn-container .button {
+  box-shadow: .18em .22em 0 #ff5a7a;
+}
+
+body.cancion-porti .flower-message {
+  text-shadow: .06em .08em 0 #ff5a7a;
+}

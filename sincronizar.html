@@ -31,13 +31,14 @@
     <option value="musica/Enanitos Verdes - Luz de Día (Letra Lyrics).mp3">Luz de día → js/letra-luz.js</option>
     <option value="musica/ciudad de las luces; latin mafia letra.mp3">Ciudad de las luces → js/letra-ciudad.js</option>
     <option value="musica/Igual que ayer - Enanitos verdes Letra.mp3">Igual que ayer → js/letra-ayer.js</option>
+    <option value="musica/Juanes - Es Por Ti (Official Music Video).mp3">Es por ti → js/letra-porti.js</option>
   </select>
   <audio id="audio" controls src="musica/LATIN MAFIA - No digas nada (LYRIC VIDEO).mp3"></audio>
   <button id="empezar">Empezar</button>
   <button id="copiar" class="sec">Copiar resultado</button>
   <div id="actual"></div>
   <div id="siguiente"></div>
-  <p>Resultado (pégalo en <code>js/letra.js</code> → <code>LETRA_LRC</code>, <code>js/letra-humano.js</code> → <code>LETRA_HUMANO_LRC</code>, <code>js/letra-alvafro.js</code> → <code>LETRA_ALVAFRO_LRC</code>, <code>js/letra-luna.js</code> → <code>LETRA_LUNA_LRC</code>, <code>js/letra-labios.js</code> → <code>LETRA_LABIOS_LRC</code>, <code>js/letra-sone.js</code> → <code>LETRA_SONE_LRC</code>, <code>js/letra-luz.js</code> → <code>LETRA_LUZ_LRC</code>, <code>js/letra-ciudad.js</code> → <code>LETRA_CIUDAD_LRC</code> o <code>js/letra-ayer.js</code> → <code>LETRA_AYER_LRC</code>):</p>
+  <p>Resultado (pégalo en <code>js/letra.js</code> → <code>LETRA_LRC</code>, <code>js/letra-humano.js</code> → <code>LETRA_HUMANO_LRC</code>, <code>js/letra-alvafro.js</code> → <code>LETRA_ALVAFRO_LRC</code>, <code>js/letra-luna.js</code> → <code>LETRA_LUNA_LRC</code>, <code>js/letra-labios.js</code> → <code>LETRA_LABIOS_LRC</code>, <code>js/letra-sone.js</code> → <code>LETRA_SONE_LRC</code>, <code>js/letra-luz.js</code> → <code>LETRA_LUZ_LRC</code>, <code>js/letra-ciudad.js</code> → <code>LETRA_CIUDAD_LRC</code>, <code>js/letra-ayer.js</code> → <code>LETRA_AYER_LRC</code> o <code>js/letra-porti.js</code> → <code>LETRA_PORTI_LRC</code>):</p>
   <textarea id="salida" readonly></textarea>
 <script>
   var audio = document.getElementById('audio'), entrada = document.getElementById('entrada'), salida = document.getElementById('salida');

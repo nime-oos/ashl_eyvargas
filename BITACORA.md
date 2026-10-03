@@ -186,3 +186,19 @@ Cuando terminan de mostrarse todos los mensajes, se llama a `animateHeart()`:
   - "La emoción / tu voz": notas musicales salen de la torre. "Quedó desierta la ciudad, sólo para los dos": se apagan todas las ventanas menos dos rosas.
   - "Reaccionar": destello mágico. "Recuperemos el lugar": las ventanas del gran salón forman un corazón. "Las flores del jardín": florecen flores al pie del acantilado.
 - `sincronizar.html` ya incluye "Igual que ayer". Audio: `musica/Igual que ayer - Enanitos verdes Letra.mp3`.
+
+## 2026-10-03 — Décima canción "Es por ti" (Juanes)
+
+- **Menú**: nueva portadita **lado J · Es por ti** (enlace directo: `index.html#es-por-ti`), con la pareja frente al atardecer. Borrón azul mar, rojo y naranja.
+- **Escena** (`js/escena-porti.js`, `css/porti.css`, letra en `js/letra-porti.js`): la carretera junto al mar de la imagen de referencia, con crayón y marcador: la pareja de espaldas mirando el mar (él con su traje verde limón; ella con el pelo verde agua recogido, chamarra negra y falda roja larga, tomada de su brazo), una moto deportiva azul (carenado completo con franja amarilla y el número 7, parabrisas, colín levantado, escape y rines de rayos), la valla de contención, la señal de "no estacionarse", el asfalto con su línea blanca y, a lo lejos, un faro rojo y blanco sobre la punta de tierra. El título "ES POR TI" va pintado en el asfalto como señal de carretera, con "Juanes" a mano.
+- **El cielo vive un día entero al ritmo de la canción**: cuatro cielos pintados (noche, amanecer, día y atardecer) que se funden entre sí; el sol sube y baja con la hora y el reflejo del sol o la luna sobre el mar cambia de color.
+- **Para que no se trabe**: los cielos, el camino y cada uno de los dos se pintan una sola vez y se guardan como imagen; encima solo hay cosas ligeras animadas con transform/opacity. Del "hervor" solo se cambian las imágenes visibles.
+- **La escena reacciona a cada línea**:
+  - "Cada vez que me levanto": amanece (el sol asoma en el horizonte). "Me siento renovado": rayos de sol.
+  - "Aniquilado si no estás": ella desaparece y se hace de noche. "Tú controlas toda mi verdad" / "Tus ojos me llevan al sol": ella vuelve y sale el sol de mediodía.
+  - "Tu boca me habla del amor" / "he vuelto a hablar de amor": suben corazones desde la pareja. "Tu piel tiene el color de un rojo atardecer": cielo y mar rojos con el sol grande sobre el horizonte.
+  - "Y es por ti": noche estrellada con luna, estrellas fugaces y un halo sobre la pareja.
+  - "Que late mi corazón": los brillos del mar forman un corazón que late. "Que brillan mis ojos hoy": el cielo se llena de destellos. "Que calma mi dolor": luciérnagas y el mar se calma.
+  - "Y cada vez que yo te busco y no te puedo aún hallar": ella no está y el haz del faro barre el mar buscándola.
+  - "Me siento un vagabundo, perdido por el mundo": pasan coches con estelas de luz y se prende la moto. "Desordenado si no estás": todo se tambalea. "Cómo mueves tú mi felicidad": ella regresa entre destellos.
+- `sincronizar.html` ya incluye "Es por ti". Audio: `musica/Juanes - Es Por Ti (Official Music Video).mp3`.
