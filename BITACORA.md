@@ -172,3 +172,17 @@ Cuando terminan de mostrarse todos los mensajes, se llama a `animateHeart()`:
   - "Como si viviera de nuevo el momento": rebobinar (líneas de VHS, ◀◀, la noria y el tren van al revés). "Tus manos": dos estelas de luz rosa abrazan la noria.
   - "Te vuelvo a ver": el reflejo del río se ilumina. "Todo está confuso": la ciudad se tambalea. "Se sintió bien": fuegos artificiales.
 - `sincronizar.html` ya incluye "Ciudad de las luces". Audio: `musica/ciudad de las luces; latin mafia letra.mp3`.
+
+## 2026-10-02 — Novena canción "Igual que ayer" (Enanitos Verdes)
+
+- **Menú**: nueva portadita **lado I · Igual que ayer** (enlace directo: `index.html#igual-que-ayer`), con el castillo sobre el lago. Borrón azul noche, morado y dorado de ventanas.
+- **Escena** (`js/escena-ayer.js`, `css/ayer.css`, letra en `js/letra-ayer.js`): un castillo mágico de noche inspirado en la imagen de referencia, con crayón y marcador: el gran salón con sus ventanales encendidos, la torre redonda de techo cónico, el racimo de agujas con la torre del reloj, el puente de arcos, la escalera en zigzag que baja hasta la casita del muelle, el acantilado, un pino, montañas lejanas, la luna llena, nubes y el lago con el reflejo del castillo. Título "Igual que ayer" sobre el lago.
+- **Para que no se trabe**: el castillo (lo más pesado) se dibuja una sola vez con los filtros de crayón y se convierte en imagen PNG (3 cuadros para el "hervor"); encima solo van cosas ligeras sin filtros (ventanas, velas, lechuzas, corazones) animadas con transform/opacity.
+- **La escena reacciona a cada línea**:
+  - "Nos conocimos sin saber": dos lucecitas recorren el castillo y se encuentran. "Un cigarrillo y un café": aparece una taza humeante con corazón y aros de humo; se enciende la casita del muelle ("el mismo bar").
+  - "El tiempo de los dos": las manecillas del reloj de la torre giran. "Voy a salir a caminar": se prenden uno a uno los faroles de la escalera. "Grande la ciudad": se prenden todas las ventanas.
+  - "Nos vamos a encontrar": las lucecitas se juntan y sale un corazón. "La chispa": chispas mágicas salen de la torre. "Cada latido de mi corazón": la luna late con un corazón.
+  - "Yo necesito tu amor": suben velas flotantes. "Dame tu amor": corazones. "Igual que ayer": lechuzas cruzan el cielo y todo se pone color recuerdo.
+  - "La emoción / tu voz": notas musicales salen de la torre. "Quedó desierta la ciudad, sólo para los dos": se apagan todas las ventanas menos dos rosas.
+  - "Reaccionar": destello mágico. "Recuperemos el lugar": las ventanas del gran salón forman un corazón. "Las flores del jardín": florecen flores al pie del acantilado.
+- `sincronizar.html` ya incluye "Igual que ayer". Audio: `musica/Igual que ayer - Enanitos verdes Letra.mp3`.

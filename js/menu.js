@@ -33,7 +33,10 @@
       borron: ['#14121c', '#2a2236', '#f08a2a', '#6a2a8a', '#f6d98a', '#1e3a2a'], base: '#14121c', tinta: '#f6d98a', sombra: '#f08a2a' },
     { id: 'ciudad', enlace: 'ciudad-de-las-luces', lado: 'lado H', titulo: 'Ciudad de las luces', src: 'musica/ciudad de las luces; latin mafia letra.mp3',
       lrc: window.LETRA_CIUDAD_LRC, secciones: window.SECCIONES_CIUDAD,
-      borron: ['#100c30', '#2a1660', '#ff3aa0', '#3ae8ff', '#6a1a6a', '#ffd23a'], base: '#100c30', tinta: '#ffd2ea', sombra: '#ff3aa0' }
+      borron: ['#100c30', '#2a1660', '#ff3aa0', '#3ae8ff', '#6a1a6a', '#ffd23a'], base: '#100c30', tinta: '#ffd2ea', sombra: '#ff3aa0' },
+    { id: 'ayer', enlace: 'igual-que-ayer', lado: 'lado I', titulo: 'Igual que ayer', src: 'musica/Igual que ayer - Enanitos verdes Letra.mp3',
+      lrc: window.LETRA_AYER_LRC, secciones: window.SECCIONES_AYER,
+      borron: ['#121a3c', '#24305e', '#5a4a7a', '#ffd36a', '#3e5070', '#8a7a90'], base: '#121a3c', tinta: '#fff0c0', sombra: '#ffb03a' }
   ];
 
   // mini portadas dibujadas con marcador
@@ -130,6 +133,17 @@
       '<rect y="76" width="100" height="24" fill="#0e1640"/><path d="M0 74 H100" stroke="#3a3654" stroke-width="3"/>' +
       '<path d="M10 86 q6 -2 12 0 M40 92 q6 -2 12 0 M70 84 q6 -2 12 0" stroke="#9af4ff" stroke-width="1.2" fill="none"/>' +
       '<circle cx="84" cy="12" r="6" fill="#f6eec8" stroke="#161616" stroke-width=".8"/>' +
+      '</svg>',
+    ayer: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#121a3c"/>' +
+      '<circle cx="16" cy="16" r="8" fill="#eef0f6" stroke="#161616" stroke-width=".8"/>' +
+      '<path d="M8 78 L14 62 L30 58 L60 57 L86 60 L92 70 L94 80Z" fill="#5a4058" stroke="#161616" stroke-width="1"/>' +
+      '<path d="M20 60 V44 H46 V60Z M54 60 V40 H60 V60Z M64 60 V34 H72 V60Z M76 60 V44 H82 V60Z" fill="#8a7a90" stroke="#161616" stroke-width=".8"/>' +
+      '<path d="M19 45 L22 38 L44 37 L47 45Z M53 40 L57 26 L61 40Z M63 34 L68 16 L73 34Z M75 44 L79 32 L83 44Z" fill="#3e5070" stroke="#161616" stroke-width=".8"/>' +
+      '<path d="M40 50 V30 C40 28 50 28 50 30 V50Z" fill="#8a7a90" stroke="#161616" stroke-width=".8"/><path d="M39 31 L45 10 L51 31Z" fill="#3e5070" stroke="#161616" stroke-width=".8"/>' +
+      '<rect x="23" y="49" width="2" height="4" fill="#ffd36a"/><rect x="28" y="49" width="2" height="4" fill="#ffd36a"/><rect x="33" y="49" width="2" height="4" fill="#ffd36a"/><rect x="38" y="49" width="2" height="4" fill="#ffd36a"/>' +
+      '<rect x="44" y="36" width="2" height="3" fill="#ffd36a"/><rect x="67" y="40" width="2" height="3" fill="#ffd36a"/>' +
+      '<rect y="80" width="100" height="20" fill="#141a40"/><path d="M10 86 h10 M40 90 h14 M70 86 h10" stroke="#c8d8ff" stroke-width="1.2"/>' +
+      '<rect x="84" y="22" width="3" height="8" fill="#f4ecd6"/><path d="M85.5 22 c-1 -2 1 -3 0 -5" stroke="#ffc04a" stroke-width="1.4" fill="none"/>' +
       '</svg>'
   };
 
@@ -250,7 +264,7 @@
     elegir(CANCIONES[(i + 1) % CANCIONES.length].id);
   });
 
-  // canción inicial: la del enlace (#humano, #piensas-en-mi, #luna, #labios-rotos, #sone, #luz-de-dia, #ciudad-de-las-luces) o la del lado A
+  // canción inicial: la del enlace (#humano, #piensas-en-mi, #luna, #labios-rotos, #sone, #luz-de-dia, #ciudad-de-las-luces, #igual-que-ayer) o la del lado A
   var hash = decodeURIComponent(location.hash.replace('#', ''));
   var porEnlace = CANCIONES.filter(function (o) { return (o.enlace || o.id) === hash || o.id === hash; })[0];
   var inicial = porEnlace ? porEnlace.id : 'nada';

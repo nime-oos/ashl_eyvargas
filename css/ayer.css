@@ -1,0 +1,570 @@
+/* Escena "Igual que ayer" (Enanitos Verdes): castillo mágico de noche junto al lago */
+#escena-ayer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s;
+  perspective: 900px;
+  background: #121a3c;
+}
+
+#escena-ayer.visible {
+  opacity: 1;
+}
+
+body.cambiando #escena-ayer {
+  transition: none !important;
+}
+
+#escena-ayer .mundo {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .2s ease-out;
+}
+
+#escena-ayer .capa {
+  position: absolute;
+  inset: -5%;
+}
+
+#escena-ayer .capa-fondo {
+  transform: translateZ(-70px) scale(1.08);
+}
+
+#escena-ayer .capa-frente {
+  transform: translateZ(35px) scale(.965);
+}
+
+#escena-ayer :is(.estrella, .luna, .cor-luna, .nube, .farol, .flor, .chispa, .nota, .vela, .flama, .lechuza, .ala-izq, .ala-der,
+  .corazoncito, .taza, .vapor, .aro, .letra, .brillo-lago, .ventana) {
+  transform-box: fill-box;
+}
+
+#escena-ayer .marco {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+/* ---- siempre: la noche se mueve tranquila ---- */
+#escena-ayer .estrella {
+  animation: ayer-titila 2.6s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes ayer-titila {
+
+  0%,
+  100% {
+    opacity: .4;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+#escena-ayer .halo-luna {
+  animation: ayer-titila 5s steps(3) infinite;
+}
+
+#escena-ayer .nube {
+  animation: ayer-nube 24s steps(24) infinite alternate;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes ayer-nube {
+  from {
+    transform: translateX(-40px);
+  }
+
+  to {
+    transform: translateX(40px);
+  }
+}
+
+/* las ventanas: algunas siempre prendidas y parpadean de vez en cuando */
+#escena-ayer .ventana {
+  opacity: 0;
+  transition: opacity .4s steps(2);
+}
+
+#escena-ayer .ventana.siempre,
+#escena-ayer .ventana.salon {
+  opacity: .9;
+  animation: ayer-ventana 8s steps(1) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes ayer-ventana {
+
+  0%,
+  80%,
+  100% {
+    opacity: .9;
+  }
+
+  84% {
+    opacity: .45;
+  }
+}
+
+/* el reflejo del lago tiembla */
+#escena-ayer .reflejo {
+  animation: ayer-reflejo 3s steps(3) infinite;
+}
+
+@keyframes ayer-reflejo {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(-5px);
+  }
+}
+
+#escena-ayer .brillo-lago {
+  animation: ayer-titila 1.8s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+/* título */
+#escena-ayer .letra {
+  transform-origin: center;
+  animation: salta 1.4s steps(2) infinite;
+}
+
+#escena-ayer .titulo {
+  animation: aparece .5s steps(3) 1s both;
+}
+
+/* ocultos hasta su línea */
+#escena-ayer :is(.cor-ventanas, .farol, .bar, .flor, .chispa, .nota, .luz-a, .luz-b, .encuentro, .vela, .lechuza, .corazoncito, .taza, .aro, .sepia, .destello) {
+  opacity: 0;
+}
+
+/* ---- "nos conocimos sin saber": dos lucecitas recorren el castillo y se encuentran ---- */
+#escena-ayer :is(.luz-a, .luz-b) {
+  transform: translate(600px, 300px);
+}
+
+#escena-ayer.en-conocimos .luz-a,
+#escena-ayer.en-encontrar .luz-a {
+  opacity: 1;
+  animation: ayer-luz-a 6s steps(30) both;
+}
+
+#escena-ayer.en-conocimos .luz-b,
+#escena-ayer.en-encontrar .luz-b {
+  opacity: 1;
+  animation: ayer-luz-b 6s steps(30) both;
+}
+
+@keyframes ayer-luz-a {
+  0% {
+    transform: translate(210px, 250px);
+  }
+
+  30% {
+    transform: translate(330px, 200px);
+  }
+
+  60% {
+    transform: translate(470px, 330px);
+  }
+
+  100% {
+    transform: translate(586px, 310px);
+  }
+}
+
+@keyframes ayer-luz-b {
+  0% {
+    transform: translate(940px, 300px);
+  }
+
+  30% {
+    transform: translate(830px, 240px);
+  }
+
+  60% {
+    transform: translate(700px, 360px);
+  }
+
+  100% {
+    transform: translate(614px, 310px);
+  }
+}
+
+#escena-ayer.en-encontrar .encuentro {
+  opacity: 1;
+  animation: latido 1s steps(4) 2s infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* ---- "un cigarrillo y un café": taza humeante al frente ---- */
+#escena-ayer .taza {
+  transform: translateY(40px);
+  transition: transform .6s steps(4), opacity .4s steps(2);
+}
+
+#escena-ayer.en-cafe .taza {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#escena-ayer .vapor {
+  animation: ayer-vapor 1.6s steps(4) infinite;
+}
+
+@keyframes ayer-vapor {
+
+  0%,
+  100% {
+    transform: translateY(0) scaleX(1);
+  }
+
+  50% {
+    transform: translateY(-6px) scaleX(-1);
+  }
+}
+
+/* aros de humo que suben */
+#escena-ayer.en-humo .aro {
+  animation: ayer-aro 2.8s steps(14) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes ayer-aro {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(.6);
+  }
+
+  15% {
+    opacity: .9;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-40px, -200px) scale(2.4);
+  }
+}
+
+/* ---- "el tiempo de los dos": las manecillas del reloj giran ---- */
+#escena-ayer .hora {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+#escena-ayer .minuto {
+  transform-box: fill-box;
+  transform-origin: left center;
+}
+
+#escena-ayer.en-tiempo .minuto {
+  animation: ayer-gira .8s steps(12) infinite;
+}
+
+#escena-ayer.en-tiempo .hora {
+  animation: ayer-gira 4s steps(12) infinite;
+}
+
+@keyframes ayer-gira {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---- "voy a salir a caminar": se prenden uno a uno los faroles de la escalera ---- */
+#escena-ayer.en-caminar .farol {
+  animation: ayer-farol .4s steps(2) var(--d, 0s) both;
+}
+
+@keyframes ayer-farol {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---- "aunque es muy grande la ciudad": se prenden todas las ventanas ---- */
+#escena-ayer.en-ciudad .ventana {
+  opacity: 1;
+  animation: ayer-ventana 1.2s steps(1) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+/* ---- "la chispa de nuestro amor": chispas mágicas salen de la torre más alta ---- */
+#escena-ayer.en-chispa .chispa {
+  animation: ayer-chispa 1.6s steps(8) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes ayer-chispa {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(.4);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--x, 0px), var(--y, 0px)) scale(1.2) rotate(90deg);
+  }
+}
+
+/* ---- "en cada latido de mi corazón": la luna late como corazón ---- */
+#escena-ayer .luna {
+  transform-origin: center;
+}
+
+#escena-ayer.en-latido .luna {
+  animation: latido 1s steps(4) infinite;
+}
+
+#escena-ayer.en-latido .cor-luna {
+  opacity: .85;
+  transition: opacity .4s steps(2);
+}
+
+/* ---- "yo necesito tu amor": suben velas flotantes ---- */
+#escena-ayer.en-velas .vela {
+  opacity: 1;
+  animation: ayer-vela 6s steps(24) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes ayer-vela {
+  0% {
+    transform: translate(0, 60px);
+    opacity: 0;
+  }
+
+  15%,
+  85% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(var(--x, 0px), -220px);
+    opacity: 0;
+  }
+}
+
+#escena-ayer .flama {
+  transform-origin: center bottom;
+  animation: ayer-flama .35s steps(2) infinite;
+}
+
+@keyframes ayer-flama {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.15, .85);
+  }
+}
+
+/* ---- "dame tu amor": corazones ---- */
+#escena-ayer.en-dame .corazoncito {
+  animation: ayer-sube 2.4s steps(12) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes ayer-sube {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(.4);
+  }
+
+  15% {
+    opacity: 1;
+    transform: translate(0, -20px) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--x, 0px), -260px) scale(1) rotate(12deg);
+  }
+}
+
+/* ---- "igual que ayer": lechuzas cruzan el cielo y todo se pone color recuerdo ---- */
+#escena-ayer .sepia {
+  transition: opacity .8s steps(4);
+}
+
+#escena-ayer.en-ayer .sepia {
+  opacity: .22;
+}
+
+#escena-ayer.en-ayer .lechuza {
+  opacity: 1;
+  animation: ayer-lechuza 5s steps(30) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes ayer-lechuza {
+  from {
+    transform: translate(-80px, var(--y, 150px));
+  }
+
+  to {
+    transform: translate(1300px, calc(var(--y, 150px) - 90px));
+  }
+}
+
+#escena-ayer .ala-izq {
+  transform-origin: right center;
+  animation: ayer-aletea .4s steps(2) infinite;
+}
+
+#escena-ayer .ala-der {
+  transform-origin: left center;
+  animation: ayer-aletea .4s steps(2) infinite;
+}
+
+@keyframes ayer-aletea {
+
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  50% {
+    transform: scaleY(-.6);
+  }
+}
+
+/* ---- "cómo explicarte la emoción / tu voz": notas musicales salen de la torre ---- */
+#escena-ayer.en-voz .nota {
+  animation: ayer-nota 2.4s steps(12) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes ayer-nota {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--x, 0px), -110px) rotate(10deg);
+  }
+}
+
+/* ---- "quedó desierta la ciudad, sólo para los dos": se apagan todas las ventanas menos dos ---- */
+#escena-ayer.en-desierta .ventana {
+  opacity: 0;
+  animation: none;
+}
+
+#escena-ayer.en-desierta .ventana.pareja {
+  opacity: 1;
+  fill: #ff9ab8;
+}
+
+/* ---- "otra vez en el mismo bar": la casita del muelle se enciende ---- */
+#escena-ayer .bar {
+  transition: opacity .5s steps(3);
+}
+
+#escena-ayer.en-bar .bar {
+  opacity: 1;
+  animation: ayer-titila 1.4s steps(2) infinite;
+}
+
+/* ---- "pudimos reaccionar": destello mágico ---- */
+#escena-ayer.en-reaccionar .destello {
+  animation: ayer-destello 1.8s steps(6) infinite;
+}
+
+@keyframes ayer-destello {
+
+  0%,
+  60%,
+  100% {
+    opacity: 0;
+  }
+
+  70% {
+    opacity: .5;
+  }
+}
+
+/* ---- "recuperemos el lugar": las ventanas del gran salón forman un corazón ---- */
+#escena-ayer .cor-ventanas {
+  transition: opacity .6s steps(3);
+}
+
+#escena-ayer.en-lugar .cor-ventanas {
+  opacity: 1;
+  animation: ayer-titila 1s steps(2) infinite;
+}
+
+#escena-ayer.en-lugar .ventana.salon {
+  opacity: 0;
+  animation: none;
+}
+
+/* ---- "con las flores del jardín florecerá el amor": florecen flores en el acantilado ---- */
+#escena-ayer .flor {
+  transform-origin: center bottom;
+  transform: scale(0);
+  transition: transform .8s steps(5), opacity .3s steps(2);
+  transition-delay: var(--w, 0s);
+}
+
+#escena-ayer.en-flores .flor {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* pantallas verticales: el título se esconde y el castillo queda al centro */
+@media (max-aspect-ratio: 1/1) {
+  #escena-ayer .firma {
+    display: none;
+  }
+}
+
+/* ---- colores de esta canción en los subtítulos, el botón y los mensajes ---- */
+body.cancion-ayer #subtitulo.sub-coro {
+  text-shadow: .06em .08em 0 #ffb03a;
+}
+
+body.cancion-ayer #subtitulo.sub-verso {
+  box-shadow: .15em .2em 0 #3a5a8a;
+}
+
+body.cancion-ayer #subtitulo .eco {
+  color: #ffd36a;
+}
+
+body.cancion-ayer #start-btn-container .button {
+  box-shadow: .18em .22em 0 #ffb03a;
+}
+
+body.cancion-ayer .flower-message {
+  text-shadow: .06em .08em 0 #ffb03a;
+}
