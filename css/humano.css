@@ -250,9 +250,9 @@ body.sonando .ecualizador i:nth-child(3) { animation-delay: -.35s; }
 #borron.fuera { opacity: 0; transition: opacity .6s steps(5); }
 
 @media (max-width: 480px) {
-  #discos { top: 14px; left: 14px; gap: 10px; }
-  .disco { width: 58px; padding: 5px 5px 4px; }
-  .disco .portadita { width: 44px; height: 44px; }
+  #discos { top: 14px; left: 10px; gap: 6px; }
+  .disco { width: 46px; padding: 4px 4px 3px; border-width: 2px; }
+  .disco .portadita { width: 36px; height: 36px; }
   .disco-nombre, .disco-lado { display: none; }
   .discos-titulo { font-size: 14px; }
   .flower-message { top: calc(9vh + 56px) !important; }

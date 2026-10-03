@@ -138,3 +138,21 @@ Cuando terminan de mostrarse todos los mensajes, se llama a `animateHeart()`:
 - Reacciones ajustadas a la nueva escena: con "labios" se congela todo y **en todas las fotos** hace trompita mientras el beso sale volando desde "muak"; con "ojos" / "mirada" hace zoom a "tu cumple" y las demás se apagan; con "aire" las fotos se columpian con el viento; con "pensando en ti" brincan y las lucecitas parpadean rápido; con "derretirme" chorrean todas las fotos; con "del mar" retumban.
 - En celulares las ocho fotos se acomodan en dos columnas (sin tendederos) y el zoom y el beso se recalculan para esa posición.
 - La portadita del menú ahora muestra el tendedero con tres fotitos.
+
+## 2026-10-02 — Séptima canción "Luz de día" (Enanitos Verdes), temática de Halloween
+
+- **Menú**: nueva portadita **lado G · Luz de día** (enlace directo: `index.html#luz-de-dia`), con la pareja frente a la luna. Borrón negro, morado y naranja calabaza. Con siete portaditas, en celulares el menú se hizo más compacto.
+- **Escena** (`js/escena-luz.js`, `css/luz.css`, letra en `js/letra-luz.js`): noche de Halloween inspirada en las imágenes de referencia, redibujada con crayón y marcador: luna llena gigante, la colina que termina en espiral y arriba la pareja tomada de la mano (el esqueleto flaquísimo de traje a rayas, moño de murciélago y zapatos enroscados, saludando a la luna, y la muñeca de trapo pelirroja con cara de costuras, vestido de parches y medias a rayas). Atrás un pueblo torcido con ventanas encendidas y un árbol seco de ramas en espiral; murciélagos volando, fantasmitas y un perrito fantasma con nariz de calabaza. Al frente el panteón: lápidas RIP y cruz, reja de fierro con remolinos, calabazas talladas encendidas, velas y la botella de champagne. Título "Luz de día" en naranja con "Enanitos Verdes" en verde.
+- **La escena reacciona a cada línea**:
+  - "Destapa el champagne": sale volando el corcho y brotan burbujas. "Apaga las luces": apagón total menos la luna (la pareja queda en silueta) y las calabazas. "Velas": se prenden las velas del panteón.
+  - "Afuera las heridas": los fantasmitas se van volando. "Pasado": sube la neblina.
+  - "Choquen nuestras copas": dos copas brindan con un ¡clink! "Por habernos encontrado": la pareja se acerca y aparece un corazón entre los dos.
+  - "Mirar el cielo": estrellas fugaces. "Besar tus manos": él se inclina y sale un besito. "Sentir tu cuerpo, decir tu nombre": bailan arriba de la colina.
+  - "Las caricias serán la brisa que aviva el fuego": hojas de otoño al viento y las calabazas echan llamas.
+  - "De nuestro amor": los murciélagos forman un corazón en la luna y suben corazones.
+  - "Ser luz de noche, ser luz de día": la noche se vuelve día (cielo azul y naranja, la luna se vuelve sol con rayos) y otra vez noche.
+  - "Frenar el mundo por un segundo": todo se congela, hasta el crayón deja de moverse.
+  - "El tiempo dejó su huella": huellas brillantes suben por la colina. "Tu piel y mi piel": la pareja brilla.
+  - "Esta noche todo vale": fiesta, las calabazas brincan, los fantasmas bailan y llueve confeti. "Una vez más": la espiral se mueve y la pareja brinca.
+  - "Sin tu amor": final con velas, corazones y fiesta juntos.
+- `sincronizar.html` ya incluye "Luz de día". Audio: `musica/Enanitos Verdes - Luz de Día (Letra Lyrics).mp3`.

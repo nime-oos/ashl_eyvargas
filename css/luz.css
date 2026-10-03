@@ -1,0 +1,869 @@
+/* Escena "Luz de día" (Enanitos Verdes): noche de Halloween, la pareja en la colina espiral frente a la luna */
+#escena-luz {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s;
+  perspective: 900px;
+  background: #100e22;
+}
+
+#escena-luz.visible {
+  opacity: 1;
+}
+
+body.cambiando #escena-luz {
+  transition: none !important;
+}
+
+#escena-luz .mundo {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .2s ease-out;
+}
+
+#escena-luz .capa {
+  position: absolute;
+  inset: -5%;
+}
+
+#escena-luz .capa-fondo {
+  transform: translateZ(-70px) scale(1.08);
+}
+
+#escena-luz .capa-frente {
+  transform: translateZ(35px) scale(.965);
+}
+
+#escena-luz :is(.estrella, .fugaz, .luna, .rayos-sol, .bat, .bat-cor, .ala, .ventana, .esqueleto, .muneca, .brazo-alto, .brazo-mano, .brazo-ella,
+  .calavera, .pelo-rojo, .huella, .perrito, .corazoncito, .corazon-pareja, .besito-mano, .calabaza, .cara-calabaza, .fuego-calabaza,
+  .llama-vela, .fantasma, .hoja, .nube-niebla, .burbuja, .corcho, .copa, .clink, .confeti, .letra, .pareja) {
+  transform-box: fill-box;
+}
+
+#escena-luz .marco {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+/* ---- siempre: la noche se mueve a saltitos ---- */
+#escena-luz .estrella {
+  transform-origin: center;
+  animation: luz-titila 2.4s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luz-titila {
+
+  0%,
+  100% {
+    opacity: .5;
+    transform: scale(.7);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+#escena-luz .halo-luna {
+  animation: luz-respira 5s steps(5) infinite;
+}
+
+@keyframes luz-respira {
+
+  0%,
+  100% {
+    opacity: .7;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+#escena-luz .ala {
+  transform-origin: center;
+  animation: luz-aletea .3s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luz-aletea {
+
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  50% {
+    transform: scaleY(.35);
+  }
+}
+
+#escena-luz .bat {
+  animation: luz-vuela 6s steps(12) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luz-vuela {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(30px, -14px);
+  }
+
+  50% {
+    transform: translate(0, -24px);
+  }
+
+  75% {
+    transform: translate(-30px, -10px);
+  }
+}
+
+#escena-luz .ventana {
+  animation: luz-respira 3s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+  transition: opacity .3s steps(2);
+}
+
+#escena-luz .perrito {
+  animation: luz-flota 3s steps(6) infinite;
+}
+
+@keyframes luz-flota {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-3deg);
+  }
+
+  50% {
+    transform: translate(-10px, -14px) rotate(3deg);
+  }
+}
+
+#escena-luz .halo-nariz {
+  animation: luz-respira 1.2s steps(2) infinite;
+}
+
+#escena-luz .cara-calabaza {
+  animation: luz-flama .5s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luz-flama {
+
+  0%,
+  100% {
+    fill: #ffd35a;
+  }
+
+  50% {
+    fill: #ffb03a;
+  }
+}
+
+#escena-luz .halo-calabaza {
+  animation: luz-respira 1s steps(2) infinite;
+}
+
+#escena-luz .pelo-rojo {
+  transform-origin: left top;
+  animation: luz-pelo 3s steps(3) infinite;
+}
+
+@keyframes luz-pelo {
+
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+#escena-luz .brazo-alto {
+  transform-origin: right bottom;
+  animation: luz-saluda 4s steps(4) infinite;
+}
+
+@keyframes luz-saluda {
+
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(-8deg);
+  }
+}
+
+#escena-luz .calavera {
+  transform-origin: center bottom;
+  animation: luz-cabecea 2.4s steps(2) infinite;
+}
+
+@keyframes luz-cabecea {
+
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+#escena-luz .brillo-ojos {
+  animation: luz-respira 2s steps(2) infinite;
+}
+
+#escena-luz .fantasma {
+  animation: luz-flota 4s steps(8) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+/* título pintado */
+#escena-luz .letra {
+  transform-origin: center;
+  animation: salta 1.4s steps(2) infinite;
+}
+
+#escena-luz .titulo {
+  animation: aparece .5s steps(3) 2.2s both;
+}
+
+/* las huellas de la colina se encienden al llegar, una tras otra */
+#escena-luz.dibujando .pareja {
+  animation: aparece .6s steps(3) .4s both;
+}
+
+/* ocultos hasta su línea */
+#escena-luz :is(.cielo-dia, .rayos-sol, .bat-cor, .fugaz, .apagon, .pausa, .huella, .corazoncito, .corazon-pareja, .besito-mano, .halo-pareja,
+  .fuego-calabaza, .llama-vela, .brillo-vela, .nube-niebla, .burbuja, .copas, .clink, .confeti, .hoja) {
+  opacity: 0;
+}
+
+/* ---- "destapa el champagne": sale el corcho y brotan burbujas ---- */
+#escena-luz.en-champagne .corcho {
+  animation: luz-corcho 1.4s steps(7) both;
+}
+
+@keyframes luz-corcho {
+  0% {
+    transform: translate(0, 0) rotate(0);
+  }
+
+  60% {
+    transform: translate(60px, -460px) rotate(540deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(90px, -620px) rotate(720deg);
+  }
+}
+
+#escena-luz.en-champagne .burbuja {
+  animation: luz-burbuja 1.4s steps(7) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luz-burbuja {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(.6);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--x, 0px), -240px) scale(1.4);
+  }
+}
+
+#escena-luz.en-champagne .botella {
+  animation: luz-tiembla .2s steps(2) 4;
+}
+
+@keyframes luz-tiembla {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(3px, -2px);
+  }
+}
+
+/* ---- "apaga las luces": se apaga todo menos la luna y las calabazas ---- */
+#escena-luz .apagon {
+  transition: opacity .6s steps(3);
+}
+
+#escena-luz.en-apaga .apagon {
+  opacity: .78;
+}
+
+#escena-luz.en-apaga .ventana {
+  opacity: 0;
+  animation: none;
+}
+
+#escena-luz.en-apaga .brillo-ojos {
+  animation-duration: .4s;
+}
+
+/* ---- "dejemos las velas encendidas": se prenden las velas ---- */
+#escena-luz.en-velas :is(.llama-vela, .brillo-vela) {
+  opacity: 1;
+}
+
+#escena-luz .llama-vela {
+  transform-origin: center bottom;
+  animation: luz-vela .35s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luz-vela {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2, .85) skewX(8deg);
+  }
+}
+
+/* ---- "y afuera las heridas": los fantasmitas se van volando ---- */
+#escena-luz.en-heridas .fantasma {
+  animation: luz-se-van 2.6s steps(13) both;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luz-se-van {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(900px, -420px) rotate(20deg);
+  }
+}
+
+/* ---- "ya no pienses más en nuestro pasado": sube la neblina ---- */
+#escena-luz .nube-niebla {
+  transition: opacity 1s steps(5);
+}
+
+#escena-luz.en-pasado .nube-niebla {
+  opacity: .55;
+  animation: luz-niebla 6s steps(12) infinite alternate;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luz-niebla {
+  from {
+    transform: translateX(-40px);
+  }
+
+  to {
+    transform: translateX(40px);
+  }
+}
+
+/* ---- "hagamos que choquen nuestras copas": ¡clink! ---- */
+#escena-luz .copas {
+  transition: opacity .3s steps(2);
+}
+
+#escena-luz.en-copas .copas {
+  opacity: 1;
+}
+
+#escena-luz .copa-izq {
+  transform-origin: center bottom;
+}
+
+#escena-luz .copa-der {
+  transform-origin: center bottom;
+}
+
+#escena-luz.en-copas .copa-izq {
+  animation: luz-brindis-izq 1s steps(4) infinite;
+}
+
+#escena-luz.en-copas .copa-der {
+  animation: luz-brindis-der 1s steps(4) infinite;
+}
+
+@keyframes luz-brindis-izq {
+
+  0%,
+  100% {
+    transform: rotate(-10deg) translateX(-14px);
+  }
+
+  50% {
+    transform: rotate(12deg) translateX(4px);
+  }
+}
+
+@keyframes luz-brindis-der {
+
+  0%,
+  100% {
+    transform: rotate(10deg) translateX(14px);
+  }
+
+  50% {
+    transform: rotate(-12deg) translateX(-4px);
+  }
+}
+
+#escena-luz.en-copas .clink {
+  animation: luz-clink 1s steps(2) infinite;
+}
+
+@keyframes luz-clink {
+
+  0%,
+  40%,
+  100% {
+    opacity: 0;
+  }
+
+  50%,
+  80% {
+    opacity: 1;
+  }
+}
+
+/* ---- "por habernos encontrado": se acercan y sale un corazón ---- */
+#escena-luz .ella-pos,
+#escena-luz .el-pos {
+  transition: transform .8s steps(4);
+}
+
+#escena-luz.en-encontrado .ella-pos {
+  transform: translateX(-12px);
+}
+
+#escena-luz.en-encontrado .el-pos {
+  transform: translateX(8px);
+}
+
+#escena-luz .corazon-pareja {
+  transform-origin: center;
+  transition: opacity .3s steps(2);
+}
+
+#escena-luz.en-encontrado .corazon-pareja {
+  opacity: 1;
+  animation: latido 1s steps(4) infinite;
+}
+
+/* ---- "mirar el cielo": estrellas fugaces ---- */
+#escena-luz.en-cielo .fugaz {
+  animation: luz-fugaz 1.8s steps(9) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luz-fugaz {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-420px, 190px);
+  }
+}
+
+#escena-luz.en-cielo .estrella {
+  animation-duration: .8s;
+}
+
+/* ---- "besar tus manos": él se inclina y le besa la mano ---- */
+#escena-luz .esqueleto {
+  transform-origin: center bottom;
+  transition: transform .6s steps(4);
+}
+
+#escena-luz.en-manos .esqueleto {
+  transform: rotate(9deg);
+}
+
+#escena-luz.en-manos .besito-mano {
+  opacity: 1;
+  animation: luz-besito 1.2s steps(4) infinite;
+}
+
+@keyframes luz-besito {
+  0% {
+    transform: translate(0, 0) scale(.6);
+  }
+
+  100% {
+    transform: translate(10px, -50px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* ---- "sentir tu cuerpo, decir tu nombre": bailan arriba de la colina ---- */
+#escena-luz .pareja {
+  transform-origin: center bottom;
+}
+
+#escena-luz.en-cuerpo .pareja {
+  animation: luz-baile 1.6s steps(4) infinite;
+}
+
+@keyframes luz-baile {
+
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+
+  50% {
+    transform: rotate(3deg) translateY(-6px);
+  }
+}
+
+#escena-luz.en-cuerpo .halo-pareja {
+  opacity: .6;
+}
+
+/* ---- "las caricias serán la brisa que aviva el fuego": hojas al viento y las calabazas echan llamas ---- */
+#escena-luz.en-fuego .hoja {
+  opacity: 1;
+  animation: luz-brisa 2.4s steps(12) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luz-brisa {
+  0% {
+    transform: translate(0, 0) rotate(0);
+  }
+
+  100% {
+    transform: translate(1300px, var(--y, -80px)) rotate(720deg);
+  }
+}
+
+#escena-luz .fuego-calabaza {
+  transform-origin: center bottom;
+  transition: opacity .3s steps(2);
+}
+
+#escena-luz.en-fuego .fuego-calabaza {
+  opacity: 1;
+  animation: luz-llamarada .4s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luz-llamarada {
+
+  0%,
+  100% {
+    transform: scale(1) skewX(0);
+  }
+
+  50% {
+    transform: scale(1.15, 1.3) skewX(10deg);
+  }
+}
+
+#escena-luz.en-fuego .cara-calabaza {
+  animation-duration: .2s;
+}
+
+/* ---- "de nuestro amor": los murciélagos forman un corazón en la luna ---- */
+#escena-luz .bat-cor {
+  transform-origin: center;
+  transition: opacity .4s steps(3);
+}
+
+#escena-luz.en-amor .bat-cor {
+  opacity: 1;
+  animation: latido 1s steps(4) infinite;
+}
+
+#escena-luz.en-amor .bat {
+  opacity: .2;
+}
+
+#escena-luz.en-amor .corazoncito {
+  animation: luz-sube 2.4s steps(12) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luz-sube {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(.4);
+  }
+
+  15% {
+    opacity: 1;
+    transform: translate(0, -20px) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--x, 0px), -260px) scale(1) rotate(12deg);
+  }
+}
+
+/* ---- "puedo ser luz de noche, ser luz de día": la noche se vuelve día y otra vez noche ---- */
+#escena-luz.en-dia .cielo-dia {
+  animation: luz-amanece 4.4s steps(8) infinite;
+}
+
+@keyframes luz-amanece {
+
+  0%,
+  15%,
+  100% {
+    opacity: 0;
+  }
+
+  45%,
+  70% {
+    opacity: .95;
+  }
+}
+
+#escena-luz.en-dia .rayos-sol {
+  animation: luz-amanece 4.4s steps(8) infinite;
+}
+
+#escena-luz .rayos-sol {
+  transform-origin: center;
+}
+
+#escena-luz.en-dia .cara-sol {
+  animation: luz-amanece-sol 4.4s steps(8) infinite;
+}
+
+@keyframes luz-amanece-sol {
+
+  0%,
+  15%,
+  100% {
+    opacity: 0;
+  }
+
+  45%,
+  70% {
+    opacity: .55;
+  }
+}
+
+#escena-luz.en-dia :is(.estrella, .bat, .ventana) {
+  animation: luz-anochece 4.4s steps(8) infinite;
+}
+
+@keyframes luz-anochece {
+
+  0%,
+  15%,
+  100% {
+    opacity: 1;
+  }
+
+  45%,
+  70% {
+    opacity: 0;
+  }
+}
+
+/* ---- "frenar el mundo por un segundo": todo se congela ---- */
+#escena-luz.en-frena .mundo * {
+  animation-play-state: paused !important;
+}
+
+#escena-luz.en-frena .pausa {
+  opacity: .16;
+}
+
+/* ---- "el tiempo dejó su huella imborrable": huellas brillantes suben por la colina ---- */
+#escena-luz.en-huella .huella {
+  animation: luz-huella 3s steps(1) var(--d, 0s) infinite;
+}
+
+@keyframes luz-huella {
+
+  0%,
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: .4;
+  }
+}
+
+/* ---- "tu piel y mi piel" / "vidas distintas": la pareja brilla ---- */
+#escena-luz .halo-pareja {
+  transition: opacity .6s steps(3);
+}
+
+#escena-luz.en-piel .halo-pareja {
+  opacity: 1;
+  animation: luz-respira 1.4s steps(3) infinite;
+}
+
+/* ---- "esta noche todo vale": fiesta ---- */
+#escena-luz.en-fiesta .calabaza {
+  transform-origin: center bottom;
+  animation: luz-brinca .6s steps(2) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luz-brinca {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(-4deg);
+  }
+
+  50% {
+    transform: translateY(-18px) rotate(4deg);
+  }
+}
+
+#escena-luz.en-fiesta .fantasma {
+  animation: luz-baile-fantasma .8s steps(4) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luz-baile-fantasma {
+
+  0%,
+  100% {
+    transform: translate(-20px, 0) rotate(-10deg);
+  }
+
+  50% {
+    transform: translate(20px, -20px) rotate(10deg);
+  }
+}
+
+#escena-luz.en-fiesta .confeti {
+  opacity: 1;
+  animation: luz-confeti 2.4s steps(12) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes luz-confeti {
+  from {
+    transform: translate(0, 0) rotate(0);
+  }
+
+  to {
+    transform: translate(var(--x, 0px), 880px) rotate(540deg);
+  }
+}
+
+#escena-luz.en-fiesta .bat {
+  animation-duration: 2s;
+}
+
+/* ---- "una vez más / y otra vez más": la espiral da vueltas y la pareja brinca ---- */
+#escena-luz .espiral {
+  transform-origin: 900px 594px;
+}
+
+#escena-luz.en-espiral .espiral {
+  animation: luz-espiral 2s steps(8) infinite;
+}
+
+@keyframes luz-espiral {
+
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(-8deg) scale(1.03);
+  }
+}
+
+#escena-luz.en-espiral .pareja {
+  animation: luz-hop .8s steps(2) infinite;
+}
+
+@keyframes luz-hop {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+/* pantallas verticales: el título se esconde para dejar ver a la pareja */
+@media (max-aspect-ratio: 1/1) {
+  #escena-luz .firma {
+    display: none;
+  }
+
+  /* recorre el dibujo para que la pareja y la luna queden al centro */
+  #escena-luz .capa > svg {
+    transform: translateX(-20vh);
+  }
+}
+
+/* ---- colores de esta canción en los subtítulos, el botón y los mensajes ---- */
+body.cancion-luz #subtitulo.sub-coro {
+  text-shadow: .06em .08em 0 #f08a2a;
+}
+
+body.cancion-luz #subtitulo.sub-verso {
+  box-shadow: .15em .2em 0 #6a2a8a;
+}
+
+body.cancion-luz #subtitulo .eco {
+  color: #f6d98a;
+}
+
+body.cancion-luz #start-btn-container .button {
+  box-shadow: .18em .22em 0 #f08a2a;
+}
+
+body.cancion-luz .flower-message {
+  text-shadow: .06em .08em 0 #f08a2a;
+}

@@ -27,7 +27,10 @@
       borron: ['#e8243f', '#c81d3a', '#f03a50', '#3a1a22', '#ff5a6a', '#1e1418'], base: '#d81e3a', tinta: '#ffe0e4', sombra: '#3a1a22' },
     { id: 'sone', enlace: 'sone', lado: 'lado F', titulo: 'Soñé', src: 'musica/Soñé (Unplugged) - Zoé Letra.mp3',
       lrc: window.LETRA_SONE_LRC, secciones: window.SECCIONES_SONE,
-      borron: ['#1a1c48', '#2e2a68', '#4a3480', '#8a6ad8', '#e8a0b0', '#141a3a'], base: '#22245a', tinta: '#f8e8ff', sombra: '#e8506a' }
+      borron: ['#1a1c48', '#2e2a68', '#4a3480', '#8a6ad8', '#e8a0b0', '#141a3a'], base: '#22245a', tinta: '#f8e8ff', sombra: '#e8506a' },
+    { id: 'luz', enlace: 'luz-de-dia', lado: 'lado G', titulo: 'Luz de día', src: 'musica/Enanitos Verdes - Luz de Día (Letra Lyrics).mp3',
+      lrc: window.LETRA_LUZ_LRC, secciones: window.SECCIONES_LUZ,
+      borron: ['#14121c', '#2a2236', '#f08a2a', '#6a2a8a', '#f6d98a', '#1e3a2a'], base: '#14121c', tinta: '#f6d98a', sombra: '#f08a2a' }
   ];
 
   // mini portadas dibujadas con marcador
@@ -98,6 +101,17 @@
           '<circle cx="' + (p[0] - 2) + '" cy="' + (p[1] + 13) + '" r="1.8" fill="none" stroke="#c8a070" stroke-width=".6"/><circle cx="' + (p[0] + 2) + '" cy="' + (p[1] + 13) + '" r="1.8" fill="none" stroke="#c8a070" stroke-width=".6"/>' +
           '<rect x="' + (p[0] - 1.2) + '" y="' + (p[1] - 3) + '" width="2.4" height="6" fill="#d8b07a"/></g>';
       }).join('') +
+      '</svg>',
+    luz: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#100e22"/>' +
+      '<circle cx="60" cy="40" r="30" fill="#f6d98a" stroke="#161616" stroke-width="1.6"/>' +
+      '<path d="M20 100 C26 84 38 70 50 66 C60 63 70 62 80 64 C88 66 92 72 90 78 C88 84 82 84 81 80" stroke="#161616" stroke-width="7" fill="none" stroke-linecap="round"/>' +
+      '<path d="M54 63 L54 42 M50 63 L50 46 M52 46 L52 38" stroke="#121016" stroke-width="2.4"/><ellipse cx="52" cy="35" rx="3.6" ry="4.4" fill="#f4f1e8" stroke="#161616" stroke-width=".8"/>' +
+      '<circle cx="50.6" cy="34.4" r=".9" fill="#121016"/><circle cx="53.4" cy="34.4" r=".9" fill="#121016"/>' +
+      '<path d="M66 63 L64 54 L72 54 L70 63Z" fill="#6a8ab8"/><path d="M64 54 L66 46 L70 46 L72 54Z" fill="#4a6a9a"/><circle cx="68" cy="43" r="3" fill="#c8d8ec"/><path d="M65 41 C66 38 70 38 71 41 C72 46 74 48 73 52" fill="#b8322a"/>' +
+      '<path d="M55 48 L65 49" stroke="#121016" stroke-width="1.4"/>' +
+      '<path d="M2 100 C10 92 40 92 48 100Z" fill="#1c1626"/><path d="M14 84 C6 84 6 98 14 98 C22 98 22 84 14 84Z" fill="#f08a2a" stroke="#161616" stroke-width="1.2"/>' +
+      '<path d="M10 88 l2 2 l2 -2 M16 88 l2 2 l2 -2 M10 93 Q14 96 18 93" stroke="#ffd35a" stroke-width="1.2" fill="none"/>' +
+      '<path d="M24 20 c-2 -3 -6 -3 -9 -1 c2 1 2 2 1 4 c3 -1 5 -1 8 0 c3 -1 5 -1 8 0 c-1 -2 -1 -3 1 -4 c-3 -2 -7 -2 -9 1Z" fill="#121016"/>' +
       '</svg>'
   };
 
@@ -218,7 +232,7 @@
     elegir(CANCIONES[(i + 1) % CANCIONES.length].id);
   });
 
-  // canción inicial: la del enlace (#humano, #piensas-en-mi, #luna, #labios-rotos, #sone) o la del lado A
+  // canción inicial: la del enlace (#humano, #piensas-en-mi, #luna, #labios-rotos, #sone, #luz-de-dia) o la del lado A
   var hash = decodeURIComponent(location.hash.replace('#', ''));
   var porEnlace = CANCIONES.filter(function (o) { return (o.enlace || o.id) === hash || o.id === hash; })[0];
   var inicial = porEnlace ? porEnlace.id : 'nada';
