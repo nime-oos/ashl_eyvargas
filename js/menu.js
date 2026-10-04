@@ -39,7 +39,10 @@
       borron: ['#121a3c', '#24305e', '#5a4a7a', '#ffd36a', '#3e5070', '#8a7a90'], base: '#121a3c', tinta: '#fff0c0', sombra: '#ffb03a' },
     { id: 'porti', enlace: 'es-por-ti', lado: 'lado J', titulo: 'Es por ti', src: 'musica/Juanes - Es Por Ti (Official Music Video).mp3',
       lrc: window.LETRA_PORTI_LRC, secciones: window.SECCIONES_PORTI,
-      borron: ['#08283a', '#0e4a68', '#ff7a2a', '#c8342a', '#1a7ab8', '#ffc04a'], base: '#0b3448', tinta: '#fff0c0', sombra: '#ff5a7a' }
+      borron: ['#08283a', '#0e4a68', '#ff7a2a', '#c8342a', '#1a7ab8', '#ffc04a'], base: '#0b3448', tinta: '#fff0c0', sombra: '#ff5a7a' },
+    { id: 'cinta', enlace: 'just-the-way-you-are', lado: 'lado K', titulo: 'Just the way you are', src: 'musica/Bruno Mars - Just The Way You Are Sub. Español + Lyrics.mp3',
+      lrc: window.LETRA_CINTA_LRC, secciones: window.SECCIONES_CINTA,
+      borron: ['#e8d6b4', '#d8c09a', '#24160f', '#3a2416', '#efe2c8', '#8a5a3a'], base: '#e8d6b4', tinta: '#24160f', sombra: '#e2a94a' }
   ];
 
   // mini portadas dibujadas con marcador
@@ -157,6 +160,14 @@
       '<path d="M62 50 h6 v30 h-6Z" fill="#b8c43a" stroke="#161616" stroke-width=".6"/><circle cx="65" cy="47" r="3.6" fill="#7a4a2a"/>' +
       '<path d="M70 58 h6 l2 22 h-10Z" fill="#d83a2a" stroke="#161616" stroke-width=".6"/><path d="M70 52 h6 v7 h-6Z" fill="#1e1c26"/><circle cx="73" cy="49" r="3.2" fill="#3aa898"/>' +
       '<circle cx="88" cy="36" r="5" fill="#d82a2a" stroke="#161616" stroke-width=".6"/><circle cx="88" cy="36" r="3.4" fill="#2a4ab8"/><path d="M88 41 V78" stroke="#a8b0bc" stroke-width="1.2"/>' +
+      '</svg>',
+    cinta: '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#ead8b6"/><path d="M0 30 C30 28 60 34 100 31 M0 64 C40 62 70 68 100 65" stroke="#c8a878" stroke-width=".8" fill="none"/>' +
+      '<g transform="translate(8 62) rotate(-8)"><rect width="40" height="26" rx="2.5" fill="#33373e" stroke="#16181c" stroke-width=".8"/><rect x="3" y="3" width="34" height="13" rx="1.5" fill="#f4ecd8"/>' +
+      '<rect x="3" y="3" width="34" height="2.4" fill="#e2a94a"/><rect x="10" y="9" width="20" height="6" rx="1.5" fill="#1a1c20"/><circle cx="14" cy="12" r="2" fill="#f2f2ee"/><circle cx="26" cy="12" r="2" fill="#f2f2ee"/></g>' +
+      '<path d="M40 86 C50 90 56 82 52 76 C48 70 54 64 60 66" stroke="#24160f" stroke-width="1.6" fill="none" stroke-linecap="round"/>' +
+      '<path d="M60 66 C62 58 58 50 58 40 C58 26 66 18 72 18 C80 18 88 26 87 40 C87 50 84 58 86 66" stroke="#24160f" stroke-width="1.6" fill="none"/>' +
+      '<path d="M64 36 C66 28 78 26 82 36 M66 40 c2 -1 4 -1 6 0 M76 40 c2 -1 4 -1 6 0 M70 50 c2 1.6 6 1.6 8 0" stroke="#24160f" stroke-width="1.3" fill="none" stroke-linecap="round"/>' +
+      '<path d="M56 30 c-3 4 -2 10 1 14 M90 30 c3 4 2 10 -1 14 M58 46 c-3 2 -2 6 0 8 M88 46 c3 2 2 6 0 8" stroke="#24160f" stroke-width="1.3" fill="none"/>' +
       '</svg>'
   };
 
@@ -277,7 +288,7 @@
     elegir(CANCIONES[(i + 1) % CANCIONES.length].id);
   });
 
-  // canción inicial: la del enlace (#humano, #piensas-en-mi, #luna, #labios-rotos, #sone, #luz-de-dia, #ciudad-de-las-luces, #igual-que-ayer, #es-por-ti) o la del lado A
+  // canción inicial: la del enlace (#humano, #piensas-en-mi, #luna, #labios-rotos, #sone, #luz-de-dia, #ciudad-de-las-luces, #igual-que-ayer, #es-por-ti, #just-the-way-you-are) o la del lado A
   var hash = decodeURIComponent(location.hash.replace('#', ''));
   var porEnlace = CANCIONES.filter(function (o) { return (o.enlace || o.id) === hash || o.id === hash; })[0];
   var inicial = porEnlace ? porEnlace.id : 'nada';

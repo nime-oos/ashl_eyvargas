@@ -202,3 +202,34 @@ Cuando terminan de mostrarse todos los mensajes, se llama a `animateHeart()`:
   - "Y cada vez que yo te busco y no te puedo aún hallar": ella no está y el haz del faro barre el mar buscándola.
   - "Me siento un vagabundo, perdido por el mundo": pasan coches con estelas de luz y se prende la moto. "Desordenado si no estás": todo se tambalea. "Cómo mueves tú mi felicidad": ella regresa entre destellos.
 - `sincronizar.html` ya incluye "Es por ti". Audio: `musica/Juanes - Es Por Ti (Official Music Video).mp3`.
+
+## 2026-10-03 — Canción once "Just the way you are" (Bruno Mars): retrato con cinta de casete
+
+- **Menú**: nueva portadita **lado K · Just the way you are** (enlace directo: `index.html#just-the-way-you-are`), con el casete y la cara de cinta sobre madera. Borrón beige y café cinta.
+- **Estilo totalmente distinto** (a la manera de Erika Iris Simmons): sobre una mesa de madera clara hay un casete (etiqueta "just the way you are · lado B · ♡ para ti · 90 min") y de él sale la cinta magnética, cruza la mesa con un par de bucles sueltos y dibuja a una muchacha. Todo es una sola cinta café oscura satinada de grosor constante con reflejos sutiles; los contornos de la cara son limpios y fluidos, y el pelo (ondas en S, flequillo de lado) se forma con mechones de cinta y enredos/bucles acumulados en las orillas y en la sombra junto al cuello. Movimientos suaves, sin crayón.
+- **Al entrar** la cinta se va dibujando sola (~6 s) mientras los carretes del casete giran rapidísimo; luego giran despacio mientras suena la música.
+- **Archivos**: `js/cinta.js` (el motor: curvas suaves Catmull-Rom/Bézier, bucles de cinta, enredos en zonas, pintado de la cinta con sombra y brillo, y conversión de foto a cinta con detección de bordes tipo Canny — suavizado gaussiano, Sobel, supresión de no máximos, doble umbral con histéresis, seguimiento de bordes y simplificación — más enredos en las zonas oscuras), `js/escena-cinta.js`, `css/cinta.css`, letra en `js/letra-cinta.js`.
+- **Foto opcional**: si existe `img/cinta.jpg`, el retrato se arma a partir de esa foto con el detector de bordes. Si no, sale el retrato dibujado. (Ojo: el repositorio es público.)
+- **Para que no se trabe**: la cinta se pinta una sola vez en canvas, en capas recortadas al tamaño de lo que dibujan (la mesa y la cara juntas; pelo, ojos, boca y sonrisa aparte); lo que se mueve son capas enteras y adornos SVG ligeros.
+- **La escena reacciona a cada línea**:
+  - "Her eyes": estrellas de cinta alrededor y brillitos en los ojos. "Her hair": el pelo se mece.
+  - "She's so beautiful" / "just the way you are": la cinta forma un corazón sobre la mesa.
+  - "She won't believe me" / "do I look okay?": el retrato se desvanece un poco y aparece un signo de interrogación de cinta.
+  - "When I see your face": acercamiento a su cara. "And when you smile": ella sonríe. "Amazing": un brillo recorre la cinta y salen estrellas.
+  - "The whole world stops and stares": todo se detiene (carretes, pelo, parpadeo) y se oscurecen las orillas.
+  - "Her lips / kiss": un besito de cinta junto a sus labios.
+- `sincronizar.html` ya incluye la canción. Audio: `musica/Bruno Mars - Just The Way You Are Sub. Español + Lyrics.mp3`.
+- **Retrato rehecho como en el video** (cinta ancha que se va armando): la cinta ahora es un listón de ~5 px que se tuerce (se angosta y brilla en la orilla). Cejas, ojos, nariz y labios se construyen uno por uno con cinta: cejas y labios "rellenos" de tiras de cinta, ojos almendrados con delineado y colita, iris en espiral con su brillito, la nariz solo con la curva de abajo, y la cara apenas sugerida con mejillas y barbilla. Rasgos de ella: lentes grandes, redondos y de alambre delgado; fleco ondulado sobre la frente abierto un poquito al centro; pelo largo ondulado con volumen; labios llenos; escote recto de hombros caídos. Al sonreír se le ven las comisuras arriba y el hueco de los dientes. Orden de armado: la cinta llega del casete al hombro, luego cejas, ojos, nariz, labios, lentes y al final el pelo. El retrato se acomodó un poco más chico y abajo para que el menú no lo tape.
+- Letra de "Just the way you are" re-sincronizada con los tiempos correctos del audio (empieza en 00:30.93).
+- **Escena rehecha como el video de la canción** (`js/escena-cinta.js`, `css/cinta.css`): ya no es un solo retrato fijo. La cinta **sale del casete, dibuja una figura según la letra, se rebobina (se mete de nuevo al casete, de atrás hacia adelante) y vuelve a salir para dibujar la siguiente**. Los carretes giran rápido cuando sale la cinta y al revés cuando entra. Figuras:
+  - Intro / "her hair" / "beautiful" / "when I see your face": su retrato (lentes grandes redondos de alambre, fleco tipo cortina, pelo largo ondulado, labios llenos, hombros descubiertos).
+  - "Her eyes": sus ojos de cerca con los lentes, las cejas y estrellas de cinta.
+  - "She won't believe me" / "do I look okay?": un espejo de mano con un signo de pregunta.
+  - "Amazing" / "just the way you are": un corazón triple de cinta con estrellas.
+  - "When you smile": su retrato sonriendo. "Her laugh": su retrato riéndose con los ojos cerrados.
+  - "The whole world stops and stares": un globo terráqueo con ojos que se queda mirando.
+  - "Her lips / kiss them": sus labios de cerca rellenos de cinta y corazones.
+- Labios, cejas y párpados se rellenan con tiras de cinta pegaditas (ida y vuelta), calculadas para el tamaño de cada figura, como en el video.
+- Ahora todo lo anima el navegador con transiciones de CSS sobre trazos SVG (`stroke-dashoffset`): corre a ~55-60 cuadros por segundo incluso mientras dibuja.
+- **Arreglos**: (1) Se quedaba en blanco después del mundo: si la letra cambiaba mientras la cinta se rebobinaba se cancelaba el aviso de "ya entró" y la cinta nunca volvía a salir. La máquina de estados se rehízo: cada figura se termina de dibujar, se queda un momentito y se rebobina; lo que pida la letra mientras tanto se guarda y se dibuja en cuanto la cinta entra. Probado en tiempo real: siempre hay una figura y el atraso es de ~1 s (lo que tarda en rebobinar). (2) Dibujos más ágiles (2.2–3.4 s) y rebobinado de 0.8 s. (3) Sonrisa nueva como en el video: labio de arriba en arco, la hilera de dientes clara y el labio de abajo fino; nariz más chiquita (ya no parece bigote). (4) El mundo rehecho: globo limpio con ecuador y un meridiano, América, Europa y África, carita con ojos grandes que se quedan mirando y rayitas de "se detiene", en su soporte.
+- **Letra en español**: los subtítulos de esta canción ahora salen traducidos al español (mismos tiempos) y las figuras se activan con las palabras en español.

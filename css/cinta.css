@@ -1,0 +1,135 @@
+/* Escena "Just the way you are" (Bruno Mars): figuras de cinta de casete sobre una mesa de madera clara.
+   La cinta sale del casete, dibuja la figura de la letra, se rebobina y dibuja la siguiente.
+   Es distinta a las demás: movimientos suaves (no a saltitos) y nada de crayón. */
+#escena-cinta {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s;
+  background: #e8d6b4;
+}
+
+#escena-cinta.visible {
+  opacity: 1;
+}
+
+body.cambiando #escena-cinta {
+  transition: none !important;
+}
+
+/* el lienzo 3:2 siempre cubre la pantalla; así la mesa (canvas) y la cinta (SVG) coinciden punto por punto */
+#escena-cinta .lienzo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(100vw, 150vh);
+  height: max(66.667vw, 100vh);
+  transform: translate(-50%, -50%);
+}
+
+#escena-cinta .mesa,
+#escena-cinta .adornos {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#escena-cinta .adornos {
+  overflow: visible;
+}
+
+/* ---- la cinta ---- */
+#escena-cinta .figura path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1 2;
+  /* escondida (y así se rebobina: al revés y en orden inverso) */
+  stroke-dashoffset: 1.02;
+  transition: stroke-dashoffset var(--u, .2s) cubic-bezier(.5, 0, .9, .6) var(--r, 0s);
+}
+
+/* dibujándose: la punta avanza siguiendo el trazo */
+#escena-cinta .figura.on path {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset var(--t, .5s) linear var(--d, 0s);
+}
+
+#escena-cinta .figura .cs {
+  stroke: rgba(46, 26, 10, .2);
+  transform: translate(1.6px, 2.2px);
+}
+
+#escena-cinta .figura .cc {
+  stroke: #2a1810;
+}
+
+/* brillo satinado de la cinta */
+#escena-cinta .figura .cb {
+  stroke: url(#ctSatin);
+  transform: translate(-.5px, -.6px);
+}
+
+/* ---- el casete: los carretes giran mientras suena; rápido cuando sale la cinta, al revés cuando entra ---- */
+#escena-cinta .carrete {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+body.sonando #escena-cinta .carrete {
+  animation: cinta-gira 2.4s linear infinite;
+}
+
+#escena-cinta.saliendo .carrete {
+  animation: cinta-gira .35s linear infinite !important;
+}
+
+#escena-cinta.entrando .carrete {
+  animation: cinta-gira .3s linear infinite reverse !important;
+}
+
+@keyframes cinta-gira {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+#escena-cinta .firma {
+  opacity: .9;
+}
+
+/* pantallas verticales: el lienzo se recorre para que la figura quede al centro */
+@media (max-aspect-ratio: 1/1) {
+  #escena-cinta .lienzo {
+    transform: translate(-60%, -50%);
+  }
+
+  #escena-cinta .firma {
+    display: none;
+  }
+}
+
+/* ---- colores de esta canción en los subtítulos, el botón y los mensajes ---- */
+body.cancion-cinta #subtitulo.sub-coro {
+  text-shadow: .06em .08em 0 #8a5a3a;
+}
+
+body.cancion-cinta #subtitulo.sub-verso {
+  box-shadow: .15em .2em 0 #24160f;
+}
+
+body.cancion-cinta #subtitulo .eco {
+  color: #e2a94a;
+}
+
+body.cancion-cinta #start-btn-container .button {
+  box-shadow: .18em .22em 0 #24160f;
+}
+
+body.cancion-cinta .flower-message {
+  text-shadow: .06em .08em 0 #8a5a3a;
+}
