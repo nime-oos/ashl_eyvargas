@@ -1,0 +1,1220 @@
+/* Escena "Can't take my eyes off you" (Frankie Valli): noche de Halloween sin personajes. La mansión embrujada
+   contra la luna, el panteón, calabazas, murciélagos y ojos que te miran desde la oscuridad.
+   Movimientos suaves. Todo lo que se anima es su propia capa y solo cambia transform / opacity, así no se traba. */
+#escena-mirada {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s;
+  background: #120a24;
+}
+
+#escena-mirada.visible {
+  opacity: 1;
+}
+
+body.cambiando #escena-mirada {
+  transition: none !important;
+}
+
+/* el lienzo 3:2 siempre cubre la pantalla; las capas y los efectos se acomodan en % del dibujo (1200 × 800) */
+#escena-mirada .lienzo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(100vw, 150vh);
+  height: max(66.667vw, 100vh);
+  transform: translate(-50%, -50%);
+}
+
+#escena-mirada .plano,
+#escena-mirada .capa-m,
+#escena-mirada .tinte {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#escena-mirada .plano {
+  transition: transform .6s ease-out;
+  will-change: transform;
+}
+
+/* parallax */
+#escena-mirada .p-lejos {
+  transform: translate(calc(var(--px, 0) * -6px), calc(var(--py, 0) * -4px));
+}
+
+#escena-mirada .p-medio {
+  transform: translate(calc(var(--px, 0) * 4px), calc(var(--py, 0) * 2px));
+}
+
+#escena-mirada .p-cerca {
+  transform: translate(calc(var(--px, 0) * 14px), calc(var(--py, 0) * 8px));
+}
+
+#escena-mirada .capa-m {
+  overflow: visible;
+}
+
+#escena-mirada .suelto {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+#escena-mirada .suelto svg {
+  overflow: visible;
+}
+
+#escena-mirada :is(.pupila, .ojo-ventana, .ojos-oscuro, .calabaza, .halo-calabaza, .cara-calabaza, .llama, .vela, .burbuja, .bocanada, .veleta,
+  .corazon-calabaza, .aleteo, .nube-niebla, .ventana, .puerta) {
+  transform-box: fill-box;
+}
+
+/* ---- siempre vivo ---- */
+#escena-mirada .estrellas {
+  will-change: opacity;
+  animation: hw-titila 3.4s ease-in-out infinite;
+}
+
+#escena-mirada .e2 {
+  animation-duration: 4.6s;
+  animation-delay: -1.5s;
+}
+
+#escena-mirada .e3 {
+  animation-duration: 2.8s;
+  animation-delay: -.7s;
+}
+
+@keyframes hw-titila {
+
+  0%,
+  100% {
+    opacity: .3;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+#escena-mirada .nubes {
+  will-change: transform;
+  animation: hw-nubes 50s ease-in-out infinite alternate;
+}
+
+@keyframes hw-nubes {
+  from {
+    transform: translateX(-4%);
+  }
+
+  to {
+    transform: translateX(5%);
+  }
+}
+
+/* las pupilas siguen al mouse */
+#escena-mirada .pupila {
+  transform: translate(calc(var(--px, 0) * 2.4px), calc(var(--py, 0) * 1.6px));
+  transition: transform .3s ease-out;
+}
+
+/* los ojos de la oscuridad: unos siempre, parpadean de vez en cuando */
+#escena-mirada .ojos-oscuro {
+  transform-origin: center;
+  opacity: 0;
+  transition: opacity .6s ease;
+}
+
+#escena-mirada .ojos-oscuro.siempre {
+  opacity: 1;
+  animation: hw-parpadea 5s ease-in-out infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes hw-parpadea {
+
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  95% {
+    transform: scaleY(.08);
+  }
+}
+
+/* murciélagos */
+#escena-mirada .aleteo {
+  transform-origin: center;
+  animation: hw-aleteo .28s ease-in-out infinite alternate;
+}
+
+@keyframes hw-aleteo {
+  from {
+    transform: scaleY(1);
+  }
+
+  to {
+    transform: scaleY(-.45);
+  }
+}
+
+#escena-mirada .hw-murcielago.vuela {
+  opacity: 1;
+  animation: hw-vuela 14s linear infinite;
+  animation-delay: var(--w, 0s);
+}
+
+#escena-mirada .hw-murcielago.v1 {
+  animation-name: hw-vuela2;
+  animation-duration: 17s;
+}
+
+#escena-mirada .hw-murcielago.v2 {
+  animation-name: hw-vuela3;
+  animation-duration: 12s;
+}
+
+@keyframes hw-vuela {
+  0% {
+    transform: translate(-50%, -50%) translate(-300px, 40px) scale(.8);
+  }
+
+  25% {
+    transform: translate(-50%, -50%) translate(-80px, -40px) scale(1);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) translate(160px, 20px) scale(.9);
+  }
+
+  75% {
+    transform: translate(-50%, -50%) translate(360px, -60px) scale(1.1);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) translate(-300px, 40px) scale(.8);
+  }
+}
+
+@keyframes hw-vuela2 {
+  0% {
+    transform: translate(-50%, -50%) translate(260px, -30px);
+  }
+
+  33% {
+    transform: translate(-50%, -50%) translate(-120px, 60px) scale(.8);
+  }
+
+  66% {
+    transform: translate(-50%, -50%) translate(-320px, -50px) scale(1.1);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) translate(260px, -30px);
+  }
+}
+
+@keyframes hw-vuela3 {
+  0% {
+    transform: translate(-50%, -50%) translate(0, 0) scale(.7);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) translate(220px, -80px) scale(1);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) translate(0, 0) scale(.7);
+  }
+}
+
+/* la mansión: ventanas que titilan, humo de la chimenea, veleta */
+#escena-mirada .ventana {
+  animation: hw-ventana 7s ease-in-out infinite;
+  animation-delay: var(--w, 0s);
+  transition: opacity .8s ease;
+}
+
+#escena-mirada .ventana.apagada {
+  opacity: 0;
+  animation: none;
+}
+
+@keyframes hw-ventana {
+
+  0%,
+  86%,
+  100% {
+    opacity: 1;
+  }
+
+  88% {
+    opacity: .55;
+  }
+
+  90% {
+    opacity: 1;
+  }
+}
+
+#escena-mirada .bocanada {
+  opacity: 0;
+  animation: hw-humo 4.5s ease-out infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes hw-humo {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(.5);
+  }
+
+  20% {
+    opacity: .35;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-40px, -110px) scale(2.2);
+  }
+}
+
+#escena-mirada .veleta {
+  transform-origin: center;
+  animation: hw-veleta 6s ease-in-out infinite;
+}
+
+@keyframes hw-veleta {
+
+  0%,
+  100% {
+    transform: scaleX(1);
+  }
+
+  50% {
+    transform: scaleX(.6);
+  }
+}
+
+#escena-mirada .puerta {
+  transform-origin: left center;
+  transition: transform 1.2s ease;
+}
+
+#escena-mirada .ojo-ventana {
+  transform-origin: center;
+  transform: scaleY(0);
+  transition: transform .5s ease;
+  transition-delay: var(--w, 0s);
+}
+
+/* velas, calabazas, caldero, linterna */
+#escena-mirada .llama {
+  transform-origin: center bottom;
+  animation: hw-flama .4s ease-in-out infinite alternate;
+}
+
+@keyframes hw-flama {
+  from {
+    transform: scale(1, 1) skewX(0);
+  }
+
+  to {
+    transform: scale(.85, 1.15) skewX(6deg);
+  }
+}
+
+#escena-mirada .vela {
+  opacity: .25;
+  transition: opacity 1s ease;
+  transition-delay: var(--w, 0s);
+}
+
+#escena-mirada .halo-calabaza,
+#escena-mirada .halo-linterna,
+#escena-mirada .halo-vela {
+  animation: hw-brillo 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes hw-brillo {
+  from {
+    opacity: .7;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+#escena-mirada .cara-calabaza {
+  animation: hw-titila-fuego 2.2s ease-in-out infinite;
+}
+
+@keyframes hw-titila-fuego {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  40% {
+    opacity: .82;
+  }
+
+  60% {
+    opacity: .95;
+  }
+}
+
+#escena-mirada .burbuja {
+  opacity: 0;
+  animation: hw-burbuja 2.4s ease-in infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes hw-burbuja {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(.4);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+    transform: translate(var(--x, 0px), -40px) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--x, 0px), -48px) scale(1.4);
+  }
+}
+
+/* fuegos fatuos y la araña */
+#escena-mirada .hw-fatuo {
+  opacity: .8;
+  animation: hw-fatuo 6s ease-in-out infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes hw-fatuo {
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) translate(var(--x, 20px), -26px);
+  }
+}
+
+#escena-mirada .hw-arana {
+  opacity: 1;
+  animation: hw-arana 8s ease-in-out infinite;
+}
+
+@keyframes hw-arana {
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) translateY(42px);
+  }
+}
+
+/* la neblina */
+#escena-mirada .nube-niebla {
+  animation: hw-niebla 18s ease-in-out infinite alternate;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes hw-niebla {
+  from {
+    transform: translateX(-60px);
+  }
+
+  to {
+    transform: translateX(60px);
+  }
+}
+
+#escena-mirada .niebla-alta {
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+/* ocultos hasta su línea */
+#escena-mirada :is(.corazon-calabaza, .rayo, .puerta-luz) {
+  opacity: 0;
+}
+
+#escena-mirada .tinte {
+  opacity: 0;
+  transition: opacity 2s ease;
+  will-change: opacity;
+}
+
+#escena-mirada .tinte-calido {
+  background: radial-gradient(ellipse at 70% 60%, rgba(255, 150, 70, .4), rgba(255, 120, 60, .1) 55%, rgba(255, 100, 50, 0) 80%);
+}
+
+#escena-mirada .tinte-calma {
+  background: radial-gradient(ellipse at 60% 50%, rgba(6, 2, 16, .35) 10%, rgba(6, 2, 16, .82) 80%);
+}
+
+#escena-mirada .destello-rayo {
+  background: #f4f0ff;
+  transition: none;
+}
+
+/* ---- "demasiado buena para ser verdad": polvo mágico alrededor de la luna ---- */
+#escena-mirada.en-buena .hw-destello {
+  animation: hw-destello 1.8s ease-in-out infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes hw-destello {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.3) rotate(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(45deg);
+  }
+}
+
+/* ---- "no puedo apartar mis ojos de ti": se abren todos los ojos ---- */
+#escena-mirada.en-ojos .ojos-oscuro {
+  opacity: 1;
+  animation: hw-parpadea 4s ease-in-out infinite;
+  animation-delay: var(--w, 0s);
+}
+
+#escena-mirada.en-ojos .ojo-ventana {
+  transform: scaleY(1);
+}
+
+#escena-mirada.en-ojos .tinte-calma {
+  opacity: .45;
+}
+
+/* ---- "tocar el cielo" / "el amor ha llegado": estrellas fugaces ---- */
+#escena-mirada:is(.en-cielo, .en-llegado) .hw-fugaz {
+  animation: hw-fugaz 2.6s ease-in infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes hw-fugaz {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(-120%, -40%);
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translate(40%, 14%);
+  }
+
+  80%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(55%, 19%);
+  }
+}
+
+#escena-mirada.en-cielo .estrellas {
+  animation-duration: 1.2s;
+}
+
+/* ---- "abrazarte" / "quédate": los murciélagos rodean la luna ---- */
+#escena-mirada.en-abrazo .anillo {
+  animation: hw-anillo 1.2s ease-out both;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes hw-anillo {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.2);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* ---- "el amor ha llegado": se prenden las ventanas y se abre la puerta ---- */
+#escena-mirada:is(.en-llegado, .en-calido) .ventana.apagada {
+  opacity: 1;
+  transition-delay: var(--w, 0s);
+}
+
+#escena-mirada:is(.en-llegado, .en-calido) .puerta-luz {
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+#escena-mirada:is(.en-llegado, .en-calido) .puerta {
+  transform: scaleX(.18);
+}
+
+/* ---- "gracias a Dios por estar vivo": se encienden las velas y suben los fuegos fatuos ---- */
+#escena-mirada:is(.en-vivo, .en-calido, .en-fuegos) .vela {
+  opacity: 1;
+}
+
+#escena-mirada.en-vivo .hw-fatuo {
+  animation: hw-fatuo-sube 4s ease-in-out infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes hw-fatuo-sube {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(0, 0);
+  }
+
+  20%,
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(var(--x, 20px), -200px);
+  }
+}
+
+/* ---- "perdona la forma en que te miro": todo se tiñe de rosa ---- */
+#escena-mirada .tinte-rosa {
+  background: radial-gradient(ellipse at 68% 45%, rgba(255, 110, 170, .2), rgba(255, 90, 150, .06) 55%, rgba(255, 90, 150, 0) 80%);
+}
+
+#escena-mirada.en-sonrojo .tinte-rosa {
+  opacity: 1;
+}
+
+/* ---- "sin fuerzas" / "te necesito": la calabaza gigante late con un corazón ---- */
+#escena-mirada .corazon-calabaza {
+  transform-origin: center;
+  transition: opacity .6s ease;
+}
+
+#escena-mirada.en-latido .corazon-calabaza {
+  opacity: 1;
+  animation: hw-latido 1s ease-in-out infinite;
+}
+
+@keyframes hw-latido {
+
+  0%,
+  100% {
+    transform: scale(.9);
+  }
+
+  15% {
+    transform: scale(1.2);
+  }
+
+  30% {
+    transform: scale(.95);
+  }
+
+  45% {
+    transform: scale(1.12);
+  }
+}
+
+#escena-mirada.en-latido .halo-calabaza {
+  animation-duration: .5s;
+}
+
+/* ---- "no me quedan palabras": todo se oscurece y sube la neblina ---- */
+#escena-mirada.en-calma .tinte-calma {
+  opacity: 1;
+}
+
+#escena-mirada.en-calma .niebla-alta {
+  opacity: 1;
+}
+
+#escena-mirada.en-calma .ojos-oscuro {
+  opacity: 1;
+}
+
+/* ---- "si sientes lo que yo siento" / "te amo": corazones de fuego desde las calabazas ---- */
+#escena-mirada.en-sientes .hw-corazon {
+  animation: hw-corazon 3.4s ease-out infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes hw-corazon {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.4);
+  }
+
+  15% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(-20px) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(var(--x, 0px), -280px) scale(1.1) rotate(12deg);
+  }
+}
+
+/* ---- "dime que es real" / "créeme": ¡relámpago! ---- */
+#escena-mirada.en-real .rayo {
+  animation: hw-rayo 3.2s ease-out infinite;
+}
+
+#escena-mirada.en-real .destello-rayo {
+  animation: hw-flash 3.2s ease-out infinite;
+}
+
+@keyframes hw-rayo {
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  2%,
+  6% {
+    opacity: 1;
+  }
+
+  4% {
+    opacity: .2;
+  }
+
+  14% {
+    opacity: 0;
+  }
+}
+
+@keyframes hw-flash {
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  2% {
+    opacity: .5;
+  }
+
+  4% {
+    opacity: .1;
+  }
+
+  6% {
+    opacity: .35;
+  }
+
+  18% {
+    opacity: 0;
+  }
+}
+
+/* ---- fuegos artificiales: en el coro (muchos) y en los momentos clave ---- */
+#escena-mirada.en-fuegos .hw-fuego:not(.extra),
+#escena-mirada.en-muchos .hw-fuego.extra {
+  animation: hw-fuego 3.2s cubic-bezier(.2, .7, .3, 1) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes hw-fuego {
+
+  0%,
+  22% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.05);
+  }
+
+  26% {
+    opacity: 1;
+  }
+
+  55% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  80%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(14px) scale(1.06);
+  }
+}
+
+/* el cohete sube y revienta justo donde aparece el fuego */
+#escena-mirada.en-fuegos .hw-cohete:not(.extra),
+#escena-mirada.en-muchos .hw-cohete.extra {
+  animation: hw-cohete 3.2s ease-out infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes hw-cohete {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(80px) scaleY(.6);
+  }
+
+  4% {
+    opacity: 1;
+  }
+
+  22% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(-150px) scaleY(1);
+  }
+
+  25%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(-150px) scaleY(.2);
+  }
+}
+
+#escena-mirada.en-amarte .hw-fuego-cor {
+  animation: hw-fuego 3.6s cubic-bezier(.2, .7, .3, 1) infinite;
+  animation-delay: var(--w, 0s);
+}
+
+#escena-mirada.en-muchos .hw-linterna {
+  animation: hw-linterna 9s ease-in-out infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes hw-linterna {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(0, 0) rotate(-4deg);
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  50% {
+    transform: translate(-50%, -50%) translate(calc(var(--x, 0px) * .5), -260px) rotate(4deg);
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(var(--x, 0px), -560px) rotate(-4deg);
+  }
+}
+
+/* ---- "entibiar las noches solitarias": chimenea y todo cálido ---- */
+#escena-mirada.en-calido .tinte-calido {
+  opacity: 1;
+}
+
+#escena-mirada.en-calido .bocanada {
+  animation-duration: 2.6s;
+}
+
+/* ---- "déjame amarte": corazón de murciélagos en la luna y lluvia de pétalos ---- */
+#escena-mirada.en-amarte .corazon-bat {
+  animation: hw-anillo 1.2s ease-out both;
+  animation-delay: var(--w, 0s);
+}
+
+#escena-mirada.en-amarte .hw-murcielago.vuela {
+  opacity: 0;
+}
+
+#escena-mirada.en-amarte .hw-petalo {
+  animation: hw-petalo 7s linear infinite;
+  animation-delay: var(--w, 0s);
+}
+
+@keyframes hw-petalo {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(0, 0) rotate(0);
+  }
+
+  8% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(var(--x, -100px), 880px) rotate(var(--g, 360deg));
+  }
+}
+
+/* pantallas verticales: el lienzo se recorre para que la mansión y la luna queden al centro */
+@media (max-aspect-ratio: 1/1) {
+  #escena-mirada .lienzo {
+    transform: translate(-62%, -50%);
+  }
+}
+
+/* ==================================================================================================
+   Subtítulos de Halloween (solo esta canción): cada letra aparece desde la neblina como un fantasma,
+   flota, las palabras clave brillan en rosa con un corazón, el coro revienta como fuego artificial
+   en colores, y la línea que se va se deshace hacia arriba como humo.
+   ================================================================================================== */
+body.cancion-mirada :is(#subtitulo, #subtitulo-sale) {
+  position: fixed;
+  left: 50%;
+  bottom: 5.5vh;
+  z-index: 120;
+  width: max-content;
+  max-width: 90vw;
+  text-align: center;
+  line-height: 1.2;
+  pointer-events: none;
+  filter: none;
+  transform: translateX(-50%);
+  background: none;
+  box-shadow: none;
+  padding: .2em .9em .3em;
+  isolation: isolate;
+  font-family: 'Creepster', 'Fredoka', cursive;
+  font-weight: 400;
+  letter-spacing: .04em;
+  text-transform: none;
+  -webkit-text-stroke: 0;
+}
+
+/* la neblina oscura detrás del texto, que respira como la luz de una vela */
+body.cancion-mirada :is(#subtitulo, #subtitulo-sale)::before {
+  content: '';
+  position: absolute;
+  inset: -.35em -1.4em;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(14, 6, 28, .78) 0%, rgba(30, 12, 50, .55) 45%, rgba(30, 12, 50, 0) 72%);
+  animation: sub-hw-niebla 2.6s ease-in-out infinite alternate;
+}
+
+@keyframes sub-hw-niebla {
+  from {
+    opacity: .75;
+    transform: scale(.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+/* resplandor de calabaza debajo (aparece con la línea) */
+body.cancion-mirada #subtitulo::after {
+  content: '';
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  bottom: -.25em;
+  height: .2em;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255, 150, 50, .9), rgba(255, 120, 40, 0) 70%);
+  transform: scaleX(0);
+  animation: sub-hw-raya .9s ease-out .15s forwards;
+}
+
+@keyframes sub-hw-raya {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+body.cancion-mirada #subtitulo .palabra {
+  display: inline-block;
+  transform: none;
+  animation: none;
+  white-space: nowrap;
+}
+
+/* sin las mayúsculas del coro de las otras canciones */
+body.cancion-mirada :is(#subtitulo, #subtitulo-sale).sub-coro .palabra:nth-child(n) {
+  text-transform: none;
+}
+
+/* ---- cada letra sale de la neblina: borrosa, desde abajo y girando un poquito ---- */
+body.cancion-mirada #subtitulo .letra-sub {
+  display: inline-block;
+  opacity: 0;
+  animation: sub-hw-aparece .55s cubic-bezier(.2, .8, .3, 1.3) forwards, sub-hw-flota 3.2s ease-in-out infinite;
+  animation-delay: calc(var(--j) * 32ms), calc(var(--j) * 32ms + .55s + var(--j) * 90ms);
+  will-change: transform, opacity;
+}
+
+@keyframes sub-hw-aparece {
+  0% {
+    opacity: 0;
+    transform: translateY(.7em) rotate(-14deg) scale(.4);
+    filter: blur(6px);
+  }
+
+  60% {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes sub-hw-flota {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+
+  50% {
+    transform: translateY(-.08em) rotate(1.5deg);
+  }
+}
+
+/* ---- VERSO: letras de calabaza encendida (naranja con contorno oscuro y brillo) ---- */
+body.cancion-mirada :is(#subtitulo, #subtitulo-sale).sub-verso {
+  font-size: clamp(26px, 5vmin, 58px);
+  color: #ff9a3a;
+  text-shadow: 0 0 .25em rgba(255, 140, 40, .75), .05em .06em 0 #2a0a04, -.03em -.03em 0 #2a0a04, .03em -.03em 0 #2a0a04, -.03em .05em 0 #2a0a04;
+}
+
+/* ---- INTRO / solos: verde fantasma, como la poción del caldero ---- */
+body.cancion-mirada :is(#subtitulo, #subtitulo-sale).sub-intro {
+  font-size: clamp(24px, 4.4vmin, 50px);
+  color: #b8ff8a;
+  text-shadow: 0 0 .3em rgba(120, 255, 90, .7), .05em .06em 0 #0a2a06;
+}
+
+/* ---- CORO "te amo, nena": más grande, letras de colores de fuego artificial que revientan y rebotan ---- */
+body.cancion-mirada :is(#subtitulo, #subtitulo-sale).sub-coro {
+  font-size: clamp(30px, 6.4vmin, 76px);
+  color: #fff4e8;
+  text-shadow: .05em .07em 0 #2a0a1a, 0 0 .3em rgba(255, 120, 200, .55);
+}
+
+body.cancion-mirada :is(#subtitulo, #subtitulo-sale).sub-coro .letra-sub:nth-child(4n+1) {
+  color: #ff9a3a;
+}
+
+body.cancion-mirada :is(#subtitulo, #subtitulo-sale).sub-coro .letra-sub:nth-child(4n+2) {
+  color: #ff7ac8;
+}
+
+body.cancion-mirada :is(#subtitulo, #subtitulo-sale).sub-coro .letra-sub:nth-child(4n+3) {
+  color: #c89aff;
+}
+
+body.cancion-mirada #subtitulo.sub-coro .letra-sub {
+  animation: sub-hw-revienta .7s cubic-bezier(.2, .9, .3, 1.4) forwards, sub-hw-rebota 1.1s ease-in-out infinite;
+  animation-delay: calc(var(--j) * 28ms), calc(var(--j) * 28ms + .7s + var(--j) * 60ms);
+}
+
+@keyframes sub-hw-revienta {
+  0% {
+    opacity: 0;
+    transform: scale(2.6) rotate(25deg);
+    filter: blur(5px) brightness(2.2);
+  }
+
+  45% {
+    opacity: 1;
+    transform: scale(.85) rotate(-6deg);
+    filter: blur(0) brightness(1.8);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+    filter: blur(0) brightness(1);
+  }
+}
+
+@keyframes sub-hw-rebota {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-.1em) scale(1.06);
+  }
+}
+
+/* destellos que salen alrededor del coro */
+body.cancion-mirada #subtitulo.sub-coro::after {
+  left: -6%;
+  right: -6%;
+  top: -.6em;
+  bottom: -.6em;
+  height: auto;
+  border-radius: 0;
+  background:
+    radial-gradient(circle at 4% 30%, #fff6d0 0 .06em, transparent .07em),
+    radial-gradient(circle at 96% 40%, #ffd27a 0 .07em, transparent .08em),
+    radial-gradient(circle at 12% 88%, #ff8ac8 0 .05em, transparent .06em),
+    radial-gradient(circle at 88% 92%, #c89aff 0 .06em, transparent .07em),
+    radial-gradient(circle at 50% 2%, #fff 0 .05em, transparent .06em);
+  transform: scale(.6);
+  opacity: 0;
+  animation: sub-hw-chispas 1.4s ease-out .3s infinite;
+}
+
+@keyframes sub-hw-chispas {
+  0% {
+    opacity: 0;
+    transform: scale(.6);
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.25);
+  }
+}
+
+/* ---- palabras clave ("ojos", "amor", "nena"...): rosa con brillo que late y un corazoncito ---- */
+body.cancion-mirada :is(#subtitulo, #subtitulo-sale) .palabra.clave {
+  position: relative;
+  color: #ff6aa8;
+  text-shadow: 0 0 .35em rgba(255, 80, 150, .9), .05em .06em 0 #3a0418;
+}
+
+body.cancion-mirada :is(#subtitulo, #subtitulo-sale) .palabra.clave .letra-sub {
+  color: #ff6aa8;
+}
+
+body.cancion-mirada #subtitulo .palabra.clave::after {
+  content: '♥';
+  position: absolute;
+  right: -.35em;
+  top: -.45em;
+  font-family: 'Fredoka', sans-serif;
+  font-size: .5em;
+  color: #ff3a7a;
+  text-shadow: 0 0 .3em rgba(255, 60, 120, .9);
+  opacity: 0;
+  animation: sub-hw-corazon 1s ease-in-out calc(var(--letras) * 32ms + .3s) infinite;
+}
+
+@keyframes sub-hw-corazon {
+
+  0%,
+  100% {
+    opacity: .9;
+    transform: scale(.8) rotate(-10deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.25) rotate(8deg);
+  }
+}
+
+/* ---- la línea que se va: se deshace hacia arriba como humo ---- */
+body.cancion-mirada #subtitulo-sale {
+  display: block;
+  opacity: 0;
+}
+
+body.cancion-mirada #subtitulo-sale.sale {
+  animation: sub-hw-humo .6s ease-out forwards;
+}
+
+body.cancion-mirada #subtitulo-sale .palabra {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+body.cancion-mirada #subtitulo-sale .letra-sub {
+  display: inline-block;
+  animation: sub-hw-letra-humo .6s ease-out forwards;
+  animation-delay: calc(var(--j) * 12ms);
+}
+
+body.cancion-mirada #subtitulo-sale::after {
+  display: none;
+}
+
+@keyframes sub-hw-humo {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes sub-hw-letra-humo {
+  0% {
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+
+  100% {
+    transform: translateY(-1.4em) scale(1.25) rotate(8deg);
+    filter: blur(8px);
+  }
+}
+
+/* cuando suena el coro, el botón y los mensajes van con los colores de la noche */
+body.cancion-mirada #start-btn-container .button {
+  box-shadow: .18em .22em 0 #f07a1a;
+}
+
+body.cancion-mirada .flower-message {
+  text-shadow: .06em .08em 0 #f07a1a;
+}
+
+@media (max-width: 480px) {
+  body.cancion-mirada :is(#subtitulo, #subtitulo-sale) {
+    bottom: 4vh;
+  }
+}

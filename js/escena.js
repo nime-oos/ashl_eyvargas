@@ -272,8 +272,22 @@
     secciones.forEach(function (s) { if (s.desde <= t) tipo = s.tipo; });
     return tipo;
   }
+  // Una escena puede pedir subtítulos especiales con window.SUB_ESPECIAL = { letras: true, claves: /regex/ }:
+  // cada palabra se arma letra por letra (--j = número de letra), las palabras que coinciden con "claves"
+  // llevan la clase "clave", y la línea anterior se queda un momento en #subtitulo-sale para su animación de salida.
+  var subSale = document.createElement('div');
+  subSale.id = 'subtitulo-sale';
+  subSale.setAttribute('aria-hidden', 'true');
+  sub.parentNode.insertBefore(subSale, sub.nextSibling);
   // arma la línea palabra por palabra; lo que va entre paréntesis son coros de fondo
   function mostrar(texto, t) {
+    var esp = window.SUB_ESPECIAL;
+    if (esp && sub.innerHTML) {
+      subSale.className = '';
+      void subSale.offsetWidth;
+      subSale.innerHTML = sub.innerHTML;
+      subSale.className = sub.className.replace(/\bon\b/, '') + ' sale';
+    }
     sub.className = '';
     void sub.offsetWidth; // reinicia la animación
     sub.innerHTML = '';
@@ -281,7 +295,7 @@
     var tipo = seccion(t);
     sub.classList.add('sub-' + tipo);
     document.dispatchEvent(new CustomEvent('seccion', { detail: tipo }));
-    var n = 0;
+    var n = 0, j = 0;
     texto.split(/(\([^)]*\))/).forEach(function (parte) {
       if (!parte.trim()) return;
       var eco = /^\(/.test(parte);
@@ -290,7 +304,19 @@
       parte.replace(/[()]/g, '').trim().split(/\s+/).forEach(function (palabra) {
         var s = document.createElement('span');
         s.className = 'palabra';
-        s.textContent = palabra;
+        if (esp && esp.letras) {
+          Array.from(palabra).forEach(function (ch) {
+            var l = document.createElement('span');
+            l.className = 'letra-sub';
+            l.textContent = ch;
+            l.style.setProperty('--j', j++);
+            s.appendChild(l);
+          });
+          j += 2;
+          if (esp.claves && esp.claves.test(palabra.toLowerCase().replace(/[^a-záéíóúñü]/g, ''))) s.classList.add('clave');
+        } else {
+          s.textContent = palabra;
+        }
         s.style.setProperty('--i', n);
         s.style.setProperty('--rot', (Math.random() * 6 - 3).toFixed(1) + 'deg');
         n++;
@@ -299,6 +325,7 @@
       });
       sub.appendChild(caja);
     });
+    sub.style.setProperty('--letras', j);
     sub.classList.add('on');
   }
   cargarLetra(window.LETRA_LRC || window.LETRA, window.SECCIONES);

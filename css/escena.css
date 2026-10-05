@@ -157,6 +157,8 @@
   filter: url(#marcador); /* el texto también "hierve" como la ilustración */
 }
 #subtitulo.on { opacity: 1; }
+/* la línea que se va (solo la usan las escenas con subtítulos especiales) */
+#subtitulo-sale { display: none; }
 #subtitulo .palabra {
   display: inline-block;
   transform: rotate(var(--rot));

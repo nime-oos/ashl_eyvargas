@@ -42,7 +42,10 @@
       borron: ['#08283a', '#0e4a68', '#ff7a2a', '#c8342a', '#1a7ab8', '#ffc04a'], base: '#0b3448', tinta: '#fff0c0', sombra: '#ff5a7a' },
     { id: 'cinta', enlace: 'just-the-way-you-are', lado: 'lado K', titulo: 'Just the way you are', src: 'musica/Bruno Mars - Just The Way You Are Sub. Español + Lyrics.mp3',
       lrc: window.LETRA_CINTA_LRC, secciones: window.SECCIONES_CINTA,
-      borron: ['#e8d6b4', '#d8c09a', '#24160f', '#3a2416', '#efe2c8', '#8a5a3a'], base: '#e8d6b4', tinta: '#24160f', sombra: '#e2a94a' }
+      borron: ['#e8d6b4', '#d8c09a', '#24160f', '#3a2416', '#efe2c8', '#8a5a3a'], base: '#e8d6b4', tinta: '#24160f', sombra: '#e2a94a' },
+    { id: 'mirada', enlace: 'cant-take-my-eyes-off-you', lado: 'lado L', titulo: "Can't take my eyes off you", src: "musica/Frankie Valli - Can't take my eyes off of you (I Love You Baby)-[traducida sub. español].mp3",
+      lrc: window.LETRA_MIRADA_LRC, secciones: window.SECCIONES_MIRADA,
+      borron: ['#120a24', '#2a1650', '#5c2a6e', '#f07a1a', '#ffd27a', '#1c1232'], base: '#1c1232', tinta: '#ff9a3a', sombra: '#5c2a6e' }
   ];
 
   // mini portadas dibujadas con marcador
@@ -168,6 +171,19 @@
       '<path d="M60 66 C62 58 58 50 58 40 C58 26 66 18 72 18 C80 18 88 26 87 40 C87 50 84 58 86 66" stroke="#24160f" stroke-width="1.6" fill="none"/>' +
       '<path d="M64 36 C66 28 78 26 82 36 M66 40 c2 -1 4 -1 6 0 M76 40 c2 -1 4 -1 6 0 M70 50 c2 1.6 6 1.6 8 0" stroke="#24160f" stroke-width="1.3" fill="none" stroke-linecap="round"/>' +
       '<path d="M56 30 c-3 4 -2 10 1 14 M90 30 c3 4 2 10 -1 14 M58 46 c-3 2 -2 6 0 8 M88 46 c3 2 2 6 0 8" stroke="#24160f" stroke-width="1.3" fill="none"/>' +
+      '</svg>',
+    mirada: '<svg viewBox="0 0 100 100"><defs><linearGradient id="mnH" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#120a24"/><stop offset=".7" stop-color="#5c2a6e"/><stop offset="1" stop-color="#f08a4a"/></linearGradient></defs>' +
+      '<rect width="100" height="100" fill="url(#mnH)"/><circle cx="66" cy="34" r="22" fill="#ffe6a8"/><circle cx="60" cy="28" r="4" fill="#ecc788" opacity=".6"/><circle cx="74" cy="40" r="5" fill="#ecc788" opacity=".6"/>' +
+      '<path d="M22 6 l3 2 l-3 2 M12 16 h2" stroke="#fff" stroke-width=".8"/>' +
+      '<path d="M30 70 L30 46 L36 40 L42 46 L42 52 L58 52 L58 46 L64 30 L70 46 L70 70Z" fill="#2c2048" stroke="#120a1e" stroke-width=".8"/>' +
+      '<rect x="33" y="54" width="4" height="6" fill="#ffb84a"/><rect x="46" y="56" width="4" height="6" fill="#ffb84a"/><rect x="62" y="50" width="4" height="6" fill="#ffb84a"/><rect x="62" y="60" width="4" height="6" fill="#2a1e44"/>' +
+      '<path d="M0 72 C30 64 70 66 100 70 L100 100 L0 100Z" fill="#1a1230"/>' +
+      '<path d="M4 80 v-8 M10 80 v-8 M16 80 v-8 M22 80 v-8 M0 76 h26" stroke="#0c0614" stroke-width="1.2"/>' +
+      '<path d="M40 84 v-10 a5 5 0 0 1 10 0 v10Z" fill="#7a70a0" stroke="#120a1e" stroke-width=".8"/>' +
+      '<ellipse cx="78" cy="86" rx="11" ry="9" fill="#f0801c" stroke="#3a1406" stroke-width=".8"/><path d="M73 84 l2 -3 l2 3Z M79 84 l2 -3 l2 3Z M72 89 q6 4 12 0" fill="#ffd84a" stroke="#ffd84a" stroke-width=".6"/>' +
+      '<path d="M78 77 q1 -3 3 -3" stroke="#4a5a22" stroke-width="1.6" fill="none"/>' +
+      '<path d="M20 24 c-2 -2 -5 -2 -7 0 c2 0 2 2 1 3 c2 -1 4 -1 6 0 c2 -1 4 -1 6 0 c-1 -1 -1 -3 1 -3 c-2 -2 -5 -2 -7 0Z" fill="#100818"/>' +
+      '<ellipse cx="10" cy="90" rx="2.4" ry="1.6" fill="#ffd84a"/><ellipse cx="16" cy="90" rx="2.4" ry="1.6" fill="#ffd84a"/>' +
       '</svg>'
   };
 
@@ -288,7 +304,7 @@
     elegir(CANCIONES[(i + 1) % CANCIONES.length].id);
   });
 
-  // canción inicial: la del enlace (#humano, #piensas-en-mi, #luna, #labios-rotos, #sone, #luz-de-dia, #ciudad-de-las-luces, #igual-que-ayer, #es-por-ti, #just-the-way-you-are) o la del lado A
+  // canción inicial: la del enlace (#humano, #piensas-en-mi, #luna, #labios-rotos, #sone, #luz-de-dia, #ciudad-de-las-luces, #igual-que-ayer, #es-por-ti, #just-the-way-you-are, #cant-take-my-eyes-off-you) o la del lado A
   var hash = decodeURIComponent(location.hash.replace('#', ''));
   var porEnlace = CANCIONES.filter(function (o) { return (o.enlace || o.id) === hash || o.id === hash; })[0];
   var inicial = porEnlace ? porEnlace.id : 'nada';
