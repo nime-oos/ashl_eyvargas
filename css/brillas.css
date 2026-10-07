@@ -1,0 +1,815 @@
+/* Escena "Brillas" (León Larregui): dos estrellas fugaces pintan con luz en un cielo psicodélico de los setenta.
+   Las estelas van en canvas (js/escena-brillas.js); aquí va el cielo, la luna perla, el sol retro, los cerros,
+   el lago, las pestañas de luz y los destellos. Lo que se anima solo cambia transform / opacity. */
+#escena-brillas {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s;
+  background: #140830;
+}
+
+#escena-brillas.visible {
+  opacity: 1;
+}
+
+body.cambiando #escena-brillas {
+  transition: none !important;
+}
+
+#escena-brillas > *,
+#escena-brillas svg {
+  position: absolute;
+}
+
+#escena-brillas svg {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---- el cielo ---- */
+#escena-brillas .cielo,
+#escena-brillas .cielo-dia {
+  inset: 0;
+}
+
+/* las nebulosas van pintadas en el mismo fondo (quietas, así no cuestan nada) */
+#escena-brillas .cielo {
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 44%, rgba(255, 170, 230, .28), rgba(255, 170, 230, 0) 70%),
+    radial-gradient(ellipse 34% 26% at 8% 14%, rgba(255, 90, 200, .3), rgba(255, 90, 200, 0) 70%),
+    radial-gradient(ellipse 36% 28% at 94% 22%, rgba(90, 200, 255, .24), rgba(90, 200, 255, 0) 70%),
+    radial-gradient(ellipse 30% 24% at 30% 56%, rgba(170, 110, 255, .22), rgba(170, 110, 255, 0) 70%),
+    radial-gradient(ellipse 30% 22% at 80% 58%, rgba(255, 180, 90, .2), rgba(255, 180, 90, 0) 70%),
+    linear-gradient(to bottom, #0b0522 0%, #1d0b48 30%, #4a1670 55%, #8a2f86 72%, #d8607e 86%, #f2967a 100%);
+}
+
+/* al amanecer el cielo se pone rosa y naranja */
+#escena-brillas .cielo-dia {
+  opacity: 0;
+  transition: opacity 3.5s ease;
+  background: linear-gradient(to bottom, #3a1a6a 0%, #8a3a8e 28%, #e8648a 52%, #ff9a6a 72%, #ffd08a 88%, #ffe6a8 100%);
+}
+
+#escena-brillas.en-amanecer .cielo-dia {
+  opacity: .9;
+}
+
+/* la aurora que gira en los "ah ah ah" */
+#escena-brillas .aurora {
+  left: 50%;
+  top: 44%;
+  width: 104vmin;
+  height: 104vmin;
+  margin: -52vmin 0 0 -52vmin;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(255, 90, 200, .5), rgba(255, 210, 110, .4), rgba(110, 240, 255, .5), rgba(170, 120, 255, .5), rgba(255, 120, 160, .45), rgba(255, 90, 200, .5));
+  -webkit-mask: radial-gradient(circle, #000 0, rgba(0, 0, 0, .5) 30%, transparent 62%);
+  mask: radial-gradient(circle, #000 0, rgba(0, 0, 0, .5) 30%, transparent 62%);
+  opacity: 0;
+  transition: opacity 2s;
+  will-change: transform, opacity;
+}
+
+#escena-brillas.en-mandala .aurora {
+  opacity: .55;
+  animation: br-gira 14s linear infinite;
+}
+
+@keyframes br-gira {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---- estrellas del fondo, en tres grupos que titilan a destiempo ---- */
+#escena-brillas .estrellas {
+  inset: 0 0 18vh 0;
+  will-change: opacity;
+  animation: br-titila 3.4s ease-in-out infinite alternate;
+}
+
+#escena-brillas .e2 {
+  animation-duration: 2.6s;
+  animation-delay: -1.2s;
+}
+
+#escena-brillas .e3 {
+  animation-duration: 4.2s;
+  animation-delay: -2.5s;
+}
+
+@keyframes br-titila {
+  from {
+    opacity: .25;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* de día las estrellas casi se apagan */
+#escena-brillas.en-amanecer .estrellas {
+  animation-play-state: paused;
+  opacity: .12;
+  transition: opacity 3s;
+}
+
+/* ---- el sol retro de rayas: está escondido detrás de los cerros hasta el amanecer ---- */
+#escena-brillas .sol {
+  left: 24%;
+  bottom: 10vh;
+  width: 34vmin;
+  height: 34vmin;
+  margin-left: -17vmin;
+  transform: translateY(26vmin);
+  transition: transform 5s cubic-bezier(.2, .7, .2, 1);
+  will-change: transform;
+}
+
+#escena-brillas.en-amanecer .sol {
+  transform: translateY(2vmin);
+}
+
+/* ---- la luna perla con sus anillos ---- */
+#escena-brillas .luna {
+  left: 50%;
+  top: 44%;
+  width: 30vmin;
+  height: 30vmin;
+  margin: -15vmin 0 0 -15vmin;
+  transition: transform 1.2s ease, opacity 2s;
+  will-change: transform;
+}
+
+#escena-brillas .luna svg {
+  overflow: visible;
+}
+
+#escena-brillas .luna .halo {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: br-halo 4s ease-in-out infinite alternate;
+}
+
+@keyframes br-halo {
+  from {
+    opacity: .6;
+    transform: scale(.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+#escena-brillas .luna .anillo {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+#escena-brillas.en-luna .luna {
+  transform: scale(1.12);
+}
+
+#escena-brillas.en-luna .luna .anillo,
+#escena-brillas.en-final .luna .anillo {
+  animation: br-anillo 2.4s ease-out infinite;
+}
+
+#escena-brillas .luna .a2 {
+  animation-delay: -.8s !important;
+}
+
+#escena-brillas .luna .a3 {
+  animation-delay: -1.6s !important;
+}
+
+@keyframes br-anillo {
+  0% {
+    opacity: .9;
+    transform: scale(.9);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(2.3);
+  }
+}
+
+#escena-brillas.en-amanecer .luna {
+  opacity: .55;
+}
+
+/* ---- los lienzos de luz ---- */
+#escena-brillas .trazos {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* el dibujo anterior se desvanece entero; el lienzo que no se usa ni se compone */
+#escena-brillas .trazos.se-va {
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+
+#escena-brillas .trazos.quieto {
+  visibility: hidden;
+}
+
+/* ---- las dos estrellas (tú dorada, yo turquesa); el JS las mueve con transform y les cambia el tono --h ---- */
+#escena-brillas .cabeza {
+  left: 0;
+  top: 0;
+  width: 9vmin;
+  height: 9vmin;
+  margin: -4.5vmin 0 0 -4.5vmin;
+  will-change: transform;
+}
+
+#escena-brillas .cabeza i {
+  position: absolute;
+}
+
+#escena-brillas .halo-c {
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle closest-side, hsla(var(--h, 42), 100%, 94%, .95) 0, hsla(var(--h, 42), 100%, 72%, .55) 18%, hsla(var(--h, 42), 100%, 62%, .16) 55%, hsla(var(--h, 42), 100%, 60%, 0) 100%);
+}
+
+#escena-brillas .cruz {
+  inset: -6%;
+  animation: br-gira 5s linear infinite;
+}
+
+#escena-brillas .c1 .cruz {
+  animation-direction: reverse;
+  animation-duration: 4.2s;
+}
+
+#escena-brillas .cruz::before,
+#escena-brillas .cruz::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: .42vmin;
+  margin-left: -.21vmin;
+  border-radius: 1vmin;
+  background: linear-gradient(to bottom, hsla(var(--h, 42), 100%, 90%, 0), hsla(var(--h, 42), 100%, 92%, .85) 50%, hsla(var(--h, 42), 100%, 90%, 0));
+}
+
+#escena-brillas .cruz::after {
+  transform: rotate(90deg);
+}
+
+#escena-brillas .nucleo {
+  left: 50%;
+  top: 50%;
+  width: 1.2vmin;
+  height: 1.2vmin;
+  margin: -.6vmin 0 0 -.6vmin;
+  border-radius: 50%;
+  background: #fffdf4;
+  box-shadow: 0 0 .6vmin .2vmin #fff;
+}
+
+/* ---- cerros, lago y el reflejo de la luna ---- */
+#escena-brillas .horizonte {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 26vh;
+}
+
+#escena-brillas .reflejo {
+  left: 50%;
+  bottom: 0;
+  width: 18vmin;
+  height: 9.2vh;
+  margin-left: -9vmin;
+}
+
+#escena-brillas .reflejo .ola {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: br-ola 2.4s ease-in-out infinite alternate;
+  animation-delay: var(--w);
+}
+
+@keyframes br-ola {
+  from {
+    transform: scaleX(.7);
+    opacity: .35;
+  }
+
+  to {
+    transform: scaleX(1.15);
+    opacity: .9;
+  }
+}
+
+/* ---- pestañas de luz que caen ("entre pestañas"): pide un deseo ---- */
+#escena-brillas .pestanas,
+#escena-brillas .chispas {
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s, visibility 0s 1s;
+}
+
+#escena-brillas.en-pestanas .pestanas,
+#escena-brillas.en-brillas .chispas,
+#escena-brillas.en-final .chispas {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 1s;
+}
+
+#escena-brillas .pestana,
+#escena-brillas .chispa-cielo {
+  position: absolute;
+}
+
+#escena-brillas .pestana {
+  top: -8vmin;
+  width: calc(8vmin * var(--s));
+  height: calc(4vmin * var(--s));
+  will-change: transform;
+}
+
+#escena-brillas.en-pestanas .pestana {
+  animation: br-cae 9s linear infinite;
+  animation-delay: var(--w);
+}
+
+@keyframes br-cae {
+  0% {
+    transform: translate(0, 0) rotate(var(--g));
+  }
+
+  50% {
+    transform: translate(var(--x), 55vh) rotate(calc(var(--g) + 180deg));
+  }
+
+  100% {
+    transform: translate(0, 112vh) rotate(calc(var(--g) + 360deg));
+  }
+}
+
+/* destellos por todo el cielo ("brillas y brillas") */
+#escena-brillas .chispa-cielo {
+  width: calc(4vmin * var(--s));
+  height: calc(4vmin * var(--s));
+  transform: scale(0);
+  will-change: transform;
+}
+
+#escena-brillas.en-brillas .chispa-cielo,
+#escena-brillas.en-final .chispa-cielo {
+  animation: br-destello 2s ease-in-out infinite;
+  animation-delay: var(--w);
+}
+
+@keyframes br-destello {
+
+  0%,
+  100% {
+    transform: scale(0) rotate(0);
+  }
+
+  50% {
+    transform: scale(1) rotate(90deg);
+  }
+}
+
+/* ---- el título en neón sobre los cerros (solo al principio) ---- */
+#escena-brillas .titulo {
+  left: 50%;
+  top: 63vh;
+  width: min(52vw, 46vh, 460px);
+  height: calc(min(52vw, 46vh, 460px) * .357);
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 2s;
+}
+
+#escena-brillas.en-inicio .titulo {
+  opacity: 1;
+  animation: br-neon 5s steps(1) infinite;
+}
+
+@keyframes br-neon {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  61% {
+    opacity: .6;
+  }
+
+  62% {
+    opacity: 1;
+  }
+
+  64% {
+    opacity: .7;
+  }
+
+  65% {
+    opacity: 1;
+  }
+}
+
+/* destello cuando se encuentran ("reconocernos") y en "y mucho más" */
+#escena-brillas .flash {
+  inset: 0;
+  background: radial-gradient(circle at 50% 44%, rgba(255, 250, 230, .85), rgba(255, 210, 240, .35) 35%, rgba(255, 210, 240, 0) 70%);
+  opacity: 0;
+}
+
+#escena-brillas .flash.on {
+  animation: br-flash 1.1s ease-out;
+}
+
+@keyframes br-flash {
+  0% {
+    opacity: 0;
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ==================================================================================================
+   Subtítulos de "Brillas" (solo esta canción): cada letra se enciende como una estrella (un chispazo y
+   luego se queda brillando), el coro va en letra de los setenta con colores de luz, las palabras clave
+   se ponen doradas con un destello ✦, los "ah ah ah" ondulan como aurora, y la línea que se va se
+   deshace en polvo de estrellas.
+   ================================================================================================== */
+body.cancion-brillas :is(#subtitulo, #subtitulo-sale) {
+  position: fixed;
+  left: 50%;
+  bottom: 5.5vh;
+  z-index: 120;
+  width: max-content;
+  max-width: 90vw;
+  text-align: center;
+  line-height: 1.25;
+  pointer-events: none;
+  filter: none;
+  transform: translateX(-50%);
+  background: none;
+  box-shadow: none;
+  padding: .15em .9em .3em;
+  isolation: isolate;
+  font-family: 'Caveat', 'Fredoka', cursive;
+  font-weight: 700;
+  letter-spacing: .02em;
+  text-transform: none;
+  -webkit-text-stroke: 0;
+}
+
+/* una nubecita de noche detrás del texto para que siempre se lea */
+body.cancion-brillas :is(#subtitulo, #subtitulo-sale)::before {
+  content: '';
+  position: absolute;
+  inset: -.3em -1.2em;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(16, 6, 40, .72) 0%, rgba(40, 14, 80, .45) 48%, rgba(40, 14, 80, 0) 72%);
+}
+
+/* una estela de luz que cruza por debajo de la línea */
+body.cancion-brillas #subtitulo::after {
+  content: '';
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: -.05em;
+  height: .07em;
+  z-index: -1;
+  border-radius: 1em;
+  background: linear-gradient(90deg, rgba(255, 210, 120, 0), #ffd27a 30%, #fff6e0 50%, #ff9ad8 70%, rgba(255, 154, 216, 0));
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: br-sub-estela .9s cubic-bezier(.3, .8, .3, 1) .1s forwards;
+}
+
+@keyframes br-sub-estela {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+body.cancion-brillas #subtitulo .palabra {
+  display: inline-block;
+  transform: none;
+  animation: none;
+  white-space: nowrap;
+}
+
+body.cancion-brillas :is(#subtitulo, #subtitulo-sale).sub-coro .palabra:nth-child(n) {
+  text-transform: none;
+}
+
+/* ---- cada letra se enciende como estrella: chispazo blanco, crece y se acomoda ---- */
+body.cancion-brillas #subtitulo .letra-sub {
+  display: inline-block;
+  opacity: 0;
+  animation: br-sub-enciende .6s cubic-bezier(.2, .8, .3, 1.25) forwards, br-sub-vive 2.8s ease-in-out infinite;
+  animation-delay: calc(var(--j) * 30ms), calc(var(--j) * 30ms + .6s + var(--j) * 70ms);
+  will-change: transform, opacity;
+}
+
+@keyframes br-sub-enciende {
+  0% {
+    opacity: 0;
+    transform: translateY(-.5em) scale(.2) rotate(-30deg);
+    filter: brightness(3) blur(3px);
+  }
+
+  45% {
+    opacity: 1;
+    transform: translateY(.04em) scale(1.3) rotate(6deg);
+    filter: brightness(2.2) blur(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0);
+    filter: brightness(1) blur(0);
+  }
+}
+
+@keyframes br-sub-vive {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-.06em);
+  }
+}
+
+/* ---- VERSO: letra a mano, blanca perla con brillo dorado ---- */
+body.cancion-brillas :is(#subtitulo, #subtitulo-sale).sub-verso {
+  font-size: clamp(30px, 5.8vmin, 66px);
+  color: #fff6ec;
+  text-shadow: 0 0 .2em rgba(255, 200, 110, .8), 0 0 .6em rgba(255, 120, 200, .45), .04em .05em 0 #2a0c40;
+}
+
+/* ---- INTRO / "ah ah ah": ondulan como una aurora lila ---- */
+body.cancion-brillas :is(#subtitulo, #subtitulo-sale).sub-intro {
+  font-family: 'Pacifico', 'Caveat', cursive;
+  font-weight: 400;
+  font-size: clamp(26px, 5vmin, 58px);
+  color: #e8d4ff;
+  text-shadow: 0 0 .3em rgba(180, 130, 255, .9), 0 0 .7em rgba(110, 230, 255, .5), .04em .05em 0 #1c0838;
+}
+
+body.cancion-brillas #subtitulo.sub-intro .letra-sub {
+  animation: br-sub-enciende .6s cubic-bezier(.2, .8, .3, 1.25) forwards, br-sub-ola 1.6s ease-in-out infinite;
+  animation-delay: calc(var(--j) * 40ms), calc(.6s + var(--j) * -120ms);
+}
+
+@keyframes br-sub-ola {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-.22em) scale(1.12);
+  }
+}
+
+body.cancion-brillas :is(#subtitulo, #subtitulo-sale).sub-intro .letra-sub:nth-child(3n+2) {
+  color: #b8f4ff;
+}
+
+body.cancion-brillas :is(#subtitulo, #subtitulo-sale).sub-intro .letra-sub:nth-child(3n) {
+  color: #ffc8ec;
+}
+
+/* ---- CORO: letra de los setenta, más grande, cada letra de un color de luz ---- */
+body.cancion-brillas :is(#subtitulo, #subtitulo-sale).sub-coro {
+  font-family: 'Pacifico', 'Caveat', cursive;
+  font-weight: 400;
+  font-size: clamp(28px, 6vmin, 70px);
+  color: #fff4e0;
+  text-shadow: 0 0 .25em rgba(255, 190, 120, .85), 0 0 .7em rgba(255, 110, 200, .55), .04em .06em 0 #300a3a;
+}
+
+body.cancion-brillas :is(#subtitulo, #subtitulo-sale).sub-coro .letra-sub:nth-child(4n+1) {
+  color: #ffd27a;
+}
+
+body.cancion-brillas :is(#subtitulo, #subtitulo-sale).sub-coro .letra-sub:nth-child(4n+2) {
+  color: #ffb0e4;
+}
+
+body.cancion-brillas :is(#subtitulo, #subtitulo-sale).sub-coro .letra-sub:nth-child(4n+3) {
+  color: #c8f4ff;
+}
+
+body.cancion-brillas #subtitulo.sub-coro .letra-sub {
+  animation: br-sub-estrella .75s cubic-bezier(.2, .9, .3, 1.35) forwards, br-sub-late 1.4s ease-in-out infinite;
+  animation-delay: calc(var(--j) * 26ms), calc(var(--j) * 26ms + .75s + var(--j) * 50ms);
+}
+
+@keyframes br-sub-estrella {
+  0% {
+    opacity: 0;
+    transform: scale(2.4) rotate(-40deg);
+    filter: brightness(3) blur(4px);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(.88) rotate(5deg);
+    filter: brightness(1.8) blur(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+    filter: brightness(1) blur(0);
+  }
+}
+
+@keyframes br-sub-late {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-.07em) scale(1.05);
+  }
+}
+
+/* destellos de cuatro puntas alrededor del coro */
+body.cancion-brillas #subtitulo.sub-coro::after {
+  left: -5%;
+  right: -5%;
+  top: -.55em;
+  bottom: -.45em;
+  height: auto;
+  border-radius: 0;
+  background:
+    radial-gradient(circle at 3% 35%, #fff6d0 0 .05em, transparent .06em),
+    radial-gradient(circle at 97% 30%, #ffd27a 0 .06em, transparent .07em),
+    radial-gradient(circle at 10% 92%, #ffb0e4 0 .05em, transparent .06em),
+    radial-gradient(circle at 90% 95%, #c8f4ff 0 .05em, transparent .06em),
+    radial-gradient(circle at 50% 0, #fff 0 .045em, transparent .055em),
+    radial-gradient(circle at 30% 4%, #ffd27a 0 .035em, transparent .045em),
+    radial-gradient(circle at 72% 100%, #fff 0 .035em, transparent .045em);
+  transform: scale(.7);
+  opacity: 0;
+  animation: br-sub-chispas 1.6s ease-out .35s infinite;
+}
+
+@keyframes br-sub-chispas {
+  0% {
+    opacity: 0;
+    transform: scale(.7);
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}
+
+/* ---- palabras clave ("brillas", "luna", "sonrisa"...): doradas con un destello que gira ---- */
+body.cancion-brillas :is(#subtitulo, #subtitulo-sale) .palabra.clave {
+  position: relative;
+}
+
+body.cancion-brillas :is(#subtitulo, #subtitulo-sale) .palabra.clave .letra-sub {
+  color: #ffd864;
+  text-shadow: 0 0 .25em rgba(255, 210, 90, 1), 0 0 .7em rgba(255, 150, 60, .7), .04em .05em 0 #3a1a04;
+}
+
+body.cancion-brillas #subtitulo .palabra.clave::after {
+  content: '✦';
+  position: absolute;
+  right: -.42em;
+  top: -.4em;
+  font-family: 'Fredoka', sans-serif;
+  font-size: .5em;
+  color: #fff4c0;
+  text-shadow: 0 0 .3em #ffd27a, 0 0 .6em #ff9ad8;
+  opacity: 0;
+  animation: br-sub-destello 1.3s ease-in-out calc(var(--letras) * 30ms + .3s) infinite;
+}
+
+@keyframes br-sub-destello {
+
+  0%,
+  100% {
+    opacity: .5;
+    transform: scale(.6) rotate(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.35) rotate(90deg);
+  }
+}
+
+/* ---- la línea que se va: se deshace en polvo de estrellas que sube ---- */
+body.cancion-brillas #subtitulo-sale {
+  display: block;
+  opacity: 0;
+}
+
+body.cancion-brillas #subtitulo-sale.sale {
+  animation: br-sub-se-va .7s ease-out forwards;
+}
+
+body.cancion-brillas #subtitulo-sale .palabra {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+body.cancion-brillas #subtitulo-sale .letra-sub {
+  display: inline-block;
+  animation: br-sub-polvo .7s cubic-bezier(.3, .1, .6, 1) forwards;
+  animation-delay: calc(var(--j) * 10ms);
+}
+
+body.cancion-brillas #subtitulo-sale::after {
+  display: none;
+}
+
+@keyframes br-sub-se-va {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes br-sub-polvo {
+  0% {
+    transform: translate(0, 0) scale(1);
+    filter: brightness(1) blur(0);
+  }
+
+  100% {
+    transform: translate(calc(sin(var(--j) * 2.3rad) * .9em), calc(-1.2em - cos(var(--j) * 1.7rad) * .5em)) scale(.3) rotate(calc(sin(var(--j) * 1.3rad) * 160deg));
+    filter: brightness(2.5) blur(3px);
+  }
+}
+
+/* el botón y los mensajes con los colores de esta noche */
+body.cancion-brillas #start-btn-container .button {
+  box-shadow: .18em .22em 0 #ff9ad8;
+}
+
+body.cancion-brillas .flower-message {
+  text-shadow: .06em .08em 0 #ff9ad8;
+}
+
+/* en vertical las figuras son más grandes (ver medir() en el JS): la luna crece con ellas */
+@media (orientation: portrait) {
+  #escena-brillas .luna {
+    width: 36vmin;
+    height: 36vmin;
+    margin: -18vmin 0 0 -18vmin;
+  }
+}
+
+@media (max-width: 480px) {
+  body.cancion-brillas :is(#subtitulo, #subtitulo-sale) {
+    bottom: 4vh;
+  }
+}

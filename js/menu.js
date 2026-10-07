@@ -45,7 +45,10 @@
       borron: ['#e8d6b4', '#d8c09a', '#24160f', '#3a2416', '#efe2c8', '#8a5a3a'], base: '#e8d6b4', tinta: '#24160f', sombra: '#e2a94a' },
     { id: 'mirada', enlace: 'cant-take-my-eyes-off-you', lado: 'lado L', titulo: "Can't take my eyes off you", src: "musica/Frankie Valli - Can't take my eyes off of you (I Love You Baby)-[traducida sub. español].mp3",
       lrc: window.LETRA_MIRADA_LRC, secciones: window.SECCIONES_MIRADA,
-      borron: ['#120a24', '#2a1650', '#5c2a6e', '#f07a1a', '#ffd27a', '#1c1232'], base: '#1c1232', tinta: '#ff9a3a', sombra: '#5c2a6e' }
+      borron: ['#120a24', '#2a1650', '#5c2a6e', '#f07a1a', '#ffd27a', '#1c1232'], base: '#1c1232', tinta: '#ff9a3a', sombra: '#5c2a6e' },
+    { id: 'brillas', enlace: 'brillas', lado: 'lado M', titulo: 'Brillas', src: 'musica/León Larregui - Brillas (Letra).mp3',
+      lrc: window.LETRA_BRILLAS_LRC, secciones: window.SECCIONES_BRILLAS,
+      borron: ['#140830', '#2a0f5a', '#8a2f86', '#ff9ad8', '#ffd27a', '#5ad8f0'], base: '#1d0b48', tinta: '#ffd27a', sombra: '#ff5ab8' }
   ];
 
   // mini portadas dibujadas con marcador
@@ -184,6 +187,16 @@
       '<path d="M78 77 q1 -3 3 -3" stroke="#4a5a22" stroke-width="1.6" fill="none"/>' +
       '<path d="M20 24 c-2 -2 -5 -2 -7 0 c2 0 2 2 1 3 c2 -1 4 -1 6 0 c2 -1 4 -1 6 0 c-1 -1 -1 -3 1 -3 c-2 -2 -5 -2 -7 0Z" fill="#100818"/>' +
       '<ellipse cx="10" cy="90" rx="2.4" ry="1.6" fill="#ffd84a"/><ellipse cx="16" cy="90" rx="2.4" ry="1.6" fill="#ffd84a"/>' +
+      '</svg>',
+    brillas: '<svg viewBox="0 0 100 100"><defs><linearGradient id="mnB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b0522"/><stop offset=".45" stop-color="#4a1670"/><stop offset=".8" stop-color="#d8607e"/><stop offset="1" stop-color="#f2967a"/></linearGradient>' +
+      '<radialGradient id="mnBL" cx=".38" cy=".35" r=".75"><stop offset="0" stop-color="#fffaf2"/><stop offset="1" stop-color="#c8b4e8"/></radialGradient></defs>' +
+      '<rect width="100" height="100" fill="url(#mnB)"/><circle cx="50" cy="42" r="22" fill="#ffe8f8" opacity=".25"/><circle cx="50" cy="42" r="13" fill="url(#mnBL)"/>' +
+      '<path d="M50 42 m-30 0 c0 -26 30 -30 40 -14 c8 12 -2 26 -14 22 c-10 -4 -8 -16 2 -16" stroke="#ffd27a" stroke-width="2" fill="none" stroke-linecap="round"/>' +
+      '<path d="M50 42 m30 0 c0 26 -30 30 -40 14 c-8 -12 2 -26 14 -22 c10 4 8 16 -2 16" stroke="#6ae8ff" stroke-width="2" fill="none" stroke-linecap="round"/>' +
+      '<circle cx="20" cy="42" r="3" fill="#fff6d8"/><circle cx="80" cy="42" r="3" fill="#e8fcff"/>' +
+      '<path d="M14 14 l1.2 3 l3 1.2 l-3 1.2 l-1.2 3 l-1.2 -3 l-3 -1.2 l3 -1.2Z M84 12 l.8 2 l2 .8 l-2 .8 l-.8 2 l-.8 -2 l-2 -.8 l2 -.8Z M70 24 l.6 1.4 l1.4 .6 l-1.4 .6 l-.6 1.4 l-.6 -1.4 l-1.4 -.6 l1.4 -.6Z" fill="#fff"/>' +
+      '<path d="M0 80 C14 72 26 74 36 78 C48 70 60 68 72 76 C82 72 92 72 100 76 L100 100 L0 100Z" fill="#2a1240"/><rect y="88" width="100" height="12" fill="#1a0a2e"/>' +
+      '<rect x="44" y="90" width="12" height="1.4" rx=".7" fill="#ffe8f8" opacity=".7"/><rect x="46" y="94" width="8" height="1.2" rx=".6" fill="#ffe8f8" opacity=".5"/>' +
       '</svg>'
   };
 
@@ -206,6 +219,18 @@
     botones[c.id] = b;
   });
   document.body.appendChild(menu);
+
+  // con tantas canciones el menú ya no cabe en pantallas angostas: se encoge lo justo (en celular va en dos filas)
+  function acomodarMenu() {
+    menu.style.transform = '';
+    if (innerWidth <= 480) return;
+    var r = menu.getBoundingClientRect(), titulo = menu.querySelector('.discos-titulo');
+    var k = Math.min(1, (innerWidth - r.left - 16) / (r.width + 10 + titulo.offsetWidth));
+    if (k < 1) menu.style.transform = 'scale(' + k.toFixed(3) + ')';
+  }
+  acomodarMenu();
+  window.addEventListener('resize', acomodarMenu);
+  if (document.fonts) document.fonts.ready.then(acomodarMenu);
 
   // ---- borrón de crayón para la transición ----
   var borron = document.createElement('canvas');
@@ -304,7 +329,7 @@
     elegir(CANCIONES[(i + 1) % CANCIONES.length].id);
   });
 
-  // canción inicial: la del enlace (#humano, #piensas-en-mi, #luna, #labios-rotos, #sone, #luz-de-dia, #ciudad-de-las-luces, #igual-que-ayer, #es-por-ti, #just-the-way-you-are, #cant-take-my-eyes-off-you) o la del lado A
+  // canción inicial: la del enlace (#humano, #piensas-en-mi, #luna, #labios-rotos, #sone, #luz-de-dia, #ciudad-de-las-luces, #igual-que-ayer, #es-por-ti, #just-the-way-you-are, #cant-take-my-eyes-off-you, #brillas) o la del lado A
   var hash = decodeURIComponent(location.hash.replace('#', ''));
   var porEnlace = CANCIONES.filter(function (o) { return (o.enlace || o.id) === hash || o.id === hash; })[0];
   var inicial = porEnlace ? porEnlace.id : 'nada';

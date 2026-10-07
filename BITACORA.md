@@ -255,3 +255,25 @@ Cuando terminan de mostrarse todos los mensajes, se llama a `animateHeart()`:
 - Letra re-sincronizada con los tiempos correctos del audio (empieza en 00:16.02; el coro en 01:35.15 y 02:47.26), traducida al español.
 - **Subtítulos especiales de Halloween** (solo en esta canción): letra de terror (Creepster) sobre una neblina oscura que respira como la luz de una vela, con un resplandor de calabaza debajo. Cada **letra aparece desde la neblina** (borrosa, desde abajo y girando) y luego flota. Versos en naranja calabaza, solos en verde fantasma, y el **coro "Te amo, nena"** más grande con letras de colores (naranja, rosa, morado) que **revientan como fuego artificial**, rebotan y sueltan destellos. Las **palabras clave** (ojos, amor, cielo, real, nena, amarte, preciosa…) brillan en rosa con un corazoncito que late. La **línea que se va se deshace hacia arriba como humo**. Funciona con `window.SUB_ESPECIAL` (`js/escena.js` arma la línea letra por letra y guarda la anterior en `#subtitulo-sale`); las demás canciones no cambian.
 
+
+## 2026-10-06 — Canción trece "Brillas" (León Larregui): pintar con luz
+
+- **Menú**: portadita **lado M · Brillas** (enlace directo: `index.html#brillas`), con la luna perla y dos estelas (dorada y turquesa) que la rodean sobre un cielo de atardecer. Borrón morado, rosa, dorado y turquesa.
+- **Escena** (`js/escena-brillas.js`, `css/brillas.css`, letra en `js/letra-brillas.js`): sin personajes. **Dos estrellas fugaces** (tú, dorada; yo, turquesa) bailan en un **cielo psicodélico de los setenta** y van **dibujando con su estela de luz**, como fotografía de larga exposición. Al centro una **luna perla** con halo; al fondo estrellas que titilan, nebulosas de colores, cerros con borde rosa y un **lago** donde se refleja la luna. Al principio aparece el título **"Brillas"** en neón sobre los cerros. Con el mouse (o el dedo) se puede **guiar a la estrella dorada**.
+- **Cada línea dibuja algo distinto**:
+  - Intro: las dos estrellas se buscan dando vueltas alrededor de la luna.
+  - "Nos dimos todo lo que se nos dio": se lanzan chispas una a la otra y quedan **hilos de luz** entre ellas. "Y mucho más": estallido de luz.
+  - "Para después reconocernos, otra vez": se alejan y vuelven a encontrarse en la luna, con un **destello** al tocarse.
+  - "Amanecer colgado de tus labios": **amanece**: sale un **sol retro de rayas** detrás de los cerros y el cielo se pone rosa y naranja.
+  - "Brillas y brillas tan lindo": dibujan una **flor de espirógrafo** y todo el cielo se llena de destellos.
+  - "Brillamos juntos entre pestañas": **caen pestañas de luz** (para pedir un deseo).
+  - "Divina sonrisa": dibujan una **sonrisa** enorme de lado a lado.
+  - "Abrazo de luna, de luna llena": **abrazan la luna** girando a su alrededor; la luna crece, suelta rayos y anillos de luz.
+  - "Ah ah ah": **caleidoscopio**: mandalas de luz con simetría que cambian de color, y una aurora de colores que gira detrás.
+  - "Y así, juntitos los dos": viajan pegaditos dibujando el **infinito**.
+  - Final: dibujan un **corazón** que cambia de colores alrededor de la luna.
+- Cuando cambia la figura, el dibujo anterior se desvanece entero y el nuevo empieza limpio (dos lienzos que se turnan), así no quedan fantasmas.
+- Para que no se trabe: las estelas y la diamantina se pintan en un canvas a resolución reducida que se desvanece poco a poco; las cabezas de las estrellas son dos elementos que solo se mueven con transform; nebulosas pintadas en el fondo (quietas); el resto se anima con transform/opacity.
+- **Subtítulos especiales** (con `window.SUB_ESPECIAL`, como en la canción doce): cada **letra se enciende como estrella** (un chispazo y luego queda brillando) con una estela de luz que cruza por debajo. Versos a mano (Caveat) blanco perla con brillo dorado; el **coro en letra de los setenta** (Pacifico) con letras doradas, rosas y celestes y destellos alrededor; los **"ah ah ah"** ondulan como aurora lila. Palabras clave (brillas, luna, sonrisa, labios, amanecer, juntitos…) en dorado con un destello ✦ que gira. La **línea que se va se deshace en polvo de estrellas**.
+- `sincronizar.html` ya la incluye. Audio: `musica/León Larregui - Brillas (Letra).mp3`.
+- **Menú con 13 canciones**: ya no cabía a lo ancho. En pantallas angostas (laptops de 1280–1366 px) el menú se encoge lo justo para que se vean todas las portaditas, y en celular se acomodan en dos filas de 7.

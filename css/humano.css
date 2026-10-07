@@ -154,6 +154,7 @@ body.cancion-humano .flower-message { text-shadow: .06em .08em 0 #e07a35; }
   align-items: flex-start;
   gap: 14px;
   font-family: 'Gochi Hand', 'Comic Sans MS', cursive;
+  transform-origin: 0 0; /* js/menu.js lo encoge si no cabe a lo ancho */
 }
 .discos-titulo {
   position: absolute;
@@ -250,9 +251,10 @@ body.sonando .ecualizador i:nth-child(3) { animation-delay: -.35s; }
 #borron.fuera { opacity: 0; transition: opacity .6s steps(5); }
 
 @media (max-width: 480px) {
-  #discos { top: 14px; left: 10px; gap: 6px; }
-  .disco { width: 46px; padding: 4px 4px 3px; border-width: 2px; }
-  .disco .portadita { width: 36px; height: 36px; }
+  /* en celular las portaditas se acomodan en dos filas para que se alcancen todas */
+  #discos { top: 14px; left: 10px; gap: 12px 6px; flex-wrap: wrap; max-width: calc(100vw - 20px); }
+  .disco { width: min(46px, calc((100vw - 58px) / 7)); padding: 4px 4px 3px; border-width: 2px; }
+  .disco .portadita { width: calc(min(46px, calc((100vw - 58px) / 7)) - 10px); height: calc(min(46px, calc((100vw - 58px) / 7)) - 10px); }
   .disco-nombre, .disco-lado { display: none; }
   .discos-titulo { font-size: 14px; }
   .flower-message { top: calc(9vh + 56px) !important; }

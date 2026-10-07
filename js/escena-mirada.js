@@ -602,6 +602,7 @@
   audio.addEventListener('timeupdate', reaccionar);
   audio.addEventListener('ended', limpiar);
 
+  var SUBS = { letras: true, claves: /^(ojos|amor|cielo|real|vivo|amarte|nena|preciosa|amo|necesito|quédate|verdad|buena|abrazarte|miro|palabras|fuerzas)$/ };
   window.Escenas = window.Escenas || {};
   window.Escenas.mirada = {
     el: escena,
@@ -609,10 +610,11 @@
       if (!construida) construir();
       activa = true;
       // subtítulos de Halloween: letra por letra, con palabras clave resaltadas y salida en humo (css/mirada.css)
-      window.SUB_ESPECIAL = { letras: true, claves: /^(ojos|amor|cielo|real|vivo|amarte|nena|preciosa|amo|necesito|quédate|verdad|buena|abrazarte|miro|palabras|fuerzas)$/ };
+      window.SUB_ESPECIAL = SUBS;
       limpiar();
       reaccionar();
     },
-    desactivar: function () { activa = false; window.SUB_ESPECIAL = null; }
+    // solo quita los subtítulos especiales si siguen siendo los de esta escena (otra pudo ponerse los suyos)
+    desactivar: function () { activa = false; if (window.SUB_ESPECIAL === SUBS) window.SUB_ESPECIAL = null; }
   };
 })();
