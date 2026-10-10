@@ -281,16 +281,16 @@ Cuando terminan de mostrarse todos los mensajes, se llama a `animateHeart()`:
 ## 2026-10-09 — Canción catorce "Virgen" (Adolescent's Orquesta): la rosa más bella
 
 - **Menú**: portadita **lado N · Virgen** (enlace directo: `index.html#virgen`), con un medallón dorado con una rosa adentro, bajo la lluvia. Borrón vino, rojo rosa y dorado.
-- **Foto**: la foto de ella (con su consentimiento) está en `img/virgen.jpg`, recortada en círculo alrededor de la cara (sin el usuario de TikTok) y reducida a 720×720. Solo se descarga cuando se abre esta canción.
+- **Sin foto**: al principio el medallón llevaba una foto de ella; después se quitó (y se borró `img/virgen.jpg`). Ahora adentro hay una rosa grande sobre terciopelo vino con gotitas de rocío.
 - **Escena** (`js/escena-virgen.js`, `css/virgen.css`, letra en `js/letra-virgen.js`): noche de lluvia en un jardín de rosas, con cielo vino, nubes y piso mojado con charco.
   - Intro: el título "Virgen" bajo la lluvia y **una rosa caída** (gris, marchita) en el piso con pétalos regados.
   - "Ya no llores, ya no temas": la lluvia se calma. "Tranquila, que aquí estoy yo": baja **un paraguas rojo** con luz cálida a cubrir la rosa.
   - "Para hablarte del amor": **la rosa se levanta** y recupera su color.
-  - "Ahora entrégate": deja de llover, se abren las nubes, salen las estrellas y la luna, y **la rosa florece en un medallón dorado con la foto de ella**, rodeado de una corona de rosas (onda dorada, destello y lluvia de pétalos). El paraguas se va volando.
-  - Coro: "Si lloro o tiemblo" → el medallón tiembla y caen **lágrimas de luz que se vuelven estrellitas**; "Dios me mandó para ti" → **rayos de luz** desde arriba; "adorarte para toda la vida" / "muere contigo" → pétalos; "Siénteme" → **late como corazón**; "nació para ti" / "vivo por ti" → suben corazones; "Niña de mi vida" / "Mi linda querida" → **anillo de corazones** girando alrededor de la foto.
+  - "Ahora entrégate": deja de llover, se abren las nubes, salen las estrellas y la luna, y **la rosa florece en un medallón dorado con una rosa grande adentro**, rodeado de una corona de rosas (onda dorada, destello y lluvia de pétalos). El paraguas se va volando.
+  - Coro: "Si lloro o tiemblo" → el medallón tiembla y caen **lágrimas de luz que se vuelven estrellitas**; "Dios me mandó para ti" → **rayos de luz** desde arriba; "adorarte para toda la vida" / "muere contigo" → pétalos; "Siénteme" → **late como corazón**; "nació para ti" / "vivo por ti" → suben corazones; "Niña de mi vida" / "Mi linda querida" → **anillo de corazones** girando alrededor del medallón.
   - Instrumentales y montuno ("No me importa / Si yo te amo"): **bola disco**, reflejos de colores y reflectores de salsa.
   - "Como aquel que pisó la rosa": vuelve la llovizna y las rosas de la corona se marchitan; "fui el escogido para levantarte": destello y vuelven a florecer. "Te amaré y cuidaré / te protegeré" → **cúpula de cristal** que la protege.
-  - "Tus sentimientos vi por dentro" → luz desde adentro de la foto; "somos una sola persona" → **dos corazones se juntan en uno**; "tantas cosas bellas" → el jardín florece y salen **mariposas**.
+  - "Tus sentimientos vi por dentro" → luz desde adentro del medallón; "somos una sola persona" → **dos corazones se juntan en uno**; "tantas cosas bellas" → el jardín florece y salen **mariposas**.
   - "Adolescentes": **letrero de neón "Adolescent's Orquesta"** y fuegos artificiales.
   - Final: "No llores, niña" → lágrimas que se vuelven estrellas; "Ríe, mi vida" → **amanece** (sale el sol detrás del jardín); "Tú corres por mis venas" → **enredaderas de rosas** suben por las orillas; "Eres la rosa más bella" → destellos de corona sobre el medallón.
 - **Subtítulos especiales**: cada letra **cae girando como pétalo** y se acomoda; versos en letra de carta de amor (Dancing Script), el coro y el montuno en **letra de salsa de los 90** (Lobster) dorada con sombra vino; "Adolescentes" en neón rosa; palabras clave (amor, rosa, niña, vida, Dios, siénteme…) en rojo rosa con una florecita ❀; la línea que se va **se deshoja**.

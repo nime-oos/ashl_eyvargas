@@ -1,20 +1,19 @@
 // Escena "Virgen" (Adolescent's Orquesta): la rosa más bella.
 // Noche de lluvia en un jardín: una rosa caída en el piso mojado. Llega un paraguas rojo a cubrirla ("aquí estoy
 // yo"), la rosa se levanta ("para hablarte del amor") y en "ahora entrégate" deja de llover, se abren las nubes y
-// la rosa florece en un medallón dorado con la foto de ella, rodeado de rosas. Cada línea agrega algo: lágrimas de
+// la rosa florece en un medallón dorado con una rosa grande adentro, rodeado de rosas. Cada línea agrega algo: lágrimas de
 // luz que se vuelven estrellas, rayos de luz ("Dios me mandó"), pétalos, latido, corazones, una cúpula de cristal
 // que la protege, bola disco y luces de salsa en los instrumentales y el montuno, letrero de neón y fuegos
 // artificiales en "Adolescentes", y al final amanece y crecen enredaderas de rosas ("tú corres por mis venas").
 //
 // Para que no se trabe: todo es SVG/DOM en capas que solo animan transform/opacity; la lluvia son dos tiras con
-// patrón que se deslizan, y la foto se carga solo cuando se abre esta canción.
+// patrón que se desliza.
 (function () {
   var escena = document.getElementById('escena-virgen');
   var audio = document.getElementById('bg-music');
   if (!escena || !audio) return;
-  var FOTO = 'img/virgen.jpg';
   var SUBS = { letras: true, claves: /^(amor|rosa|vida|niña|dios|siénteme|entrégate|amo|amaré|adorarte|linda|querida|alma|bella|tuyo|ríe|cuidaré|protegeré)$/ };
-  var ESTADOS = ['inicio', 'llueve', 'llovizna', 'paraguas', 'rosa-de-pie', 'con-foto', 'brota', 'tiembla', 'lagrimas', 'rayos', 'petalos',
+  var ESTADOS = ['inicio', 'llueve', 'llovizna', 'paraguas', 'rosa-de-pie', 'florece', 'brota', 'tiembla', 'lagrimas', 'rayos', 'petalos',
     'latido', 'corazones', 'nina', 'marchita', 'cupula', 'disco', 'por-dentro', 'unidos', 'bellas', 'neon', 'amanecer', 'venas', 'corona'];
 
   var construida = false, activa = false, antes = {}, elFlash, tBrota = 0;
@@ -257,19 +256,22 @@
     var luc = el('div', 'luciernagas');
     semilla = 41;
     for (var l = 0; l < 14; l++) el('i', '', '', luc).style.cssText = 'left:' + f(rnd(4, 96)) + '%;top:' + f(rnd(58, 92)) + '%;--w:-' + f(rnd(0, 6)) + 's;--x:' + f(rnd(-40, 40)) + 'px;--y:' + f(rnd(-50, -10)) + 'px';
-    // el medallón con la foto (la imagen se pide solo al abrir esta canción)
+    // el medallón: adentro, una rosa grande sobre terciopelo vino con gotitas de rocío
     var plano = el('div', 'plano-m');
     var med = el('div', 'medallon', '', plano);
     el('div', 'halo', '', med);
     el('div', 'onda', '', med);
     el('div', 'corazon-luz', svg('-20 -20 40 40', '<defs><radialGradient id="vgCL"><stop offset="0" stop-color="#ff4a7a" stop-opacity=".7"/><stop offset="1" stop-color="#ff4a7a" stop-opacity="0"/></radialGradient></defs>' +
       '<path d="M0 14 C-26 -2 -18 -24 0 -12 C18 -24 26 -2 0 14Z" fill="url(#vgCL)" transform="scale(1.1)"/>'), med);
-    var foto = el('div', 'foto', '', med);
-    var img = new Image();
-    img.alt = '';
-    img.decoding = 'async';
-    img.src = FOTO;
-    foto.appendChild(img);
+    el('div', 'centro', svg('-50 -50 100 100',
+      '<defs><radialGradient id="vgTerc" cx=".45" cy=".4" r=".7"><stop offset="0" stop-color="#6a1434"/><stop offset=".7" stop-color="#3a0820"/><stop offset="1" stop-color="#22040f"/></radialGradient>' +
+      '<radialGradient id="vgBrilloR" cx=".35" cy=".3" r=".6"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>' +
+      '<circle r="50" fill="url(#vgTerc)"/>' +
+      hoja(-6, 30, 26, 130, '#2f7a38') + hoja(8, 32, 22, 60, '#2a6a32') +
+      rosaArriba(0, -2, 34, 'roja', 18) +
+      '<circle r="34" cy="-2" fill="url(#vgBrilloR)"/>' +
+      '<circle cx="-14" cy="-16" r="1.8" fill="#fff" opacity=".8"/><circle cx="-12.6" cy="-17.2" r=".6" fill="#fff"/>' +
+      '<circle cx="16" cy="6" r="1.4" fill="#fff" opacity=".7"/><circle cx="4" cy="-24" r="1.1" fill="#fff" opacity=".7"/>'), med);
     el('div', 'luz-dentro', '', med);
     el('div', 'marco', svg('-76 -76 152 152', '<g class="cor-hojas">' + corona() + '</g>' + marco()), med);
     el('div', 'marco-gris', svg('-76 -76 152 152', corona('gris')), med);
@@ -388,7 +390,7 @@
       'llovizna': (t >= 27.3 && t < 57.75) || (t >= 100.27 && t < 105.23),
       'paraguas': t >= 33.74 && t < 57.75,
       'rosa-de-pie': t >= 52.76,
-      'con-foto': t >= 57.75,
+      'florece': t >= 57.75,
       'tiembla': /tiemblo/.test(x),
       'lagrimas': t >= 57 && /lloro|llores/.test(x),
       'rayos': /dios/.test(x),
@@ -408,9 +410,9 @@
       'corona': t >= 243.23
     };
     // momentos de una sola vez: la rosa florece en el medallón, y se vuelve a levantar
-    if (e['con-foto'] && antes['con-foto'] === false) { flash(); tBrota = t; }
+    if (e.florece && antes.florece === false) { flash(); tBrota = t; }
     if (!e.marchita && antes.marchita && t >= 105) flash();
-    e.brota = e['con-foto'] && t - tBrota < 3 && t >= tBrota;
+    e.brota = e.florece && t - tBrota < 3 && t >= tBrota;
     // (con prefijo vg- para no chocar con clases globales como .disco del menú)
     ESTADOS.forEach(function (c) { escena.classList.toggle('vg-' + c, !!e[c]); });
     antes = e;

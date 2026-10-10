@@ -1,5 +1,5 @@
 /* Escena "Virgen" (Adolescent's Orquesta): la rosa más bella. Lluvia de noche, una rosa caída que se levanta y
-   florece en un medallón dorado con la foto de ella. Cada parte es su propia capa y solo cambia transform/opacity. */
+   florece en un medallón dorado con una rosa grande adentro. Cada parte es su propia capa y solo cambia transform/opacity. */
 #escena-virgen {
   --m: 54vmin;
   position: fixed;
@@ -66,7 +66,7 @@ body.cambiando #escena-virgen {
   transition: opacity 3s;
 }
 
-#escena-virgen.vg-con-foto .estrellas {
+#escena-virgen.vg-florece .estrellas {
   opacity: .9;
   animation: vg-titila 3s ease-in-out infinite alternate;
 }
@@ -97,7 +97,7 @@ body.cambiando #escena-virgen {
   transition: opacity 3s, transform 4s ease-out;
 }
 
-#escena-virgen.vg-con-foto .luna {
+#escena-virgen.vg-florece .luna {
   opacity: 1;
   transform: none;
 }
@@ -165,7 +165,7 @@ body.cambiando #escena-virgen {
   transition: transform 4s ease-in, opacity 3s;
 }
 
-#escena-virgen.vg-con-foto .nubes {
+#escena-virgen.vg-florece .nubes {
   transform: translateY(-40vh);
   opacity: 0;
 }
@@ -402,7 +402,7 @@ body.cambiando #escena-virgen {
 
 }
 
-#escena-virgen.vg-con-foto .jardin-flor {
+#escena-virgen.vg-florece .jardin-flor {
   opacity: .45;
 }
 
@@ -461,7 +461,7 @@ body.cambiando #escena-virgen {
   transition: opacity 3s;
 }
 
-#escena-virgen.vg-con-foto .luciernagas {
+#escena-virgen.vg-florece .luciernagas {
   opacity: 1;
 }
 
@@ -473,7 +473,7 @@ body.cambiando #escena-virgen {
   background: radial-gradient(circle, #fff6c0 0 25%, rgba(255, 220, 120, .5) 45%, rgba(255, 220, 120, 0) 70%);
 }
 
-#escena-virgen.vg-con-foto .luciernagas i {
+#escena-virgen.vg-florece .luciernagas i {
   animation: vg-luciernaga 5s ease-in-out infinite alternate;
   animation-delay: var(--w);
 }
@@ -494,7 +494,7 @@ body.cambiando #escena-virgen {
   }
 }
 
-/* ---- el medallón con la foto ---- */
+/* ---- el medallón ---- */
 #escena-virgen .plano-m {
   left: 50%;
   top: 43%;
@@ -513,7 +513,7 @@ body.cambiando #escena-virgen {
   transition: transform 2.8s cubic-bezier(.2, .8, .2, 1.08), opacity 1.2s;
 }
 
-#escena-virgen.vg-con-foto .medallon {
+#escena-virgen.vg-florece .medallon {
   opacity: 1;
   transform: none;
 }
@@ -579,7 +579,7 @@ body.cambiando #escena-virgen {
   animation: vg-late 1.1s ease-in-out infinite;
 }
 
-#escena-virgen .foto {
+#escena-virgen .centro {
   left: 50%;
   top: 50%;
   right: auto;
@@ -591,14 +591,6 @@ body.cambiando #escena-virgen {
   overflow: hidden;
   background: #3a1028;
 }
-
-#escena-virgen .foto img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 #escena-virgen .luz-dentro {
   left: 23%;
   top: 23%;
@@ -623,7 +615,7 @@ body.cambiando #escena-virgen {
   transition-delay: calc(1.4s + var(--k) * .13s);
 }
 
-#escena-virgen.vg-con-foto .marco .rc {
+#escena-virgen.vg-florece .marco .rc {
   transform: none;
 }
 
@@ -756,7 +748,7 @@ body.cambiando #escena-virgen {
   transform-origin: 50% 100%;
 }
 
-#escena-virgen.vg-con-foto .paraguas {
+#escena-virgen.vg-florece .paraguas {
   opacity: 0;
   transform: translate(40vw, -90vh) rotate(24deg);
   transition: transform 4s ease-in, opacity 3s 1s;
