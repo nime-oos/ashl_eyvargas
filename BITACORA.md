@@ -277,3 +277,23 @@ Cuando terminan de mostrarse todos los mensajes, se llama a `animateHeart()`:
 - **Subtítulos especiales** (con `window.SUB_ESPECIAL`, como en la canción doce): cada **letra se enciende como estrella** (un chispazo y luego queda brillando) con una estela de luz que cruza por debajo. Versos a mano (Caveat) blanco perla con brillo dorado; el **coro en letra de los setenta** (Pacifico) con letras doradas, rosas y celestes y destellos alrededor; los **"ah ah ah"** ondulan como aurora lila. Palabras clave (brillas, luna, sonrisa, labios, amanecer, juntitos…) en dorado con un destello ✦ que gira. La **línea que se va se deshace en polvo de estrellas**.
 - `sincronizar.html` ya la incluye. Audio: `musica/León Larregui - Brillas (Letra).mp3`.
 - **Menú con 13 canciones**: ya no cabía a lo ancho. En pantallas angostas (laptops de 1280–1366 px) el menú se encoge lo justo para que se vean todas las portaditas, y en celular se acomodan en dos filas de 7.
+
+## 2026-10-09 — Canción catorce "Virgen" (Adolescent's Orquesta): la rosa más bella
+
+- **Menú**: portadita **lado N · Virgen** (enlace directo: `index.html#virgen`), con un medallón dorado con una rosa adentro, bajo la lluvia. Borrón vino, rojo rosa y dorado.
+- **Foto**: la foto de ella (con su consentimiento) está en `img/virgen.jpg`, recortada en círculo alrededor de la cara (sin el usuario de TikTok) y reducida a 720×720. Solo se descarga cuando se abre esta canción.
+- **Escena** (`js/escena-virgen.js`, `css/virgen.css`, letra en `js/letra-virgen.js`): noche de lluvia en un jardín de rosas, con cielo vino, nubes y piso mojado con charco.
+  - Intro: el título "Virgen" bajo la lluvia y **una rosa caída** (gris, marchita) en el piso con pétalos regados.
+  - "Ya no llores, ya no temas": la lluvia se calma. "Tranquila, que aquí estoy yo": baja **un paraguas rojo** con luz cálida a cubrir la rosa.
+  - "Para hablarte del amor": **la rosa se levanta** y recupera su color.
+  - "Ahora entrégate": deja de llover, se abren las nubes, salen las estrellas y la luna, y **la rosa florece en un medallón dorado con la foto de ella**, rodeado de una corona de rosas (onda dorada, destello y lluvia de pétalos). El paraguas se va volando.
+  - Coro: "Si lloro o tiemblo" → el medallón tiembla y caen **lágrimas de luz que se vuelven estrellitas**; "Dios me mandó para ti" → **rayos de luz** desde arriba; "adorarte para toda la vida" / "muere contigo" → pétalos; "Siénteme" → **late como corazón**; "nació para ti" / "vivo por ti" → suben corazones; "Niña de mi vida" / "Mi linda querida" → **anillo de corazones** girando alrededor de la foto.
+  - Instrumentales y montuno ("No me importa / Si yo te amo"): **bola disco**, reflejos de colores y reflectores de salsa.
+  - "Como aquel que pisó la rosa": vuelve la llovizna y las rosas de la corona se marchitan; "fui el escogido para levantarte": destello y vuelven a florecer. "Te amaré y cuidaré / te protegeré" → **cúpula de cristal** que la protege.
+  - "Tus sentimientos vi por dentro" → luz desde adentro de la foto; "somos una sola persona" → **dos corazones se juntan en uno**; "tantas cosas bellas" → el jardín florece y salen **mariposas**.
+  - "Adolescentes": **letrero de neón "Adolescent's Orquesta"** y fuegos artificiales.
+  - Final: "No llores, niña" → lágrimas que se vuelven estrellas; "Ríe, mi vida" → **amanece** (sale el sol detrás del jardín); "Tú corres por mis venas" → **enredaderas de rosas** suben por las orillas; "Eres la rosa más bella" → destellos de corona sobre el medallón.
+- **Subtítulos especiales**: cada letra **cae girando como pétalo** y se acomoda; versos en letra de carta de amor (Dancing Script), el coro y el montuno en **letra de salsa de los 90** (Lobster) dorada con sombra vino; "Adolescentes" en neón rosa; palabras clave (amor, rosa, niña, vida, Dios, siénteme…) en rojo rosa con una florecita ❀; la línea que se va **se deshoja**.
+- Las clases de estado de la escena llevan prefijo `vg-` (la clase `disco` chocaba con `.disco` de las portaditas del menú y encogía la escena).
+- Para que no se trabe: todo en capas que solo animan transform/opacity; la lluvia es una sola tira con patrón que se desliza (sin rotar la capa, que era lo que la hacía pesada); en celular hay un jardín angosto propio (el ancho se recortaba) y la bola disco se oculta.
+- `sincronizar.html` ya la incluye. Audio: `musica/Adolescent's Orquesta - Virgen (Audio Oficial).mp3`. Fuentes nuevas: Lobster y Dancing Script.

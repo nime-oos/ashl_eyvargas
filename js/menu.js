@@ -48,7 +48,10 @@
       borron: ['#120a24', '#2a1650', '#5c2a6e', '#f07a1a', '#ffd27a', '#1c1232'], base: '#1c1232', tinta: '#ff9a3a', sombra: '#5c2a6e' },
     { id: 'brillas', enlace: 'brillas', lado: 'lado M', titulo: 'Brillas', src: 'musica/León Larregui - Brillas (Letra).mp3',
       lrc: window.LETRA_BRILLAS_LRC, secciones: window.SECCIONES_BRILLAS,
-      borron: ['#140830', '#2a0f5a', '#8a2f86', '#ff9ad8', '#ffd27a', '#5ad8f0'], base: '#1d0b48', tinta: '#ffd27a', sombra: '#ff5ab8' }
+      borron: ['#140830', '#2a0f5a', '#8a2f86', '#ff9ad8', '#ffd27a', '#5ad8f0'], base: '#1d0b48', tinta: '#ffd27a', sombra: '#ff5ab8' },
+    { id: 'virgen', enlace: 'virgen', lado: 'lado N', titulo: 'Virgen', src: "musica/Adolescent's Orquesta - Virgen (Audio Oficial).mp3",
+      lrc: window.LETRA_VIRGEN_LRC, secciones: window.SECCIONES_VIRGEN,
+      borron: ['#2a0a1e', '#5a0f2e', '#d81e4a', '#f2c46a', '#8a1a3a', '#1a0612'], base: '#2a0a1e', tinta: '#f2c46a', sombra: '#d81e4a' }
   ];
 
   // mini portadas dibujadas con marcador
@@ -197,6 +200,16 @@
       '<path d="M14 14 l1.2 3 l3 1.2 l-3 1.2 l-1.2 3 l-1.2 -3 l-3 -1.2 l3 -1.2Z M84 12 l.8 2 l2 .8 l-2 .8 l-.8 2 l-.8 -2 l-2 -.8 l2 -.8Z M70 24 l.6 1.4 l1.4 .6 l-1.4 .6 l-.6 1.4 l-.6 -1.4 l-1.4 -.6 l1.4 -.6Z" fill="#fff"/>' +
       '<path d="M0 80 C14 72 26 74 36 78 C48 70 60 68 72 76 C82 72 92 72 100 76 L100 100 L0 100Z" fill="#2a1240"/><rect y="88" width="100" height="12" fill="#1a0a2e"/>' +
       '<rect x="44" y="90" width="12" height="1.4" rx=".7" fill="#ffe8f8" opacity=".7"/><rect x="46" y="94" width="8" height="1.2" rx=".6" fill="#ffe8f8" opacity=".5"/>' +
+      '</svg>',
+    virgen: '<svg viewBox="0 0 100 100"><defs><linearGradient id="mnV" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#10030f"/><stop offset=".6" stop-color="#3e0f30"/><stop offset="1" stop-color="#6a1c38"/></linearGradient>' +
+      '<linearGradient id="mnVO" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff2c0"/><stop offset=".5" stop-color="#c8902a"/><stop offset="1" stop-color="#f6d88a"/></linearGradient></defs>' +
+      '<rect width="100" height="100" fill="url(#mnV)"/><path d="M12 4 l-3 12 M30 10 l-3 12 M82 6 l-3 12 M66 14 l-3 12 M8 40 l-3 12 M92 36 l-3 12" stroke="#c8d4ff" stroke-width="1" opacity=".5"/>' +
+      '<path d="M50 76 C49 84 51 92 50 100" stroke="#2f6b34" stroke-width="3"/><path d="M50 88 C40 84 34 86 30 90 C38 92 44 92 50 88Z" fill="#2f7a38"/>' +
+      '<circle cx="50" cy="48" r="26" fill="#3a1028"/><circle cx="50" cy="48" r="26" fill="none" stroke="url(#mnVO)" stroke-width="5"/>' +
+      '<circle cx="50" cy="48" r="14" fill="#a8123a"/><circle cx="50" cy="48" r="10.5" fill="#d81e4a"/><circle cx="50" cy="48" r="7" fill="#f0406a"/><circle cx="50" cy="48" r="3.6" fill="#ff7a96"/>' +
+      '<path d="M44 44 C46 40 54 40 56 45 M46 52 C50 55 54 53 55 50" stroke="#7a0a26" stroke-width="1.2" fill="none"/>' +
+      '<circle cx="28" cy="70" r="6" fill="#d81e4a"/><circle cx="28" cy="70" r="3" fill="#ff7a96"/><circle cx="72" cy="70" r="6" fill="#ea5a8a"/><circle cx="72" cy="70" r="3" fill="#ffb8cc"/>' +
+      '<path d="M44 21 C38 18 38 13 43 13 C46 13 48 16 50 18 C52 16 54 13 57 13 C62 13 62 18 56 21Z" fill="url(#mnVO)"/>' +
       '</svg>'
   };
 
@@ -329,7 +342,7 @@
     elegir(CANCIONES[(i + 1) % CANCIONES.length].id);
   });
 
-  // canción inicial: la del enlace (#humano, #piensas-en-mi, #luna, #labios-rotos, #sone, #luz-de-dia, #ciudad-de-las-luces, #igual-que-ayer, #es-por-ti, #just-the-way-you-are, #cant-take-my-eyes-off-you, #brillas) o la del lado A
+  // canción inicial: la del enlace (#humano, #piensas-en-mi, #luna, #labios-rotos, #sone, #luz-de-dia, #ciudad-de-las-luces, #igual-que-ayer, #es-por-ti, #just-the-way-you-are, #cant-take-my-eyes-off-you, #brillas, #virgen) o la del lado A
   var hash = decodeURIComponent(location.hash.replace('#', ''));
   var porEnlace = CANCIONES.filter(function (o) { return (o.enlace || o.id) === hash || o.id === hash; })[0];
   var inicial = porEnlace ? porEnlace.id : 'nada';
